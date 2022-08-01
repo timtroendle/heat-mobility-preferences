@@ -1,0 +1,21 @@
+---
+title: heat-mobility-preferences
+author:
+    - Tim Tröndle
+institute: ETH Zürich
+tags:
+    - reproducible-research
+abstract: |
+    Analysing the preferences of people about policy instruments targeting the heat and mobility sectors.
+bibliography: literature.yaml
+csl: apa.csl
+link-citations: True
+css:
+    - reset.css
+    - report.css
+lang: en-GB
+xnos-cleveref: True
+fignos-plus-name: Figure
+tablenos-plus-name: Table
+date: 2022-08-01
+---
