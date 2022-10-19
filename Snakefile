@@ -3,6 +3,7 @@ PANDOC = "pandoc --filter pantable --filter pandoc-fignos --filter pandoc-tablen
 
 configfile: "config/default.yaml"
 
+include: "rules/analyse.smk"
 min_version("7.8")
 
 
@@ -18,7 +19,8 @@ rule all:
     message: "Run entire analysis and compile report."
     input:
         "build/report.html",
-        "build/test-report.html"
+        "build/test-report.html",
+        "build/emissions.png"
 
 
 def pandoc_options(wildcards):
