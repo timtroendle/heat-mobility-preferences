@@ -87,4 +87,4 @@ rule subgroups:
     output:
         subgroups_final = "build/figures-and-tables/subgroup-analysis/responsibility/interaction citizen responsibility (transport).png",
     conda: "../envs/r.yaml"
-    script: "../scripts/Public_acceptance_JA_020522.R"
+    script: "../scripts/analyse/subgroups.R"
