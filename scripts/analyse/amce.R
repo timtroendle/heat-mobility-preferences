@@ -100,7 +100,7 @@ AMCEHChoice <- ggplot(dfp_amceh_c,
 #  ggtitle("Average marginal component effects for heating, choice")
 
 AMCEHChoice
-ggsave("amceh_choice_final", device=png, 
+ggsave("amceh_choice_final.png",
        path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
@@ -158,7 +158,7 @@ AMCEHRating <- ggplot(dfp_amceh_r,
 #   ggtitle("Average marginal component effects for heating, rating")
 
 AMCEHRating
-ggsave("amceh_rating_final", device=png, 
+ggsave("amceh_rating_final.png",
        path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
@@ -189,7 +189,7 @@ AMCEH <- ggplot(dfp_amceh,
 #   ggtitle("Average marginal component effects for heating")
 
 AMCEH
-ggsave("amceh_final", device=png, 
+ggsave("amceh_final.png",
        path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
@@ -247,7 +247,7 @@ AMCETChoice <- ggplot(dfp_amcet_c,
 #   ggtitle("Average marginal component effects for transport, choice")
 
 AMCETChoice
-ggsave("amcet_choice_final", device=png, 
+ggsave("amcet_choice_final.png",
        path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
@@ -305,7 +305,7 @@ AMCETRating <- ggplot(dfp_amcet_r,
 #   ggtitle("Average marginal component effects for transport, rating")
 
 AMCETRating
-ggsave("amcet_rating_final", device=png, 
+ggsave("amcet_rating_final.png",
        path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
@@ -336,5 +336,5 @@ AMCET <- ggplot(dfp_amcet,
 #   ggtitle("Average marginal component effects for transport")
 
 AMCET
-ggsave(snakemake@output[["amcet_final"]], device=png,
+ggsave(snakemake@output[["amcet_final"]],
        width = 16, height = 20)

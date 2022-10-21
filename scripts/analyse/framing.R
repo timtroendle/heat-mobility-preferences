@@ -56,7 +56,7 @@ int_framingch_p <- ggplot(int_framingch,
   guides(color=guide_legend(title="Framing"))
 
 int_framingch_p
-ggsave("int_framingch", device=png, 
+ggsave("int_framingch.png",
        path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
@@ -83,7 +83,7 @@ int_framingrh_p <- ggplot(int_framingrh,
   guides(color=guide_legend(title="Framing"))
 
 int_framingrh_p
-ggsave("int_framingrh", device=png, 
+ggsave("int_framingrh.png",
        path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
@@ -108,7 +108,7 @@ IntFrH_p <- ggplot(int_framing_heating,
   guides(color=guide_legend(title="Framing"))
 
 IntFrH_p
-ggsave("interaction heating_final", device=png, 
+ggsave("interaction heating_final.png",
        path = "build/figures-and-tables/framing-interaction",
        width = 16, height = 20)
 
@@ -138,7 +138,7 @@ int_framingct_p <- ggplot(int_framingct,
   guides(color=guide_legend(title="Framing"))
 
 int_framingct_p
-ggsave("int_framingct", device=png, 
+ggsave("int_framingct.png",
        path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
@@ -166,7 +166,7 @@ int_framingrt_p <- ggplot(int_framingrt,
   guides(color=guide_legend(title="Framing"))
 
 int_framingrt_p
-ggsave("int_framingrt", device=png, 
+ggsave("int_framingrt.png",
        path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
@@ -191,5 +191,5 @@ IntFrT_p <- ggplot(int_framing_transport,
   guides(color=guide_legend(title="Framing"))
 
 IntFrT_p
-ggsave(snakemake@output[["transport_interaction"]], device=png,
+ggsave(snakemake@output[["transport_interaction"]],
        width = 16, height = 20)

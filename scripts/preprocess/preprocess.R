@@ -29,7 +29,7 @@ hist_q <- d %>%
   geom_vline(xintercept = quantile(d$duration_minutes, probs = 0.05), color="#993333")
 
 hist_q
-ggsave(snakemake@output[["duration"]], device = png,
+ggsave(snakemake@output[["duration"]],
          width = 10, height = 6)  
 
 # filter out speeders

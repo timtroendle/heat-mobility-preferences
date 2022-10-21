@@ -64,7 +64,7 @@ MMHChoice <- ggplot(mmh_choice,
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
-ggsave("mmh_choice", device=png, 
+ggsave("mmh_choice.png",
        path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
@@ -80,7 +80,7 @@ MMHRating <- ggplot(mmh_rating,
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
-ggsave("mmh_rating", device=png, 
+ggsave("mmh_rating.png",
        path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
@@ -97,7 +97,7 @@ MMTChoice <- ggplot(mmt_choice,
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
-ggsave("mmt_choice", device=png, 
+ggsave("mmt_choice.png",
        path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
@@ -113,5 +113,5 @@ MMTRating <- ggplot(mmt_rating,
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
-ggsave(snakemake@output[["mmt_rating"]], device=png,
+ggsave(snakemake@output[["mmt_rating"]],
        width = 16, height = 20)

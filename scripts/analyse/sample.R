@@ -80,7 +80,7 @@ freq_firstfr <- d %>%
   ylab("Share of respondents") +
   theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18,margin = margin(t = 10, r = 0, b = 0, l = 0)))
 freq_firstfr
-ggsave(snakemake@output[["frequency_framing"]], device=png,
+ggsave(snakemake@output[["frequency_framing"]],
        width = 12 , height = 6 )
 
 ##############################################################################################
@@ -101,7 +101,7 @@ dist_sourcehcat <- resp_char %>%
   ggtitle("a. Energy source heating")
 
 dist_sourcehcat
-ggsave("Distribution energy source heating", device=png, 
+ggsave("Distribution energy source heating.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -118,7 +118,7 @@ dist_carusecat <- resp_char %>%
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t = 10, r = 0, b = 0, l = 0))) +
   ggtitle("b. Weekly car use")
 
-ggsave("Distribution weekly car use", device=png, 
+ggsave("Distribution weekly car use.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -127,7 +127,7 @@ subgroups_recoht_p <- ggarrange(dist_sourcehcat, dist_carusecat,
                          ncol = 2, nrow = 1)
 subgroups_recoht_p 
 
-ggsave(filename = "Recoded h&t", device = "png", 
+ggsave(filename = "Recoded h&t.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 4)
 
@@ -149,7 +149,7 @@ dist_cc <- attitudes %>%
   theme(plot.title = element_text(size = 20, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16)) +
   ggtitle("a. Climate change evaluation")
 
-ggsave("Distribution climate change evaluation ", device=png, 
+ggsave("Distribution climate change evaluation.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -168,7 +168,7 @@ dist_trust_gov <- attitudes %>%
   ggtitle("b. Trust in government")
 
 dist_trust_gov
-ggsave("Distribution trust government", device=png, 
+ggsave("Distribution trust government.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -187,7 +187,7 @@ dist_trust_cit <- attitudes %>%
   ggtitle("c. Trust in individuals")
  
 dist_trust_cit
-ggsave("Distribution trust citizens", device=png, 
+ggsave("Distribution trust citizens.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -206,7 +206,7 @@ ggsave("Distribution trust citizens", device=png,
    ggtitle("d. Trust in companies")
  
  dist_trust_com
- ggsave("Distribution trust companies", device=png, 
+ ggsave("Distribution trust companies.png",
         path = "build/figures-and-tables/checks/distributions-subgroups",
         width = 12 , height = 6 )
  
@@ -225,7 +225,7 @@ dist_resp_gov <- attitudes %>%
   ggtitle("e. Responsibility government")
 
 dist_resp_gov
-ggsave("Distribution responsibility government ", device=png, 
+ggsave("Distribution responsibility government.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -244,7 +244,7 @@ dist_resp_cit <- attitudes %>%
   ggtitle("f. Responsibiliy individuals")
 
 dist_resp_cit
-ggsave("Distribution responsibility citizens", device=png, 
+ggsave("Distribution responsibility citizens.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
@@ -263,7 +263,7 @@ dist_resp_com <- attitudes %>%
   ggtitle("g. Responsibility companies")
 
 dist_resp_com
-ggsave("Distribution responsibility companies", device=png, 
+ggsave("Distribution responsibility companies.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6)
 
@@ -274,7 +274,7 @@ subgroups_p <- ggarrange(dist_cc, NULL, NULL,
                          ncol = 3, nrow = 3)
 subgroups_p 
 
-ggsave(filename = "Subgroups", device = "png", 
+ggsave(filename = "Subgroups.png",
        path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 16 , height = 12)
 
@@ -305,7 +305,7 @@ ownership_p <- resp_char %>%
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("a. Homeownership")
 ownership_p
-ggsave(filename = "ownership", device = "png", 
+ggsave(filename = "ownership.png",
        path = "build/figures-and-tables/descriptive-statistics")
 
 # buildingtype
@@ -322,7 +322,7 @@ buildingtype_p <- resp_char %>%
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("b. Building type")
 buildingtype_p
-ggsave(filename = "building-type", device = "png", 
+ggsave(filename = "building-type.png",
        path = "build/figures-and-tables/descriptive-statistics")
 
 # energy source heating
@@ -338,7 +338,7 @@ sourceh_p <- resp_char %>%
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("c. Energy source heating")
 sourceh_p
-ggsave(filename = "source heating", device = "png", 
+ggsave(filename = "source heating.png",
        path = "build/figures-and-tables/descriptive-statistics")
 
 # weekly car use
@@ -354,7 +354,7 @@ cardays_p <- resp_char %>%
   theme(plot.title = element_text(size = 24, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("d. Weekly car use")
 cardays_p
-ggsave(filename = "cardays", device = "png", 
+ggsave(filename = "cardays.png",
        path = "build/figures-and-tables/descriptive-statistics")
 
 # car type
@@ -371,7 +371,7 @@ cartype_p <- resp_char %>%
   theme(plot.title = element_text(size = 24, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("e. Car type")
 cartype_p
-ggsave(filename = "cartype", device = "png", 
+ggsave(filename = "cartype.png",
        path = "build/figures-and-tables/descriptive-statistics")
 
 # combine plots
@@ -380,7 +380,7 @@ htvariables_p <- ggarrange(ownership_p, buildingtype_p, sourceh_p,
                             ncol = 3, nrow = 2)
 htvariables_p
 
-ggsave(filename = "heating and transport variables", device = "png", 
+ggsave(filename = "heating and transport variables.png",
        path = "build/figures-and-tables/descriptive-statistics",
        width = 18 , height = 10)
 
@@ -419,7 +419,7 @@ climate_p <- plot(likert(attitudes_climate),
               theme (legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
   
 climate_p
-ggsave(filename = "attitudes_c", device = "png", 
+ggsave(filename = "attitudes_c.png",
        path = "build/figures-and-tables/attitudes",
        width = 17, height= 7 ) 
 
@@ -443,7 +443,7 @@ trust_p <- plot(likert(attitudes_trust),
            theme(axis.text.x = element_text(size = 20), axis.text.y =element_text(size=20), axis.title.y = element_text(size = 20), axis.title.x = element_text(size = 20)) + 
            theme (legend.position = "bottom", legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
 trust_p
-ggsave(filename = "attitudes_t", device = "png", 
+ggsave(filename = "attitudes_t.png",
        path = "build/figures-and-tables/attitudes",
        width = 16, height = 8) 
 
@@ -467,7 +467,7 @@ responsibility_p <- plot(likert(attitudes_responsibility),
                 theme(axis.text.x = element_text(size = 20), axis.text.y =element_text(size=20), axis.title.y = element_text(size = 20), axis.title.x = element_text(size = 20)) + 
                 theme (legend.position = "bottom", legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
 responsibility_p
-ggsave(filename = "attitudes_r", device = "png", 
+ggsave(filename = "attitudes_r.png",
        path = "build/figures-and-tables/attitudes",
        width = 16, height = 8) 
 
@@ -544,6 +544,6 @@ freq_attr <- ggarrange(freqh_choice_p, freqh_rating_p, freqt_choice_p, freqt_rat
                         ncol = 2, nrow = 2)
 
 freq_attr
-ggsave("Frequencies of attribute levels", device=png, 
+ggsave("Frequencies of attribute levels.png",
        path = "build/figures-and-tables/checks",
        width = 17, height = 20)

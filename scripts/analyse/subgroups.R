@@ -54,7 +54,7 @@ sub_sourceh_p <- ggplot(sub_sourceh,
   ggtitle("Energy source heating")
 
 sub_sourceh_p
-ggsave("sub_sourceh", device=png, 
+ggsave("sub_sourceh.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -87,7 +87,7 @@ sub_sourcehcat_p <- ggplot(sub_sourcehcat,
   ggtitle("Energy source heating")
 
 sub_sourcehcat_p
-ggsave("sub_sourcehcat", device=png, 
+ggsave("sub_sourcehcat.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -123,7 +123,7 @@ sub_buildingtype_p <- ggplot(sub_buildingtype,
   ggtitle("Building type")
 
 sub_buildingtype_p
-ggsave("sub_buildingtype", device=png, 
+ggsave("sub_buildingtype.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -159,7 +159,7 @@ sub_ownership_p <- ggplot(sub_ownership,
   ggtitle("Homeownership")
 
 sub_ownership_p
-ggsave("sub_ownership", device = png,
+ggsave("sub_ownership.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -192,7 +192,7 @@ sub_caruse_p <- ggplot(sub_caruse,
   ggtitle("Weekly car use")
 
 sub_caruse_p
-ggsave("sub_caruse", device=png, 
+ggsave("sub_caruse.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -222,7 +222,7 @@ sub_carusecat_p <- ggplot(sub_carusecat,
   ggtitle("Weekly car use")
 
 sub_carusecat_p
-ggsave("sub_carusecat", device=png, 
+ggsave("sub_carusecat.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
@@ -258,7 +258,7 @@ sub_cartype_p <- ggplot(sub_cartype,
   ggtitle("Car type")
 
 sub_cartype_p
-ggsave("sub_cartype", device=png, 
+ggsave("sub_cartype.png",
        path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 24)
 
@@ -339,7 +339,7 @@ MMHCCChoice <- ggplot(sub_cceval_h,
   guides(color=guide_legend(title="Climate change evaluation")) 
 
 MMHCCChoice
-ggsave("interaction climate change evaluation (heating)", device=png, 
+ggsave("interaction climate change evaluation (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation",
        width = 16, height = 20)
 
@@ -376,7 +376,7 @@ MMTCCChoice <- ggplot(sub_cceval_t,
   guides(color=guide_legend(title="Climate change evaluation"))
 
 MMTCCChoice
-ggsave("interaction climate change evaluation(transport) ", device=png, 
+ggsave("interaction climate change evaluation(transport).png",
        path = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation",
        width = 16, height = 20)
 
@@ -418,7 +418,7 @@ MMHTrustgovChoice <- ggplot(sub_trustgov_h,
   guides(color=guide_legend(title="Trust in federal government"))+
   ggtitle ("Trust in federal government (heating)")
 MMHTrustgovChoice
-ggsave("interaction trust government (heating) ", device=png, 
+ggsave("interaction trust government (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -455,7 +455,7 @@ MMTTrustgovChoice <- ggplot(sub_trustgov_t,
   ggtitle ("Trust in federal government (transport)")
 
 MMTTrustgovChoice
-ggsave("interaction trust government (transport) ", device=png, 
+ggsave("interaction trust government (transport).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -492,7 +492,7 @@ MMHTrustcomChoice <- ggplot(sub_trustcom_h,
   ggtitle ("Trust in companies and corporations (heating)")
 
 MMHTrustcomChoice
-ggsave("interaction trust companies (heating) ", device=png, 
+ggsave("interaction trust companies (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -529,7 +529,7 @@ MMTTrustcomChoice <- ggplot(sub_trustcom_t,
   ggtitle ("Trust in companies and corporations (transport)")
 
 MMTTrustcomChoice
-ggsave("interaction trust companies (transport) ", device=png, 
+ggsave("interaction trust companies (transport).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -567,7 +567,7 @@ MMHTrustcitChoice <- ggplot(sub_trustcit_h,
   ggtitle ("Trust in individuals (heating)")
 
 MMHTrustcitChoice
-ggsave("interaction trust citizens (heating) ", device=png, 
+ggsave("interaction trust citizens (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -605,7 +605,7 @@ MMTTrustcitChoice <- ggplot(sub_trustcit_t,
 
 
 MMTTrustcitChoice
-ggsave("interaction trust citizens (transport) ", device=png, 
+ggsave("interaction trust citizens (transport).png",
        path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
@@ -646,7 +646,7 @@ MMHRespgovChoice <- ggplot(sub_respgov_h,
   ggtitle("Attributed responsibility to the federal government (heating)")
 
 MMHRespgovChoice
-ggsave("interaction responsibility government (heating) ", device=png, 
+ggsave("interaction responsibility government (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 17, height = 20)
 
@@ -683,7 +683,7 @@ MMTRespgovChoice <- ggplot(sub_respgov_t,
   ggtitle("Attributed responsibility to the federal government (transport)")
 
 MMTRespgovChoice
-ggsave("interaction responsibility government (transport) ", device=png, 
+ggsave("interaction responsibility government (transport).png",
        path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 17, height = 20)
 
@@ -720,7 +720,7 @@ MMHRespcomChoice <- ggplot(sub_respcom_h,
   ggtitle("Attributed responsibility to companies and corporations (heating)")
 
 MMHRespcomChoice
-ggsave("interaction company responsibility (heating) ", device=png, 
+ggsave("interaction company responsibility (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 18, height = 20)
 
@@ -757,7 +757,7 @@ MMTRespcomChoice <- ggplot(sub_respcom_t,
   ggtitle("Attributed responsibility to companies and corporations (transport)")
 
 MMTRespcomChoice
-ggsave("interaction company responsibility (transport) ", device=png, 
+ggsave("interaction company responsibility (transport).png",
        path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 18, height = 20)
 
@@ -794,7 +794,7 @@ MMHRespcitChoice <- ggplot(sub_respcit_h,
   ggtitle("Attributed responsibility to individuals (heating)")
 
 MMHRespcitChoice
-ggsave("interaction citizen responsibility (heating) ", device=png, 
+ggsave("interaction citizen responsibility (heating).png",
        path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 16, height = 20)
 
@@ -832,7 +832,7 @@ MMTRespcitChoice <- ggplot(sub_respcit_t,
 
 
 MMTRespcitChoice
-ggsave(snakemake@output[["subgroups_final"]], device=png,
+ggsave(snakemake@output[["subgroups_final"]],
        width = 16, height = 20)
 
 

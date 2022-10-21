@@ -72,7 +72,7 @@ int_firstch_p <- ggplot(int_firstch,
   guides(color=guide_legend(title="First shown sectors"))
 
 int_firstch_p
-ggsave("int_firstch", device=png, 
+ggsave("int_firstch.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -99,7 +99,7 @@ int_firstrh_p <- ggplot(int_firstrh,
   guides(color=guide_legend(title="First sector shown"))
 
 int_firstrh_p
-ggsave("int_firstrh", device=png, 
+ggsave("int_firstrh.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -123,7 +123,7 @@ IntFiH <- ggplot(int_first_heating,
   guides(color=guide_legend(title="First sector shown"))
 
 IntFiH
-ggsave("interaction first sector heating_final", device=png, 
+ggsave("interaction first sector heating_final.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
@@ -153,7 +153,7 @@ int_firstct_p <- ggplot(int_firstct,
   guides(color=guide_legend(title="First sector shown"))
 
 int_firstct_p
-ggsave("int_firstct", device=png, 
+ggsave("int_firstct.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -181,7 +181,7 @@ int_firstrt_p <- ggplot(int_firstrt,
   guides(color=guide_legend(title="First sector shown"))
 
 int_firstrt_p
-ggsave("int_firstrt", device=png, 
+ggsave("int_firstrt.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -205,7 +205,7 @@ IntFiTr <- ggplot(int_first_transport,
   guides(color=guide_legend(title="First sector shown"))
 
 IntFiTr
-ggsave("interaction first sector transport_final", device=png, 
+ggsave("interaction first sector transport_final.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
@@ -254,7 +254,7 @@ int_choicerch_p <- ggplot(int_choicerch,
   guides(color=guide_legend(title="Choice round"))
 
 int_choicerch_p
-ggsave("int_choicerch", device=png, 
+ggsave("int_choicerch.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -281,7 +281,7 @@ int_choicerrh_p <- ggplot(int_choicerrh,
   guides(color=guide_legend(title="Choice round"))
 
 int_choicerrh_p
-ggsave("int_choicerrh", device=png, 
+ggsave("int_choicerrh.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -305,7 +305,7 @@ IntChH <- ggplot(int_choicer_heating,
   guides(color=guide_legend(title="Choice round"))
 
 IntChH
-ggsave("interaction choice round heating_final", device=png, 
+ggsave("interaction choice round heating_final.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
@@ -333,7 +333,7 @@ int_choicerct_p <- ggplot(int_choicerct,
   guides(color=guide_legend(title="Choice round"))
 
 int_choicerct_p
-ggsave("in_choicerct", device=png, 
+ggsave("in_choicerct.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -360,7 +360,7 @@ int_choicerrt_p <- ggplot(int_choicerrt,
   guides(color=guide_legend(title="Choice round"))
 
 int_choicerrt_p
-ggsave("int_choicerrt", device=png, 
+ggsave("int_choicerrt.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -384,7 +384,7 @@ IntChTr <- ggplot(int_choicer_transport,
   guides(color=guide_legend(title="Choice round"))
 
 IntChTr
-ggsave("interaction choice round transport_final", device=png, 
+ggsave("interaction choice round transport_final.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
@@ -416,7 +416,7 @@ int_packch_p <- ggplot(int_packch,
   guides(color=guide_legend(title="Package Number"))
 
 int_packch_p
-ggsave("int_packch", device=png, 
+ggsave("int_packch.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -443,7 +443,7 @@ int_packrh_p <- ggplot(int_packrh,
   guides(color=guide_legend(title="Package Number"))
 
 int_packrh_p
-ggsave("int_packrh", device=png, 
+ggsave("int_packrh.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -467,7 +467,7 @@ IntPH <- ggplot(int_pack_heating,
   guides(color=guide_legend(title="Package Number"))
 
 IntPH
-ggsave("interaction package number heating_final", device=png, 
+ggsave("interaction package number heating_final.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
@@ -495,7 +495,7 @@ int_packct_p <- ggplot(int_packct,
   guides(color=guide_legend(title="Package Number"))
 
 int_packct_p
-ggsave("int_packct", device=png, 
+ggsave("int_packct.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -522,7 +522,7 @@ int_packrt_p <- ggplot(int_packrt,
   guides(color=guide_legend(title="Package Number"))
 
 int_packrt_p
-ggsave("int_packrt", device=png, 
+ggsave("int_packrt.png",
        path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
@@ -546,5 +546,5 @@ IntPTr <- ggplot(int_pack_transport,
   guides(color=guide_legend(title="Package Number"))
 
 IntPTr
-ggsave(snakemake@output[["robustness_final"]], device=png,
+ggsave(snakemake@output[["robustness_final"]],
        width = 16, height = 20)
