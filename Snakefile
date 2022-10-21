@@ -3,6 +3,7 @@ PANDOC = "pandoc --filter pantable --filter pandoc-fignos --filter pandoc-tablen
 
 configfile: "config/default.yaml"
 
+include: "rules/preprocess.smk"
 include: "rules/analyse.smk"
 min_version("7.8")
 
@@ -34,7 +35,7 @@ rule all:
         "build/report.html",
         "build/test-report.html",
         "build/emissions.png",
-        "build/figures-and-tables/checks/Histogram duration.png"
+        "build/figures-and-tables/checks/Frequency Framing & Sector.png"
 
 
 def pandoc_options(wildcards):
