@@ -49,6 +49,19 @@ rule marginal_means:
     script: "../scripts/analyse/mm.R"
 
 
+rule amce:
+    message: "Analyse conjoint using AMCEs."
+    input:
+        rating_t = rules.preprocess.output.rating_t,
+        rating_h = rules.preprocess.output.rating_h,
+        choice_t = rules.preprocess.output.choice_t,
+        choice_h = rules.preprocess.output.choice_h,
+    output:
+        amcet_final = "build/figures-and-tables/AMCE/amcet_final.png",
+    conda: "../envs/r.yaml"
+    script: "../scripts/analyse/amce.R"
+
+
 rule entire_analysis:
     message: "Run the entire analysis."
     input:
@@ -62,6 +75,6 @@ rule entire_analysis:
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
     output:
-        amcet_final = "build/figures-and-tables/AMCE/amcet_final.png",
+        robustness_final = "build/figures-and-tables/checks/robustness-checks/interaction package number transport_final.png",
     conda: "../envs/r.yaml"
     script: "../scripts/Public_acceptance_JA_020522.R"
