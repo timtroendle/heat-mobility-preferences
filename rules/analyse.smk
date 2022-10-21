@@ -62,19 +62,29 @@ rule amce:
     script: "../scripts/analyse/amce.R"
 
 
-rule entire_analysis:
-    message: "Run the entire analysis."
+rule robustness:
+    message: "Check robustness of experiment."
     input:
-        d = rules.preprocess.output.d,
         first_sector = rules.preprocess.output.first_sector,
-        framing = rules.preprocess.output.framing,
-        resp_char = rules.preprocess.output.resp_char,
-        attitudes = rules.preprocess.output.attitudes,
         rating_t = rules.preprocess.output.rating_t,
         rating_h = rules.preprocess.output.rating_h,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
     output:
         robustness_final = "build/figures-and-tables/checks/robustness-checks/interaction package number transport_final.png",
+    conda: "../envs/r.yaml"
+    script: "../scripts/analyse/robustness.R"
+
+
+rule subgroups:
+    message: "Analyse subgroups."
+    input:
+        d = rules.preprocess.output.d,
+        resp_char = rules.preprocess.output.resp_char,
+        attitudes = rules.preprocess.output.attitudes,
+        choice_t = rules.preprocess.output.choice_t,
+        choice_h = rules.preprocess.output.choice_h,
+    output:
+        subgroups_final = "build/figures-and-tables/subgroup-analysis/responsibility/interaction citizen responsibility (transport).png",
     conda: "../envs/r.yaml"
     script: "../scripts/Public_acceptance_JA_020522.R"
