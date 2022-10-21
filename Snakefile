@@ -35,7 +35,12 @@ rule all:
         "build/report.html",
         "build/test-report.html",
         "build/emissions.png",
-        "build/figures-and-tables/checks/Frequency Framing & Sector.png"
+        rules.sample.output[0],
+        rules.framing.output[0],
+        rules.marginal_means.output[0],
+        rules.amce.output[0],
+        rules.robustness.output[0],
+        rules.subgroups.output[0],
 
 
 def pandoc_options(wildcards):

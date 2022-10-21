@@ -27,4 +27,3 @@ dependencies:
     - r-psych=2.2.5
     - r-readxl=1.4.0
     - r-tidyverse=1.3.2
-    - r-devtools=2.4.5 # to be able to install rNuggets from GitHub
