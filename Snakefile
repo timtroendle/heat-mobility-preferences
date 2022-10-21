@@ -7,6 +7,19 @@ include: "rules/analyse.smk"
 min_version("7.8")
 
 
+onstart:
+    shell("mkdir -p build/figures-and-tables/checks/distributions-subgroups")
+    shell("mkdir -p build/figures-and-tables/descriptive-statistics")
+    shell("mkdir -p build/figures-and-tables/attitudes")
+    shell("mkdir -p build/figures-and-tables/framing-interaction")
+    shell("mkdir -p build/figures-and-tables/marginal-means")
+    shell("mkdir -p build/figures-and-tables/AMCE")
+    shell("mkdir -p build/figures-and-tables/checks/robustness-checks")
+    shell("mkdir -p build/figures-and-tables/subgroup-analysis")
+    shell("mkdir -p build/figures-and-tables/subgroup-analysis/heating-and-transport-variables")
+    shell("mkdir -p build/figures-and-tables/subgroup-analysis/climate-change-evaluation")
+    shell("mkdir -p build/figures-and-tables/subgroup-analysis/trust")
+    shell("mkdir -p build/figures-and-tables/subgroup-analysis/responsibility")
 onsuccess:
     if "email" in config.keys():
         shell("echo "" | mail -s 'heat-mobility-preferences succeeded' {config[email]}")
@@ -20,7 +33,8 @@ rule all:
     input:
         "build/report.html",
         "build/test-report.html",
-        "build/emissions.png"
+        "build/emissions.png",
+        "build/figures-and-tables/checks/Histogram duration.png"
 
 
 def pandoc_options(wildcards):

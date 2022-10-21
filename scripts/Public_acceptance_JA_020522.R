@@ -7,15 +7,13 @@ library(likert)
 library(psych)
 library(readxl)
 library(tidyverse)
-library(rNuggets)
+devtools::install_github("LukasWallrich/rNuggets@5dc76f1")
 
 ##############################################################################################
 # Load data
 ##
 
-setwd("/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets")
-
-df <- read_excel("/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Präferenzen für Politikmassnahmen_March 19, 2022.xlsx")
+df <- read_excel(snakemake@input[["data"]])
 
 ##############################################################################################
 # Data preparation
@@ -34,13 +32,11 @@ hist_q <- d %>%
   geom_histogram(bins = 60) +
   theme_bw() +
   labs(x = "Duration (minutes)", y = "Count") +
-  theme(text = element_text(family = "Times New Roman"))+
   theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.y = element_text(size = 18, margin = margin(t = 0, r = 10, b = 0, l = 0)), axis.title.x = element_text(size = 18, margin = margin(t = 10, r = 0, b = 0, l = 20)))+
   geom_vline(xintercept = quantile(d$duration_minutes, probs = 0.05), color="#993333")
 
 hist_q
-ggsave(file = "Histogram duration" , device = png, 
-         path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks",
+ggsave(snakemake@output[["duration"]], device = png,
          width = 10, height = 6)  
 
 # filter out speeders
@@ -278,7 +274,6 @@ freq_framing <- d %>%
   coord_flip() +
   xlab("") +
   ylab("") +
-  theme(text = element_text(family = "Times New Roman"))+
   theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.y = element_text(size = 18), axis.title.x = element_text(size = 18))
 freq_framing
 
@@ -295,7 +290,6 @@ freq_first <- d %>%
   coord_flip() +
   xlab("") +
   ylab("") +
-  theme(text = element_text(family = "Times New Roman"))+
   theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.y = element_text(size = 18, face ="bold"), axis.title.x = element_text(size = 18, face ="bold"))+
   ggtitle("Sequence sectors (first one)")
 freq_first
@@ -321,11 +315,10 @@ freq_firstfr <- d %>%
   coord_flip() +
   xlab("") +
   ylab("Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18,margin = margin(t = 10, r = 0, b = 0, l = 0)))
 freq_firstfr
 ggsave("Frequency Framing & Sector", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks",
+       path = "build/figures-and-tables/checks",
        width = 12 , height = 6 )
 
 ##############################################################################################
@@ -342,13 +335,12 @@ dist_sourcehcat <- resp_char %>%
   coord_flip() +
   xlab("") +
   ylab("Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16), axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t = 10, r = 0, b = 0, l = 0))) +
   ggtitle("a. Energy source heating")
 
 dist_sourcehcat
 ggsave("Distribution energy source heating", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # car use (recoded groups)
@@ -361,12 +353,11 @@ dist_carusecat <- resp_char %>%
   coord_flip() +
   xlab("") +
   ylab("Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t = 10, r = 0, b = 0, l = 0))) +
   ggtitle("b. Weekly car use")
 
 ggsave("Distribution weekly car use", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # combination
@@ -375,7 +366,7 @@ subgroups_recoht_p <- ggarrange(dist_sourcehcat, dist_carusecat,
 subgroups_recoht_p 
 
 ggsave(filename = "Recoded h&t", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 4)
 
 ##############################################################################################
@@ -393,12 +384,11 @@ dist_cc <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16)) +
   ggtitle("a. Climate change evaluation")
 
 ggsave("Distribution climate change evaluation ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # trust in government
@@ -412,13 +402,12 @@ dist_trust_gov <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16)) +
   ggtitle("b. Trust in government")
 
 dist_trust_gov
 ggsave("Distribution trust government", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # trust in citizens
@@ -432,13 +421,12 @@ dist_trust_cit <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16)) +
   ggtitle("c. Trust in individuals")
  
 dist_trust_cit
 ggsave("Distribution trust citizens", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
  # trust in companies
@@ -452,13 +440,12 @@ ggsave("Distribution trust citizens", device=png,
    coord_flip() +
    xlab("") +
    ylab("") +
-   theme(text = element_text(family = "Times New Roman")) +
    theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16))+
    ggtitle("d. Trust in companies")
  
  dist_trust_com
  ggsave("Distribution trust companies", device=png, 
-        path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+        path = "build/figures-and-tables/checks/distributions-subgroups",
         width = 12 , height = 6 )
  
 # attributed responsibility to government
@@ -472,13 +459,12 @@ dist_resp_gov <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18,  margin = margin(t = 10, r = 0, b = 0, l = 0))) +
   ggtitle("e. Responsibility government")
 
 dist_resp_gov
 ggsave("Distribution responsibility government ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # attributed responsibility to citizens
@@ -492,13 +478,12 @@ dist_resp_cit <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("Share of repondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18,  margin = margin(t = 10, r = 0, b = 0, l = 0))) +
   ggtitle("f. Responsibiliy individuals")
 
 dist_resp_cit
 ggsave("Distribution responsibility citizens", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6 )
 
 # attributed responsibility to companies
@@ -512,13 +497,12 @@ dist_resp_com <- attitudes %>%
   coord_flip() +
   xlab("") +
   ylab("Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 20, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18,  margin = margin(t = 10, r = 0, b = 0, l = 0)))+
   ggtitle("g. Responsibility companies")
 
 dist_resp_com
 ggsave("Distribution responsibility companies", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 12 , height = 6)
 
 # combination
@@ -529,7 +513,7 @@ subgroups_p <- ggarrange(dist_cc, NULL, NULL,
 subgroups_p 
 
 ggsave(filename = "Subgroups", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Distributions subgroups",
+       path = "build/figures-and-tables/checks/distributions-subgroups",
        width = 16 , height = 12)
 
 ##############################################################################################
@@ -741,7 +725,7 @@ rating_t = rating_t %>%
 # get table with respondent characteristics
 resp_char_shares <- apply(resp_char, 2, tabyl)
 capture.output(resp_char_shares, 
-               file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics/respondent_char shares.csv")
+               file = "build/figures-and-tables/descriptive-statistics/respondent_char shares.csv")
 
 ##############################################################################################
 # Sample characteristics (heating and transport)
@@ -758,12 +742,11 @@ ownership_p <- resp_char %>%
   coord_flip() +
   theme(legend.position="none")+
   labs(x = "", y = "Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("a. Homeownership")
 ownership_p
 ggsave(filename = "ownership", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics")
+       path = "build/figures-and-tables/descriptive-statistics")
 
 # buildingtype
 buildingtype_p <- resp_char %>%
@@ -776,12 +759,11 @@ buildingtype_p <- resp_char %>%
   coord_flip() +
   theme(legend.position="none")+
   labs(x = "", y = "Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("b. Building type")
 buildingtype_p
 ggsave(filename = "building-type", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics")
+       path = "build/figures-and-tables/descriptive-statistics")
 
 # energy source heating
 sourceh_p <- resp_char %>%
@@ -793,12 +775,11 @@ sourceh_p <- resp_char %>%
   coord_flip() +
   theme(legend.position="none")+
   labs(x = "", y = "Share of respondents")+
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 24, face = "italic",  margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("c. Energy source heating")
 sourceh_p
 ggsave(filename = "source heating", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics")
+       path = "build/figures-and-tables/descriptive-statistics")
 
 # weekly car use
 cardays_p <- resp_char %>%
@@ -810,12 +791,11 @@ cardays_p <- resp_char %>%
   coord_flip() +
   theme(legend.position="none") +
   labs(x = "", y = "Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 24, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("d. Weekly car use")
 cardays_p
 ggsave(filename = "cardays", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics")
+       path = "build/figures-and-tables/descriptive-statistics")
 
 # car type
 cartype_p <- resp_char %>%
@@ -828,12 +808,11 @@ cartype_p <- resp_char %>%
   coord_flip() +
   theme(legend.position="none")+
   labs(x = "", y = "Share of respondents") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 24, face = "italic", margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=16),axis.text.y = element_text(size=16), axis.title.x = element_text(size = 18, margin = margin(t =10, r = 0, b = 10, l = 0)))+
   ggtitle("e. Car type")
 cartype_p
 ggsave(filename = "cartype", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics")
+       path = "build/figures-and-tables/descriptive-statistics")
 
 # combine plots
 htvariables_p <- ggarrange(ownership_p, buildingtype_p, sourceh_p,
@@ -842,7 +821,7 @@ htvariables_p <- ggarrange(ownership_p, buildingtype_p, sourceh_p,
 htvariables_p
 
 ggsave(filename = "heating and transport variables", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Descriptive statistics",
+       path = "build/figures-and-tables/descriptive-statistics",
        width = 18 , height = 10)
 
 ##############################################################################################
@@ -870,19 +849,18 @@ attitudes_climate <- d %>%
 # table & graph %-responses climate change attitudes
 climate_t <- likert(attitudes_climate)
 climate_t
-capture.output(climate_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes/attitudes_c.csv")
+capture.output(climate_t, file = "build/figures-and-tables/attitudes/attitudes_c.csv")
 climate_p <- plot(likert(attitudes_climate), 
                   group.order = c("Climate change is ongoing.", "Climate change results from human activities.", "The consequences of climate change are already being felt today.", "Climate change will affect me, or people close to me.", "Germany must be climate-neutral by 2050 at the latest.", "Germany must phase out fossil fuels."), 
                   legend = "Level of agreement", legend.position = "bottom",
                   text.size=0) +
               theme_bw()+
               theme(axis.text.x = element_text(size = 20), axis.text.y =element_text(size=20), axis.title.y = element_text(size = 20), axis.title.x = element_text(size = 20)) + 
-              theme (legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold")) +
-              theme(legend.position = "bottom", text = element_text(family = "Times New Roman")) 
+              theme (legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
   
 climate_p
 ggsave(filename = "attitudes_c", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes",
+       path = "build/figures-and-tables/attitudes",
        width = 17, height= 7 ) 
 
 # table & graph %-responses trust
@@ -896,18 +874,17 @@ attitudes_trust <- d %>%
   as.data.frame()
 
 trust_t <- likert(attitudes_trust)
-capture.output(trust_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes/trust.csv")
+capture.output(trust_t, file = "build/figures-and-tables/attitudes/trust.csv")
 trust_p <- plot(likert(attitudes_trust),
                 group.order = c ("Federal government","German companies and corporations","Every individual"),
                 legend = "Level of trust", legend.position = "bottom",
                 text.size=0) +
            theme_bw()+
-          theme(text = element_text(family = "Times New Roman")) +
            theme(axis.text.x = element_text(size = 20), axis.text.y =element_text(size=20), axis.title.y = element_text(size = 20), axis.title.x = element_text(size = 20)) + 
            theme (legend.position = "bottom", legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
 trust_p
 ggsave(filename = "attitudes_t", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes",
+       path = "build/figures-and-tables/attitudes",
        width = 16, height = 8) 
 
 # table & graph %-responses responsibilities
@@ -921,18 +898,17 @@ attitudes_responsibility <- d %>%
   as.data.frame()
 
 responsibility_t <- likert(attitudes_responsibility)
-capture.output(responsibility_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes/responsibility.csv")
+capture.output(responsibility_t, file = "build/figures-and-tables/attitudes/responsibility.csv")
 responsibility_p <- plot(likert(attitudes_responsibility), 
                          group.order = c ("Federal government","German companies and corporations","Every individual"),
                          legend = "Attributed responsibility", legend.position = "bottom",
                          text.size=0) +
                 theme_bw()+
-                theme(text = element_text(family = "Times New Roman")) +
                 theme(axis.text.x = element_text(size = 20), axis.text.y =element_text(size=20), axis.title.y = element_text(size = 20), axis.title.x = element_text(size = 20)) + 
                 theme (legend.position = "bottom", legend.text =element_text(size=20), legend.title = element_text(size=16, face ="bold"))
 responsibility_p
 ggsave(filename = "attitudes_r", device = "png", 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Attitudes",
+       path = "build/figures-and-tables/attitudes",
        width = 16, height = 8) 
 
 ##############################################################################################
@@ -952,7 +928,6 @@ freqh_choice_p <- ggplot(freqh_choice,
   ggtitle ("a. Heating (Forced choice)") +
   theme(plot.title = element_text(face = "italic", size = 20, margin = margin(t = 0, r = 0, b = 10, l = 0)),axis.title.y = element_text(size = 15, margin = margin(t = 0, r = 0, b = 0, l = 10)), axis.text.x = element_text(size=15), axis.text.y = element_text(size=15), strip.text.x = element_text(size = 15), strip.text.y = element_text(size = 15))+
   coord_flip() +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(legend.position="none")
 freqh_choice_p
 
@@ -967,7 +942,6 @@ freqt_choice_p <- ggplot(freqt_choice,
   xlab("Levels") + 
   ylab("Frequency")+
   ggtitle ("c. Transport (Forced choice)") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(face = "italic", size = 20, margin = margin(t = 0, r = 0, b = 10, l = 0)),axis.title.y = element_text(size = 15, margin = margin(t = 0, r = 0, b = 0, l = 10)), axis.title.x = element_text(size = 15, margin = margin(t = 10, r = 0, b = 0, l = 0)), axis.text.x = element_text(size=15), axis.text.y = element_text(size=15), strip.text.x = element_text(size = 15), strip.text.y = element_text(size = 15))+
   coord_flip() +
   theme(legend.position="none")
@@ -986,7 +960,6 @@ freqh_rating_p <- ggplot(freqh_rating,
   ggtitle ("b. Heating (Rating)") +  
   theme(plot.title = element_text(face = "italic", size = 20, margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.text.x = element_text(size=15), axis.text.y = element_text(size=15), strip.text.x = element_text(size = 15), strip.text.y = element_text(size = 15))+
   coord_flip() +
-  theme(text = element_text(family = "Times New Roman"))  +
   theme(legend.position="none")
 freqh_rating_p
 
@@ -1001,7 +974,6 @@ freqt_rating_p<- ggplot(freqt_rating,
   xlab("") + 
   ylab("Frequency")+
   ggtitle ("d. Transport (Rating)") +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(face = "italic", size = 20, margin = margin(t = 0, r = 0, b = 10, l = 0)), axis.title.x = element_text(size = 15, margin = margin(t = 10, r = 0, b = 0, l = 0)), axis.text.x = element_text(size=15), axis.text.y = element_text(size=15), strip.text.x = element_text(size = 15), strip.text.y = element_text(size = 15))+
   coord_flip() +
   theme(legend.position="none")
@@ -1013,7 +985,7 @@ freq_attr <- ggarrange(freqh_choice_p, freqh_rating_p, freqt_choice_p, freqt_rat
 
 freq_attr
 ggsave("Frequencies of attribute levels", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks",
+       path = "build/figures-and-tables/checks",
        width = 17, height = 20)
 
 ##############################################################################################
@@ -1022,19 +994,19 @@ ggsave("Frequencies of attribute levels", device=png,
 # compute F-test for framing interaction 
 anova_framingch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
-capture.output(anova_framingch, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction/anova_fch.csv")
+capture.output(anova_framingch, file = "build/figures-and-tables/framing-interaction/anova_fch.csv")
 
 anova_framingct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
-capture.output(anova_framingct, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction/anova_fct.csv")
+capture.output(anova_framingct, file = "build/figures-and-tables/framing-interaction/anova_fct.csv")
 
 anova_framingrh <- cj_anova(data = rating_h, bin_rate ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
-capture.output(anova_framingrh, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction/anova_frh.csv")
+capture.output(anova_framingrh, file = "build/figures-and-tables/framing-interaction/anova_frh.csv")
 
 anova_framingrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
-capture.output(anova_framingrt, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction/anova_frt.csv")
+capture.output(anova_framingrt, file = "build/figures-and-tables/framing-interaction/anova_frt.csv")
 
 # plot framing interaction heating (choice)
 int_framingch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
@@ -1054,7 +1026,6 @@ int_framingch_p <- ggplot(int_framingch,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1062,7 +1033,7 @@ int_framingch_p <- ggplot(int_framingch,
 
 int_framingch_p
 ggsave("int_framingch", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
 # plot framing interaction heating (rating)
@@ -1082,7 +1053,6 @@ int_framingrh_p <- ggplot(int_framingrh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1090,7 +1060,7 @@ int_framingrh_p <- ggplot(int_framingrh,
 
 int_framingrh_p
 ggsave("int_framingrh", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
 # Final plot Interaction heating
@@ -1107,7 +1077,6 @@ IntFrH_p <- ggplot(int_framing_heating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   theme(panel.spacing = unit(2, "lines"))+
   scale_color_manual(values = c("#D8B365", "#5AB4AC")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
@@ -1116,7 +1085,7 @@ IntFrH_p <- ggplot(int_framing_heating,
 
 IntFrH_p
 ggsave("interaction heating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 16, height = 20)
 
 # plot framing interaction transport (choice)
@@ -1139,7 +1108,6 @@ int_framingct_p <- ggplot(int_framingct,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1147,7 +1115,7 @@ int_framingct_p <- ggplot(int_framingct,
 
 int_framingct_p
 ggsave("int_framingct", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
 # plot framing interaction transport (rating)
@@ -1168,7 +1136,6 @@ int_framingrt_p <- ggplot(int_framingrt,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1176,7 +1143,7 @@ int_framingrt_p <- ggplot(int_framingrt,
 
 int_framingrt_p
 ggsave("int_framingrt", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 18, height = 16)
 
 # Final plot Interaction Transport
@@ -1193,7 +1160,6 @@ IntFrT_p <- ggplot(int_framing_transport,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   theme(panel.spacing = unit(2, "lines"))+
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
@@ -1202,7 +1168,7 @@ IntFrT_p <- ggplot(int_framing_transport,
 
 IntFrT_p
 ggsave("interaction transport_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Framing interaction",
+       path = "build/figures-and-tables/framing-interaction",
        width = 16, height = 20)
 
 
@@ -1217,7 +1183,7 @@ level_orderhc <- factor(mmh_choice$level, level = rev(c("2030", "2035", "2040", 
                                                         "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
-write.csv(mmh_choice, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means/mmh_choice.csv")
+write.csv(mmh_choice, file = "build/figures-and-tables/marginal-means/mmh_choice.csv")
 
 mmh_rating <- cj(data = rating_h, rating ~ Timing + Purchase + Use + Support, 
                  id = ~ ID, estimate = "mm")
@@ -1225,7 +1191,7 @@ level_orderhr <- factor(mmh_rating$level, level = rev(c("2030", "2035", "2040", 
                                                         "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
-write.csv(mmh_rating, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means/mmh_rating.csv")
+write.csv(mmh_rating, file = "build/figures-and-tables/marginal-means/mmh_rating.csv")
 
 
 mmt_choice <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
@@ -1234,7 +1200,7 @@ level_ordertc <- factor(mmt_choice$level, level = rev(c("2030", "2035", "2040", 
                                                         "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
-write.csv(mmt_choice, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means/mmt_choice.csv")
+write.csv(mmt_choice, file = "build/figures-and-tables/marginal-means/mmt_choice.csv")
 
 mmt_rating <- cj(data = rating_t, rating ~ Timing + Purchase + Use + Support, 
                  id = ~ ID, estimate = "mm")
@@ -1242,7 +1208,7 @@ level_ordertr <- factor(mmt_rating$level, level = rev(c("2030", "2035", "2040", 
                                                         "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
-write.csv(mmt_rating, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means/mmt_rating.csv")
+write.csv(mmt_rating, file = "build/figures-and-tables/marginal-means/mmt_rating.csv")
 
 
 # plot marginal means heating (choice)
@@ -1255,12 +1221,11 @@ MMHChoice <- ggplot(mmh_choice,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
 ggsave("mmh_choice", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means",
+       path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
 # plot marginal means heating (rating)
@@ -1272,12 +1237,11 @@ MMHRating <- ggplot(mmh_rating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
 ggsave("mmh_rating", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means",
+       path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
 # plot marginal means transport (choice)
@@ -1290,12 +1254,11 @@ MMTChoice <- ggplot(mmt_choice,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
 ggsave("mmt_choice", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means",
+       path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
 # plot marginal means transport (rating)
@@ -1307,12 +1270,11 @@ MMTRating <- ggplot(mmt_rating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip()
 ggsave("mmt_rating", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Marginal Means",
+       path = "build/figures-and-tables/marginal-means",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -1344,10 +1306,10 @@ amcet_rating <- cjoint::amce(rating ~ Timing + Purchase + Use + Support, data = 
                              cluster=TRUE, respondent.id="ID", baselines = baseline_conjoint, na.ignore = TRUE)
 summary(amcet_rating)
 
-capture.output(summary(amceh_choice), file ="/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE/sumamceh_choice.csv")
-capture.output(summary(amcet_choice), file ="/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE/sumamcet_choice.csv")
-capture.output(summary(amceh_rating), file ="/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE/sumamceh_rating.csv")
-capture.output(summary(amcet_rating), file ="/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE/sumamcet_rating.csv")
+capture.output(summary(amceh_choice), file ="build/figures-and-tables/AMCE/sumamceh_choice.csv")
+capture.output(summary(amcet_choice), file ="build/figures-and-tables/AMCE/sumamcet_choice.csv")
+capture.output(summary(amceh_rating), file ="build/figures-and-tables/AMCE/sumamceh_rating.csv")
+capture.output(summary(amcet_rating), file ="build/figures-and-tables/AMCE/sumamcet_rating.csv")
 
 # Final plot AMCE Heating Choice
 c_timing_amcehc <- c(0, amceh_choice$estimates$Timing["AMCE","Timing2035"], amceh_choice$estimates$Timing["AMCE","Timing2040"], amceh_choice$estimates$Timing["AMCE","Timing2045"], amceh_choice$estimates$Timing["AMCE","Timing2050"])
@@ -1397,7 +1359,6 @@ AMCEHChoice <- ggplot(dfp_amceh_c,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none")+
-  theme(text = element_text(family = "Times New Roman"))  +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20))+
   scale_color_brewer(palette="RdBu") +
   coord_flip()
@@ -1405,7 +1366,7 @@ AMCEHChoice <- ggplot(dfp_amceh_c,
 
 AMCEHChoice
 ggsave("amceh_choice_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 # Final plot AMCE Heating Rating
@@ -1456,7 +1417,6 @@ AMCEHRating <- ggplot(dfp_amceh_r,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20))+
   coord_flip()
@@ -1464,7 +1424,7 @@ AMCEHRating <- ggplot(dfp_amceh_r,
 
 AMCEHRating
 ggsave("amceh_rating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 # Final plot AMCE Heating
@@ -1488,7 +1448,6 @@ AMCEH <- ggplot(dfp_amceh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), strip.text.x = element_text(size = 20))+
   coord_flip()
@@ -1496,7 +1455,7 @@ AMCEH <- ggplot(dfp_amceh,
 
 AMCEH
 ggsave("amceh_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 # Final plot AMCE Transport Choice
@@ -1547,7 +1506,6 @@ AMCETChoice <- ggplot(dfp_amcet_c,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20))+
   coord_flip()
@@ -1555,7 +1513,7 @@ AMCETChoice <- ggplot(dfp_amcet_c,
 
 AMCETChoice
 ggsave("amcet_choice_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 # Final plot AMCE Transport Rating (binary results)
@@ -1606,7 +1564,6 @@ AMCETRating <- ggplot(dfp_amcet_r,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20))+
   coord_flip()
@@ -1614,7 +1571,7 @@ AMCETRating <- ggplot(dfp_amcet_r,
 
 AMCETRating
 ggsave("amcet_rating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 # Final plot AMCE Transport
@@ -1638,7 +1595,6 @@ AMCET <- ggplot(dfp_amcet,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="none")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_brewer(palette="RdBu") +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), strip.text.x = element_text(size = 20))+
   coord_flip()
@@ -1646,7 +1602,7 @@ AMCET <- ggplot(dfp_amcet,
 
 AMCET
 ggsave("amcet_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/AMCE",
+       path = "build/figures-and-tables/AMCE",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -1669,19 +1625,19 @@ rating_t = rating_t %>%
 # analyse influence of which sector was shown first
 anova_firstch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~First)
-capture.output(anova_firstch, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstch.csv")
+capture.output(anova_firstch, file = "build/figures-and-tables/checks/robustness-checks/anova_firstch.csv")
 
 anova_firstct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~First)
-capture.output(anova_firstct, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstct.csv")
+capture.output(anova_firstct, file = "build/figures-and-tables/checks/robustness-checks/anova_firstct.csv")
 
 anova_firstrh <- cj_anova(data = rating_h, bin_rate ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~First)
-capture.output(anova_firstrh, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstrh.csv")
+capture.output(anova_firstrh, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrh.csv")
 
 anova_firstrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~First)
-capture.output(anova_firstrt, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstrt.csv")
+capture.output(anova_firstrt, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrt.csv")
 
 # plot sector order interaction heating (choice)
 int_firstch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
@@ -1701,7 +1657,6 @@ int_firstch_p <- ggplot(int_firstch,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1709,7 +1664,7 @@ int_firstch_p <- ggplot(int_firstch,
 
 int_firstch_p
 ggsave("int_firstch", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot sector order interaction heating (rating)
@@ -1729,7 +1684,6 @@ int_firstrh_p <- ggplot(int_firstrh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1737,7 +1691,7 @@ int_firstrh_p <- ggplot(int_firstrh,
 
 int_firstrh_p
 ggsave("int_firstrh", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot Interaction heating
@@ -1754,7 +1708,6 @@ IntFiH <- ggplot(int_first_heating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1762,7 +1715,7 @@ IntFiH <- ggplot(int_first_heating,
 
 IntFiH
 ggsave("interaction first sector heating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 # plot sector order interaction transport (choice)
@@ -1774,7 +1727,7 @@ level_orderfict <- factor(int_firstct$level, level = rev(c("2030", "2035", "2040
                                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
                                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
 
-plot(int_firstct , group = "Framing", vline = 0.5) + ggtitle("Interaction framing, choice transport")
+# plot(int_firstct , group = "Framing", vline = 0.5) + ggtitle("Interaction framing, choice transport") # FIXME fails
 
 int_firstct_p <- ggplot(int_firstct, 
                     aes(x = level_orderfict, y = estimate, color = BY)) + 
@@ -1785,7 +1738,6 @@ int_firstct_p <- ggplot(int_firstct,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1793,13 +1745,13 @@ int_firstct_p <- ggplot(int_firstct,
 
 int_firstct_p
 ggsave("int_firstct", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot sector order interaction transport (rating)
 int_firstrt <- cj(data = rating_t, rating ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~First)
-plot(int_firstrt , group = "Framing")  + ggtitle("Interaction framing, rating transport")
+# plot(int_firstrt , group = "Framing")  + ggtitle("Interaction framing, rating transport") # FIXME fails
 
 level_orderfirt <- factor(int_firstrt$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
                                                       "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
@@ -1814,7 +1766,6 @@ int_firstrt_p <- ggplot(int_firstrt,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1822,7 +1773,7 @@ int_firstrt_p <- ggplot(int_firstrt,
 
 int_firstrt_p
 ggsave("int_firstrt", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot Interaction Transport
@@ -1839,7 +1790,6 @@ IntFiTr <- ggplot(int_first_transport,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1847,7 +1797,7 @@ IntFiTr <- ggplot(int_first_transport,
 
 IntFiTr
 ggsave("interaction first sector transport_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -1857,19 +1807,19 @@ ggsave("interaction first sector transport_final", device=png,
 # analyse influence of choice round
 anova_choicerch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~choiceNum)
-capture.output(anova_choicerch, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_choicerch.csv")
+capture.output(anova_choicerch, file = "build/figures-and-tables/checks/robustness-checks/anova_choicerch.csv")
 
 anova_choicerct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~choiceNum)
-capture.output(anova_choicerct, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstct.csv")
+capture.output(anova_choicerct, file = "build/figures-and-tables/checks/robustness-checks/anova_firstct.csv")
 
 anova_choicerrh <- cj_anova(data = rating_h, bin_rate ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~choiceNum)
-capture.output(anova_choicerrh, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstrh.csv")
+capture.output(anova_choicerrh, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrh.csv")
 
 anova_choicerrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~choiceNum)
-capture.output(anova_choicerrt, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks/anova_firstrt.csv")
+capture.output(anova_choicerrt, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrt.csv")
 
 # plot sector order interaction heating (choice)
 int_choicerch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
@@ -1889,7 +1839,6 @@ int_choicerch_p <- ggplot(int_choicerch,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1897,7 +1846,7 @@ int_choicerch_p <- ggplot(int_choicerch,
 
 int_choicerch_p
 ggsave("int_choicerch", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot sector order interaction heating (rating)
@@ -1917,7 +1866,6 @@ int_choicerrh_p <- ggplot(int_choicerrh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1925,7 +1873,7 @@ int_choicerrh_p <- ggplot(int_choicerrh,
 
 int_choicerrh_p
 ggsave("int_choicerrh", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot Interaction heating
@@ -1942,7 +1890,6 @@ IntChH <- ggplot(int_choicer_heating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1950,7 +1897,7 @@ IntChH <- ggplot(int_choicer_heating,
 
 IntChH
 ggsave("interaction choice round heating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 # plot sector order interaction transport (choice)
@@ -1971,7 +1918,6 @@ int_choicerct_p <- ggplot(int_choicerct,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -1979,7 +1925,7 @@ int_choicerct_p <- ggplot(int_choicerct,
 
 int_choicerct_p
 ggsave("in_choicerct", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot sector order interaction transport (rating)
@@ -1999,7 +1945,6 @@ int_choicerrt_p <- ggplot(int_choicerrt,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2007,7 +1952,7 @@ int_choicerrt_p <- ggplot(int_choicerrt,
 
 int_choicerrt_p
 ggsave("int_choicerrt", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot Interaction Transport
@@ -2024,7 +1969,6 @@ IntChTr <- ggplot(int_choicer_transport,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2032,7 +1976,7 @@ IntChTr <- ggplot(int_choicer_transport,
 
 IntChTr
 ggsave("interaction choice round transport_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -2057,7 +2001,6 @@ int_packch_p <- ggplot(int_packch,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2065,7 +2008,7 @@ int_packch_p <- ggplot(int_packch,
 
 int_packch_p
 ggsave("int_packch", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot package numberr interaction heating (rating)
@@ -2085,7 +2028,6 @@ int_packrh_p <- ggplot(int_packrh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2093,7 +2035,7 @@ int_packrh_p <- ggplot(int_packrh,
 
 int_packrh_p
 ggsave("int_packrh", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot package number Interaction heating
@@ -2110,7 +2052,6 @@ IntPH <- ggplot(int_pack_heating,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2118,7 +2059,7 @@ IntPH <- ggplot(int_pack_heating,
 
 IntPH
 ggsave("interaction package number heating_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 # plot package number interaction transport (choice)
@@ -2139,7 +2080,6 @@ int_packct_p <- ggplot(int_packct,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2147,7 +2087,7 @@ int_packct_p <- ggplot(int_packct,
 
 int_packct_p
 ggsave("int_packct", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # plot package number interaction transport (rating)
@@ -2167,7 +2107,6 @@ int_packrt_p <- ggplot(int_packrt,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2175,7 +2114,7 @@ int_packrt_p <- ggplot(int_packrt,
 
 int_packrt_p
 ggsave("int_packrt", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 18, height = 20)
 
 # Final plot package number Interaction Transport
@@ -2192,7 +2131,6 @@ IntPTr <- ggplot(int_pack_transport,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom")+
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2200,7 +2138,7 @@ IntPTr <- ggplot(int_pack_transport,
 
 IntPTr
 ggsave("interaction package number transport_final", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/Robustness Checks",
+       path = "build/figures-and-tables/checks/robustness-checks",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -2216,7 +2154,7 @@ choice_t = choice_t %>%
 
 # analyse influence of source heating on marginal means for heating
 anova_sourceh <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h)
-capture.output(anova_sourceh, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_sourceh.csv")
+capture.output(anova_sourceh, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_sourceh.csv")
 
 sub_sourceh <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h)
@@ -2236,7 +2174,6 @@ sub_sourceh_p <- ggplot(sub_sourceh,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b58177", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2245,12 +2182,12 @@ sub_sourceh_p <- ggplot(sub_sourceh,
 
 sub_sourceh_p
 ggsave("sub_sourceh", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence of source heating on marginal means for heating (categories)
 anova_sourcehcat <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h_cat)
-capture.output(anova_sourcehcat, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_sourcehcat.csv")
+capture.output(anova_sourcehcat, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_sourcehcat.csv")
 
 sub_sourcehcat <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h_cat)
@@ -2270,7 +2207,6 @@ sub_sourcehcat_p <- ggplot(sub_sourcehcat,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2279,7 +2215,7 @@ sub_sourcehcat_p <- ggplot(sub_sourcehcat,
 
 sub_sourcehcat_p
 ggsave("sub_sourcehcat", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence of building type on marginal means heating
@@ -2287,7 +2223,7 @@ choice_h_buildingtype = choice_h %>%
   drop_na(building_type)
 
 anova_buildingtype <- cj_anova(data = choice_h_buildingtype, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~building_type)
-capture.output(anova_buildingtype, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_buildingtype.csv")
+capture.output(anova_buildingtype, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_buildingtype.csv")
 
 sub_buildingtype <- cj(data = choice_h_buildingtype, Y ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~building_type)
@@ -2307,7 +2243,6 @@ sub_buildingtype_p <- ggplot(sub_buildingtype,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#b8b6b6", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2316,7 +2251,7 @@ sub_buildingtype_p <- ggplot(sub_buildingtype,
 
 sub_buildingtype_p
 ggsave("sub_buildingtype", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence of ownership of apartment / house on marginal means for heating
@@ -2324,7 +2259,7 @@ choice_h_ownership = choice_h %>%
   drop_na(ownership)
 
 anova_ownership <- cj_anova(data = choice_h_ownership, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~ownership)
-capture.output(anova_ownership, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_ownership.csv")
+capture.output(anova_ownership, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_ownership.csv")
 
 sub_ownership <- cj(data = choice_h_ownership, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~ownership)
@@ -2344,7 +2279,6 @@ sub_ownership_p <- ggplot(sub_ownership,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2353,13 +2287,13 @@ sub_ownership_p <- ggplot(sub_ownership,
 
 sub_ownership_p
 ggsave("sub_ownership", device = png,
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence weekly car use on marginal means for transport
 anova_caruse <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
                          id = ~ "ID", by = ~car_days)
-capture.output(anova_caruse, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_caruse.csv")
+capture.output(anova_caruse, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_caruse.csv")
 
 sub_caruse <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~car_days)
@@ -2378,7 +2312,6 @@ sub_caruse_p <- ggplot(sub_caruse,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2387,7 +2320,7 @@ sub_caruse_p <- ggplot(sub_caruse,
 
 sub_caruse_p
 ggsave("sub_caruse", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence weekly car use on marginal means for transport (categories)
@@ -2409,7 +2342,6 @@ sub_carusecat_p <- ggplot(sub_carusecat,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#b8b6b6", "#5AB4AC"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2418,7 +2350,7 @@ sub_carusecat_p <- ggplot(sub_carusecat,
 
 sub_carusecat_p
 ggsave("sub_carusecat", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 20)
 
 # analyse influence of car type marginal means for transport
@@ -2427,7 +2359,7 @@ choice_t_cartype = choice_t %>%
 
 anova_cartype <- cj_anova(data = choice_t_cartype, Y ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~car_type)
-capture.output(anova_cartype, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables/anova_cartype.csv")
+capture.output(anova_cartype, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_cartype.csv")
 
 sub_cartype <- cj(data = choice_t_cartype, Y ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~car_type)
@@ -2446,7 +2378,6 @@ sub_cartype_p <- ggplot(sub_cartype,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#A6611A", "#DFC27D", "#c2b48f", "#b8b6b6", "#80CDC1", "#018571"))+
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20), axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.x = element_text(size = 20), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2455,7 +2386,7 @@ sub_cartype_p <- ggplot(sub_cartype,
 
 sub_cartype_p
 ggsave("sub_cartype", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Heating and transport variables",
+       path = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables",
        width = 18, height = 24)
 
 ##############################################################################################
@@ -2476,11 +2407,11 @@ cronbach_ccbeliefs <- psych::alpha(d[c("climate_change_1",
                                                "climate_change_3",  
                                                "climate_change_4")], check.keys=F)
 cronbach_ccbeliefs
-capture.output(cronbach_ccbeliefs, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/cronbach_ccbeliefs.csv")
+capture.output(cronbach_ccbeliefs, file = "build/figures-and-tables/checks/cronbach_ccbeliefs.csv")
 
-spbr_ccaction <- spearman_brown(d, c("climate_change_5", "climate_change_6"))
-spbr_ccaction
-capture.output(spbr_ccaction, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Checks/spbr_ccaction")
+# spbr_ccaction <- spearman_brown(d, c("climate_change_5", "climate_change_6")) # FIXME fails
+#spbr_ccaction
+#capture.output(spbr_ccaction, file = "build/figures-and-tables/checks/spbr_ccaction")
 
 cronbach_cceval <- psych::alpha(d[c("climate_change_1",   
                                 "climate_change_2",  
@@ -2489,7 +2420,7 @@ cronbach_cceval <- psych::alpha(d[c("climate_change_1",
                                 "climate_change_5",
                                 "climate_change_6")], 
                             check.keys=F)
-cronbach_cc
+cronbach_cceval
 
 ##############################################################################################
 # Subgroup analysis climate change evaluation
@@ -2508,11 +2439,11 @@ ch_cceval = choice_h %>%
 
 anova_cceval_h <- cj_anova(data = ch_cceval, Y ~ Timing + Purchase + Use + Support, 
                               id = ~ "ID", by = ~cceval_cat)
-capture.output(anova_cceval_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation/anova_cceval_h.csv")
+capture.output(anova_cceval_h, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/anova_cceval_h.csv")
 
 sub_cceval_h <- cj(data = ch_cceval, Y ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ID, by = ~cceval_cat)
-write.csv(sub_cceval_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation/sub_cceval_h.csv")
+write.csv(sub_cceval_h, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_h.csv")
 
 level_orderhcc <- factor(sub_cceval_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
                                                            "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
@@ -2529,7 +2460,6 @@ MMHCCChoice <- ggplot(sub_cceval_h,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#b8b6b6" , "#5AB4AC"), na.translate = F) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2537,7 +2467,7 @@ MMHCCChoice <- ggplot(sub_cceval_h,
 
 MMHCCChoice
 ggsave("interaction climate change evaluation (heating)", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation",
+       path = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation",
        width = 16, height = 20)
 
 # analyse influence of cceval(transport)
@@ -2546,11 +2476,11 @@ ct_cceval = choice_t %>%
 
 anova_cceval_t <- cj_anova(data = ct_cceval, Y ~ Timing + Purchase + Use + Support, 
                               id = ~ "ID", by = ~cceval_cat)
-capture.output(anova_cceval_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation/anova_cceval_t.csv")
+capture.output(anova_cceval_t, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/anova_cceval_t.csv")
 
 sub_cceval_t <- cj(data = ct_cceval, Y ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ ID, by = ~cceval_cat)
-write.csv(sub_cceval_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation/sub_cceval_t.csv")
+write.csv(sub_cceval_t, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_t.csv")
 
 level_ordertcc <- factor(sub_cceval_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
                                                            "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
@@ -2567,7 +2497,6 @@ MMTCCChoice <- ggplot(sub_cceval_t,
   xlab("Attribute Value") +
   theme_bw() +
   theme(legend.position="bottom") +
-  theme(text = element_text(family = "Times New Roman")) +
   scale_color_manual(values = c("#D8B365", "#b8b6b6" , "#5AB4AC"), na.translate = F) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
@@ -2575,7 +2504,7 @@ MMTCCChoice <- ggplot(sub_cceval_t,
 
 MMTCCChoice
 ggsave("interaction climate change evaluation(transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Climate change evaluation",
+       path = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -2588,7 +2517,7 @@ ch_trustgov = choice_h %>%
 
 anova_trustgov_h <- cj_anova(data = ch_trustgov, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_gov_cat)
-capture.output(anova_trustgov_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustgov_h.csv")
+capture.output(anova_trustgov_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgov_h.csv")
 
 
 sub_trustgov_h <- cj(data = ch_trustgov, Y ~ Timing + Purchase + Use + Support,
@@ -2611,14 +2540,13 @@ MMHTrustgovChoice <- ggplot(sub_trustgov_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in federal government"))+
   ggtitle ("Trust in federal government (heating)")
 MMHTrustgovChoice
 ggsave("interaction trust government (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 # analyse influence level of trust in government (transport)
@@ -2627,7 +2555,7 @@ ct_trustgov = choice_t %>%
 
 anova_trustgov_t <- cj_anova(data = ct_trustgov, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_gov_cat)
-capture.output(anova_trustgov_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustgov_t.csv")
+capture.output(anova_trustgov_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgov_t.csv")
 
 sub_trustgov_t <- cj(data = ct_trustgov, Y ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~trust_gov_cat)
@@ -2648,7 +2576,6 @@ MMTTrustgovChoice <- ggplot(sub_trustgov_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in federal government"))+
@@ -2656,7 +2583,7 @@ MMTTrustgovChoice <- ggplot(sub_trustgov_t,
 
 MMTTrustgovChoice
 ggsave("interaction trust government (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 # analyse influence level of trust in companies (heating)
@@ -2665,7 +2592,7 @@ ch_trustcom = choice_h %>%
 
 anova_trustcom_h <- cj_anova(data = ch_trustcom, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_com_cat)
-capture.output(anova_trustcom_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustcom_h.csv")
+capture.output(anova_trustcom_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcom_h.csv")
 
 sub_trustcom_h <- cj(data = ch_trustcom, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
@@ -2686,7 +2613,6 @@ MMHTrustcomChoice <- ggplot(sub_trustcom_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in companies and corporations"))+
@@ -2694,7 +2620,7 @@ MMHTrustcomChoice <- ggplot(sub_trustcom_h,
 
 MMHTrustcomChoice
 ggsave("interaction trust companies (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 # analyse influence level of trust in companies (transport)
@@ -2703,7 +2629,7 @@ ct_trustcom = choice_t %>%
 
 anova_trustcom_t <- cj_anova(data = ct_trustcom, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_com_cat)
-capture.output(anova_trustcom_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustgcom_t.csv")
+capture.output(anova_trustcom_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgcom_t.csv")
 
 sub_trustcom_t <- cj(data = ct_trustcom, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
@@ -2724,7 +2650,6 @@ MMTTrustcomChoice <- ggplot(sub_trustcom_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in companies and corporations"))+
@@ -2732,7 +2657,7 @@ MMTTrustcomChoice <- ggplot(sub_trustcom_t,
 
 MMTTrustcomChoice
 ggsave("interaction trust companies (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 # analyse influence level of trust in citizens (heating)
@@ -2741,7 +2666,7 @@ ch_trustcit = choice_h %>%
 
 anova_trustcit_h <- cj_anova(data = ch_trustcit, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_cit_cat)
-capture.output(anova_trustcit_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustcit_h.csv")
+capture.output(anova_trustcit_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcit_h.csv")
 
 
 sub_trustcit_h <- cj(data = ch_trustcit, Y ~ Timing + Purchase + Use + Support,
@@ -2763,7 +2688,6 @@ MMHTrustcitChoice <- ggplot(sub_trustcit_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in individuals"))+
@@ -2771,7 +2695,7 @@ MMHTrustcitChoice <- ggplot(sub_trustcit_h,
 
 MMHTrustcitChoice
 ggsave("interaction trust citizens (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 # analyse influence level of trust in citizens (transport)
@@ -2780,7 +2704,7 @@ ct_trustcit = choice_t %>%
 
 anova_trustcit_t <- cj_anova(data = ct_trustcit, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_cit_cat)
-capture.output(anova_trustcit_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust/anova_trustcit_t.csv")
+capture.output(anova_trustcit_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcit_t.csv")
 
 sub_trustcit_t <- cj(data = ct_trustcit, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_cit_cat)
@@ -2801,7 +2725,6 @@ MMTTrustcitChoice <- ggplot(sub_trustcit_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365", "#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Trust in individuals"))+
@@ -2810,7 +2733,7 @@ MMTTrustcitChoice <- ggplot(sub_trustcit_t,
 
 MMTTrustcitChoice
 ggsave("interaction trust citizens (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Trust",
+       path = "build/figures-and-tables/subgroup-analysis/trust",
        width = 16, height = 20)
 
 ##############################################################################################
@@ -2823,7 +2746,7 @@ choice_h_respgov = choice_h %>%
 
 anova_respgov_h <- cj_anova(data = choice_h_respgov, Y ~ Timing + Purchase + Use + Support, 
                             id = ~ "ID", by = ~resp_gov_cat)
-capture.output(anova_respgov_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis//Responsibility/anova_respgov_h.csv")
+capture.output(anova_respgov_h, file = "build/figures-and-tables/subgroup-analysis//responsibility/anova_respgov_h.csv")
 
 sub_respgov_h <- cj(data = choice_h_respgov, Y ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
@@ -2844,7 +2767,6 @@ MMHRespgovChoice <- ggplot(sub_respgov_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to federal government"))+
@@ -2852,7 +2774,7 @@ MMHRespgovChoice <- ggplot(sub_respgov_h,
 
 MMHRespgovChoice
 ggsave("interaction responsibility government (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 17, height = 20)
 
 # analyse influence level of attributed responsibility to government (transport)
@@ -2861,7 +2783,7 @@ choice_t_respgov = choice_t %>%
 
 anova_respgov_t <- cj_anova(data = choice_t_respgov, Y ~ Timing + Purchase + Use + Support, 
                             id = ~ "ID", by = ~resp_gov_cat)
-capture.output(anova_respgov_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis//Responsibility/anova_respgov_t.csv")
+capture.output(anova_respgov_t, file = "build/figures-and-tables/subgroup-analysis//responsibility/anova_respgov_t.csv")
 
 sub_respgov_t <- cj(data = choice_t_respgov, Y ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
@@ -2882,7 +2804,6 @@ MMTRespgovChoice <- ggplot(sub_respgov_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365", "#b8b6b6","#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to federal government"))+
@@ -2890,7 +2811,7 @@ MMTRespgovChoice <- ggplot(sub_respgov_t,
 
 MMTRespgovChoice
 ggsave("interaction responsibility government (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 17, height = 20)
 
 # analyse influence level of attributed responsibility to companies (heating)
@@ -2899,7 +2820,7 @@ choice_h_respcom = choice_h %>%
 
 anova_respcom_h <- cj_anova(data = choice_h_respcom, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_com_cat)
-capture.output(anova_respcom_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility/anova_respcom_h.csv")
+capture.output(anova_respcom_h, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcom_h.csv")
 
 sub_respcom_h <- cj(data = choice_h_respcom, Y ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
@@ -2920,7 +2841,6 @@ MMHRespcomChoice <- ggplot(sub_respcom_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to companies and corporations"))+
@@ -2928,7 +2848,7 @@ MMHRespcomChoice <- ggplot(sub_respcom_h,
 
 MMHRespcomChoice
 ggsave("interaction company responsibility (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 18, height = 20)
 
 # analyse influence level of attributed responsibility to companies (transport)
@@ -2937,7 +2857,7 @@ choice_t_respcom = choice_t %>%
 
 anova_respcom_t <- cj_anova(data = choice_t_respcom, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_com_cat)
-capture.output(anova_respcom_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility/anova_respcom_t.csv")
+capture.output(anova_respcom_t, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcom_t.csv")
 
 sub_respcom_t <- cj(data = choice_t_respcom, Y ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
@@ -2958,7 +2878,6 @@ MMTRespcomChoice <- ggplot(sub_respcom_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to companies and corporations"))+
@@ -2966,7 +2885,7 @@ MMTRespcomChoice <- ggplot(sub_respcom_t,
 
 MMTRespcomChoice
 ggsave("interaction company responsibility (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 18, height = 20)
 
 # analyse influence level of attributed responsibility to citizens (heating)
@@ -2975,7 +2894,7 @@ choice_h_respcit = choice_h %>%
 
 anova_respcit_h <- cj_anova(data = choice_h_respcit, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_cit_cat)
-capture.output(anova_respcit_h, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility/anova_respcit_h.csv")
+capture.output(anova_respcit_h, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcit_h.csv")
 
 sub_respcit_h <- cj(data = choice_h_respcit, Y ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
@@ -2996,7 +2915,6 @@ MMHRespcitChoice <- ggplot(sub_respcit_h,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365","#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to individuals"))+
@@ -3004,7 +2922,7 @@ MMHRespcitChoice <- ggplot(sub_respcit_h,
 
 MMHRespcitChoice
 ggsave("interaction citizen responsibility (heating) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 16, height = 20)
 
 # analyse influence level of attributed responsibility to citizens (transport)
@@ -3013,7 +2931,7 @@ choice_t_respcit = choice_t %>%
 
 anova_respcit_t <- cj_anova(data = choice_t_respcit, Y ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_cit_cat)
-capture.output(anova_respcit_t, file = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility/anova_respcit_t.csv")
+capture.output(anova_respcit_t, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcit_t.csv")
 
 sub_respcit_t <- cj(data = choice_t_respcit, Y ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
@@ -3034,7 +2952,6 @@ MMTRespcitChoice <- ggplot(sub_respcit_t,
   theme_bw() +
   theme(legend.position="bottom") +
   scale_color_manual(values = c("#D8B365", "#b8b6b6", "#5AB4AC"), na.translate = F) +
-  theme(text = element_text(family = "Times New Roman")) +
   theme(plot.title = element_text(size = 30, face = "bold"), axis.text.x = element_text(size=20),axis.text.y = element_text(size=20), axis.title.y = element_text(size = 20, face ="bold"), axis.title.x = element_text(size = 20, face ="bold"), strip.text.y = element_text(size = 20), legend.text=element_text(size=20), legend.title=element_text(size=20))+
   coord_flip() +
   guides(color=guide_legend(title="Attributed responsibility to individuals"))+
@@ -3043,7 +2960,7 @@ MMTRespcitChoice <- ggplot(sub_respcit_t,
 
 MMTRespcitChoice
 ggsave("interaction citizen responsibility (transport) ", device=png, 
-       path = "/Users/Jasmin/Documents/ETH/Master thesis/Analysis/Final Datasets/Figures& tables/Subgroup analysis/Responsibility",
+       path = "build/figures-and-tables/subgroup-analysis/responsibility",
        width = 16, height = 20)
 
 
