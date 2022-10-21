@@ -36,6 +36,19 @@ rule framing:
     script: "../scripts/analyse/framing.R"
 
 
+rule marginal_means:
+    message: "Analyse conjoint using marginal means."
+    input:
+        rating_t = rules.preprocess.output.rating_t,
+        rating_h = rules.preprocess.output.rating_h,
+        choice_t = rules.preprocess.output.choice_t,
+        choice_h = rules.preprocess.output.choice_h,
+    output:
+        mmt_rating = "build/figures-and-tables/marginal-means/mmt_rating.png",
+    conda: "../envs/r.yaml"
+    script: "../scripts/analyse/mm.R"
+
+
 rule entire_analysis:
     message: "Run the entire analysis."
     input:
@@ -49,6 +62,6 @@ rule entire_analysis:
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
     output:
-        mmt_rating = "build/figures-and-tables/marginal-means/mmt_rating.png",
+        amcet_final = "build/figures-and-tables/AMCE/amcet_final.png",
     conda: "../envs/r.yaml"
     script: "../scripts/Public_acceptance_JA_020522.R"
