@@ -5,6 +5,9 @@ Rplots.pdf
 # data
 data/surveydata-2022-03-19.xlsx
 
+# notebooks
+notebooks
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

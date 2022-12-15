@@ -88,3 +88,14 @@ rule subgroups:
         subgroups_final = "build/figures-and-tables/subgroup-analysis/responsibility/interaction citizen responsibility (transport).png",
     conda: "../envs/r.yaml"
     script: "../scripts/analyse/subgroups.R"
+
+
+rule visualise_levels:
+    message: "Visualise main results."
+    input:
+        heat = "build/figures-and-tables/marginal-means/mmh_choice.csv",
+        transport = "build/figures-and-tables/marginal-means/mmt_choice.csv"
+    output:
+        plot = "build/paper/main.pdf"
+    conda: "../envs/default.yaml"
+    script: "../scripts/analyse/level_plot.py"
