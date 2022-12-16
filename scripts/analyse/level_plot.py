@@ -46,23 +46,31 @@ TRANSPORT_LEVEL_ORDER = [
 ]
 
 
-def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot):
-    df_heat = pd.read_csv(path_to_heat_data, index_col=0).assign(zero=0.5)
-    df_transport = pd.read_csv(path_to_transport_data, index_col=0).assign(zero=0.5)
+def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
+                           measure: str, by: str = None, by_order: list[str] = None):
+    zero = 0.5 if measure == "choice" else 3
+    df_heat = pd.read_csv(path_to_heat_data, index_col=0).assign(zero=zero)
+    df_transport = pd.read_csv(path_to_transport_data, index_col=0).assign(zero=zero)
 
     chart_heating = visualise_single_sector(
         df_heat,
         title="Heat",
-        measure="Marginal means",
+        measure=measure,
+        estimand="Marginal means",
         level_order=HEAT_LEVEL_ORDER,
-        y_orientation="left"
+        y_orientation="left",
+        by=by,
+        by_order=by_order
     )
     chart_transport = visualise_single_sector(
         df_transport,
         title="Transport",
-        measure="Marginal means",
+        measure=measure,
+        estimand="Marginal means",
         level_order=TRANSPORT_LEVEL_ORDER,
-        y_orientation="right"
+        y_orientation="right",
+        by=by,
+        by_order=by_order
     )
     combined_chart = chart_heating | chart_transport
     (
@@ -75,18 +83,25 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     )
 
 
-def visualise_single_sector(data: pd.DataFrame, title: str, measure: str, level_order: list[str], y_orientation: str):
+def visualise_single_sector(data: pd.DataFrame, title: str, estimand: str, level_order: list[str], y_orientation: str,
+                            measure: str, by: str = None, by_order: list[str] = None):
+    domain = (0.3, 0.7) if measure == "choice" else (1, 5)
     base = alt.Chart(
         data,
         title=title
     ).encode(
         y=alt.Y("level", sort=level_order, title="Level", axis=alt.Axis(orient=y_orientation, labelLimit=LABEL_LIMIT)),
-        x=alt.X("estimate", title=measure, scale=alt.Scale(domain=(0.3, 0.7), zero=False)),
+        x=alt.X("estimate", title=estimand, scale=alt.Scale(domain=domain, zero=False)),
         color=alt.Color("feature", sort=data.feature.unique(), legend=alt.Legend(title="Attribute")),
     ).properties(
         width=WIDTH_SINGLE,
         height=HEIGHT_SINGLE
     )
+    if by:
+        base = base.encode(
+            yOffset=alt.YOffset("BY", sort=by_order),
+            opacity=alt.Opacity("BY", sort=by_order, title=by)
+        )
 
     interval = base.mark_rule(strokeWidth=1.5, opacity=0.6).encode(
         x="lower",
@@ -114,5 +129,8 @@ if __name__ == "__main__":
     visualise_both_sectors(
         path_to_heat_data=snakemake.input.heat,
         path_to_transport_data=snakemake.input.transport,
-        path_to_plot=snakemake.output.plot
+        path_to_plot=snakemake.output.plot,
+        by=snakemake.params.by,
+        by_order=snakemake.params.by_order,
+        measure=snakemake.wildcards.measure
     )

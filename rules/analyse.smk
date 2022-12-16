@@ -90,12 +90,48 @@ rule subgroups:
     script: "../scripts/analyse/subgroups.R"
 
 
-rule visualise_levels:
-    message: "Visualise main results."
+rule subgroups2:
+    message: "Analyse more subgroups."
     input:
-        heat = "build/figures-and-tables/marginal-means/mmh_choice.csv",
-        transport = "build/figures-and-tables/marginal-means/mmt_choice.csv"
+        d = rules.preprocess.output.d,
+        resp_char = rules.preprocess.output.resp_char,
+        attitudes = rules.preprocess.output.attitudes,
+        choice_t = rules.preprocess.output.choice_t,
+        choice_h = rules.preprocess.output.choice_h,
+        rating_t = rules.preprocess.output.rating_t,
+        rating_h = rules.preprocess.output.rating_h,
     output:
-        plot = "build/paper/main.pdf"
+        cceval_hr = "build/paper/mm-by-climate-change-heat-rating.csv",
+        cceval_tr = "build/paper/mm-by-climate-change-transport-rating.csv",
+        cceval_hc = "build/paper/mm-by-climate-change-heat-choice.csv",
+        cceval_tc = "build/paper/mm-by-climate-change-transport-choice.csv"
+    conda: "../envs/r.yaml"
+    script: "../scripts/analyse/subgroups2.R"
+
+
+rule visualise_levels:
+    message: "Visualise main results for measure {wildcards.measure}."
+    input:
+        heat = "build/figures-and-tables/marginal-means/mmh_{measure}.csv",
+        transport = "build/figures-and-tables/marginal-means/mmt_{measure}.csv"
+    params:
+        by = None,
+        by_order = None
+    output:
+        plot = "build/paper/main-{measure}.pdf"
     conda: "../envs/default.yaml"
+    script: "../scripts/analyse/level_plot.py"
+
+
+rule visualise_climate_concern:
+    message: "Visualise climate concern for measure {wildcards.measure}."
+    input:
+        heat = "build/paper/mm-by-climate-change-heat-{measure}.csv",
+        transport = "build/paper/mm-by-climate-change-transport-{measure}.csv"
+    params:
+        by = "Climate concern",
+        by_order = ['Low', 'Medium', 'High']
+    output:
+        plot = "build/paper/climate-concern-{measure}.html"
+    conda: "../envs/altair-dev.yaml"
     script: "../scripts/analyse/level_plot.py"

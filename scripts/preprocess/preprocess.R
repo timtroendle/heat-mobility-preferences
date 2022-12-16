@@ -227,9 +227,9 @@ attitudes = d %>%
            "trust_1", "trust_2", "trust_3")) %>%
   mutate_at(c("climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4", "climate_change_5", "climate_change_6"), factor) %>%
   mutate(cceval = ((d$climate_change_1 + d$climate_change_2 + d$climate_change_3 + d$climate_change_4 + d$climate_change_5 + d$climate_change_6) / 6)) %>%
-    mutate(cceval_cat = case_when(cceval < 3 ~ "do not agree",
-                                  cceval >3 & cceval < 4 ~ "neither / nor",
-                                  cceval > 4 ~ "agree")) %>%
+    mutate(cceval_cat = case_when(cceval < 3 ~ "Low",
+                                  cceval >3 & cceval < 4 ~ "Medium",
+                                  cceval > 4 ~ "High")) %>%
   mutate(trust_gov_cat = case_when(trust_1 < 3 ~ "do not trust",
                                    trust_1 == 3 ~ "neither / nor",
                                    trust_1 > 3 ~ "trust")) %>%  
