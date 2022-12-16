@@ -1,0 +1,9 @@
+# This env is necessary to use the latest and unreleased version of altair.
+# It provides the possibility to render vega lite specs from altair
+name: vega
+channels:
+    - conda-forge
+dependencies:
+    - vega-cli=5.22.1
+    - vega-lite-cli=5.6.0
+

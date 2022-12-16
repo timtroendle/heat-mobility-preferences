@@ -118,7 +118,7 @@ rule visualise_levels:
         by = None,
         by_order = None
     output:
-        plot = "build/paper/main-{measure}.pdf"
+        plot = temporary("build/paper/main-{measure}.json")
     conda: "../envs/default.yaml"
     script: "../scripts/analyse/level_plot.py"
 
@@ -132,6 +132,17 @@ rule visualise_climate_concern:
         by = "Climate concern",
         by_order = ['Low', 'Medium', 'High']
     output:
-        plot = "build/paper/climate-concern-{measure}.html"
+        plot = temporary("build/paper/climate-concern-{measure}.json")
     conda: "../envs/altair-dev.yaml"
     script: "../scripts/analyse/level_plot.py"
+
+
+rule render_vega_lite:
+    message: "Render Vega Lite spec {wildcards.filename}.json to pdf."
+    input:
+        json = "build/paper/{filename}.json"
+    output:
+        pdf = "build/paper/{filename}.pdf"
+    conda: "../envs/vega.yaml"
+    # vl2pdf not usable because of https://github.com/queryverse/VegaLite.jl/issues/383
+    shell: "vl2vg {input.json} | vg2pdf > {output.pdf}"

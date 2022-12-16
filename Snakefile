@@ -37,7 +37,7 @@ rule all:
         "build/test-report.html",
         "build/emissions.png",
         "build/paper/main-choice.pdf",
-        "build/paper/climate-concern-rating.html",
+        "build/paper/climate-concern-rating.pdf",
         rules.sample.output[0],
         rules.framing.output[0],
         rules.marginal_means.output[0],
