@@ -89,136 +89,216 @@ first_sector = d %>%
                               "Heating"  = "H",
                               "Transport" = "T"))
   
-# extract respondent charactercistics and recode 
-resp_char <- d %>%
-  select(c("ID", "age", "gender", "education", "party_pref", 
-           "number_adults", "number_children", "income", "residential_area", 
-           "number_diesel", "number_gas", "number_hybrid", "number_plugin", "number_EV", "number_other", "car_days",
-           "source_h", "building_type", "ownership", "influence_h")) %>%
-  mutate_at(c("age", "gender", "education", "party_pref", 
-              "number_adults", "number_children", "income", "residential_area", 
-              "car_days",
-              "source_h", "building_type", "ownership", "influence_h"), factor) %>%
-  mutate(age = fct_recode(age, 
-                          "18 - 29 years" = "2", 
-                          "30 - 39 years" = "3", 
-                          "40 - 49 years" = "4", 
-                          "50 - 59 years" = "5", 
-                          "older than 60 years"= "6" )) %>%
-  mutate(gender = fct_recode(gender,
-                             "Male" = "1",
-                             "Female" = "2",
-                             "Non-binary" = "3")) %>%
-  mutate(education = fct_recode(education,
-                                "No school diploma" = "1", 
-                                "Volks- or Hauptschulabschluss" = "2", 
-                                "Mittlere Reife" = "3", 
-                                "Abitur" = "4", 
-                                "Fachochschulabschluss" = "6", 
-                                "University degree" = "7", 
-                                "Other degree" = "8")) %>%
-  mutate(party_pref = fct_recode(party_pref,
-                                 "CDU/CSU" = "1",
-                                 "SPD" = "2", 
-                                 "FDP" = "3", 
-                                 "Die Linke" = "4", 
-                                 "Die Grünen" = "5", 
-                                 "AfD" = "6", 
-                                 "None of these parties" = "7")) %>%
-  mutate(residential_area =fct_recode(residential_area,
-                                      "<2'000 inh." = "1", 
-                                      "2'000 - 5'000 inh." = "2", 
-                                      "5'000 - 20'000 inh." = "3", 
-                                      "20'000 - 50'000 inh." = "4", 
-                                      "50'000 - 100'000 inh." = "5", 
-                                      "100'000 - 500'000 inh." = "6", 
-                                      " > 500'000 inh." = "7")) %>%
-  mutate(number_adults = fct_recode(number_adults,
-                                    ">4" = "5",
-                                    ">4" = "6",
-                                    ">4" = "7",
-                                    ">4" = "9",
-                                    ">4" = "14",
-                                    ">4" = "20",
-                                    ">4" = "28",
-                                    ">4" = "30")) %>%
-  mutate(number_children = fct_recode(number_children,
-                                      ">4" = "5",
-                                      ">4" = "9" )) %>%
-  mutate(income = fct_recode(income,
-                             "< 500 Euro" = "1", 
-                             "500 - 1'000 Euro" = "2", 
-                             "1'000 - 2'000 Euro" = "3", 
-                             "2'000 - 3'000 Euro" = "4", 
-                             "3'000 - 4'000 Euro" = "5", 
-                             "4'000 - 5'000 Euro" = "6", 
-                             "5'000 - 7'500 Euro" = "7", 
-                             "7'500 - 10'000 Euro" = "8", 
-                             "> 10'000 Euro" = "9", 
-                             "No indication" = "10")) %>%
-  mutate(car_days = fct_recode(car_days, 
-                               "Never/ exceptionally" = "1",
-                               "1 - 2 days" = "2",
-                               "3 - 4 days" = "3",
-                               "5 - 6 days" = "4",
-                               "Every day" = "5"))%>%
-  mutate(cardays_cat = case_when (
-    car_days == "Never/ exceptionally" ~ "never / exceptionally",
-    car_days == "1 - 2 days" ~ "1 - 4 days",
-    car_days == "3 - 4 days" ~ "1 - 4 days",
-    car_days == "5 - 6 days" ~ "5 - 7 days",
-    car_days == "Every day" ~  "5 - 7 days" )) %>%
-  mutate_at(c("cardays_cat"), factor) %>%
-  mutate(number_diesel = replace(number_diesel, is.na(number_diesel) & (number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1), 0))%>%
-  mutate(number_gas = replace(number_gas, is.na(number_gas) & (number_diesel >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1), 0)) %>%
-  mutate(number_hybrid = replace(number_hybrid, is.na(number_hybrid) & (number_diesel >= 1 | number_gas >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1), 0)) %>%
-  mutate(number_plugin = replace(number_plugin, is.na(number_plugin) & (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_EV >= 1 | number_other >= 1), 0)) %>%
-  mutate(number_EV = replace(number_EV, is.na(number_EV) & (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_other >= 1), 0)) %>%
-  mutate(number_other = replace(number_other, is.na(number_other) & (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1), 0)) %>%
-  mutate(number_ff = number_diesel + number_gas,
-         number_hyb = number_hybrid + number_plugin) %>%
-  mutate(car_type = case_when(number_ff == 0 & number_hyb == 0 & number_EV == 0 & number_other == 0 ~ 0,
-                              number_ff >= 1 & number_hyb == 0 & number_EV == 0 & number_other == 0 ~ 1,
-                              number_hyb >= 1 & number_EV == 0 & number_other == 0 & number_ff == 0 ~ 2,
-                              number_EV >= 1 & number_other == 0 & number_ff == 0 & number_hyb == 0 ~ 3,
-                              number_other >= 1 & number_ff == 0 & number_hyb == 0 & number_EV == 0~ 4,
-                              number_other >= 1 & number_ff >= 1  | number_other >= 1 & number_hyb >= 1 | number_other >= 1 & number_EV >= 1 |
-                              number_ff >= 1 & number_hyb >= 1 | number_ff >= 1 & number_EV >= 1 |
-                              number_hyb >= 1 & number_EV >= 1 ~ 5,)) %>%
-  mutate_at("car_type",factor) %>%
-  mutate(car_type = fct_recode(car_type,
-                               "No car" = "0",
-                               "ICEV " = "1",
-                               "Hybrid" = "2",
-                               "EV" = "3",
-                               "Other" = "4",
-                               "Multiple" = "5")) %>%
-  mutate(source_h = fct_recode(source_h, 
-                               "Oil" = "1", 
-                               "Gas" = "2", 
-                               "Wood" = "3", 
-                               "Heat pump" = "4", 
-                               "District heating" = "5", 
-                               "Other" = "6",
-                               "Other" = "7" )) %>%
-  mutate(source_h_cat = case_when (
-    source_h == "Oil" ~ "Fossil fuel",
-    source_h == "Gas" ~ "Fossil fuel",
-    source_h == "Wood" ~ "Low carbon",
-    source_h == "Heat pump" ~ "Low carbon",
-    source_h == "District heating" ~  "District heating",
-    source_h == "Other" ~ "Other" )) %>%
-  mutate_at("source_h_cat", factor) %>%
-  mutate(building_type = fct_recode(building_type, 
-                                    "New building" = "1", 
-                                    "Modernized building" = "2", 
-                                    "Old building" = "3")) %>%
-  mutate(ownership = fct_recode(ownership, 
-                                "Owning" = "1", 
-                                "Renting" = "2")) %>%
-  mutate(influence_h = fct_recode(influence_h, 
-                                  "Yes" = "1",
-                                  "No" = "2"))
+# extract respondent charactercistics and recode
+co2_share_h <- snakemake@params[["co2_share_heat"]]
+co2_share_t <- snakemake@params[["co2_share_transport"]]
+co2_share_tol <- snakemake@params[["co2_share_tolerance"]]
+resp_char <- d %>% select(
+        c("ID", "age", "gender", "education", "party_pref", "number_adults", "number_children", "income",
+          "residential_area", "number_diesel", "number_gas", "number_hybrid", "number_plugin", "number_EV",
+          "number_other", "car_days", "source_h", "building_type", "ownership", "influence_h", "relevance_h",
+          "relevance_t")
+) %>%
+    mutate(
+        across(
+            c("age", "gender", "education", "party_pref", "number_adults", "number_children", "income",
+              "residential_area", "car_days", "source_h", "building_type", "ownership", "influence_h"),
+            factor
+        ),
+        age = fct_recode(
+            age,
+            "18 - 29 years" = "2",
+            "30 - 39 years" = "3",
+            "40 - 49 years" = "4",
+            "50 - 59 years" = "5",
+            "older than 60 years" = "6"
+        ),
+        gender = fct_recode(
+            gender,
+            "Male" = "1",
+            "Female" = "2",
+            "Non-binary" = "3"
+        ),
+        education = fct_recode(
+            education,
+            "No school diploma" = "1",
+            "Volks- or Hauptschulabschluss" = "2",
+            "Mittlere Reife" = "3",
+            "Abitur" = "4",
+            "Fachochschulabschluss" = "6",
+            "University degree" = "7",
+            "Other degree" = "8"
+        ),
+        party_pref = fct_recode(
+            party_pref,
+            "CDU/CSU" = "1",
+            "SPD" = "2",
+            "FDP" = "3",
+            "Die Linke" = "4",
+            "Die Grünen" = "5",
+            "AfD" = "6",
+            "None of these parties" = "7"
+        ),
+        residential_area = fct_recode(
+            residential_area,
+            "<2'000 inh." = "1",
+            "2'000 - 5'000 inh." = "2",
+            "5'000 - 20'000 inh." = "3",
+            "20'000 - 50'000 inh." = "4",
+            "50'000 - 100'000 inh." = "5",
+            "100'000 - 500'000 inh." = "6",
+            " > 500'000 inh." = "7"
+        ),
+        number_adults = fct_recode(
+            number_adults,
+            ">4" = "5",
+            ">4" = "6",
+            ">4" = "7",
+            ">4" = "9",
+            ">4" = "14",
+            ">4" = "20",
+            ">4" = "28",
+            ">4" = "30"
+        ),
+        number_children = fct_recode(
+            number_children,
+            ">4" = "5",
+            ">4" = "9"
+        ),
+        income = fct_recode(
+            income,
+            "< 500 Euro" = "1",
+            "500 - 1'000 Euro" = "2",
+            "1'000 - 2'000 Euro" = "3",
+            "2'000 - 3'000 Euro" = "4",
+            "3'000 - 4'000 Euro" = "5",
+            "4'000 - 5'000 Euro" = "6",
+            "5'000 - 7'500 Euro" = "7",
+            "7'500 - 10'000 Euro" = "8",
+            "> 10'000 Euro" = "9",
+            "No indication" = "10"
+        ),
+        car_days = fct_recode(
+            car_days,
+            "Never/ exceptionally" = "1",
+            "1 - 2 days" = "2",
+            "3 - 4 days" = "3",
+            "5 - 6 days" = "4",
+            "Every day" = "5"
+        ),
+        cardays_cat = case_when (
+            car_days == "Never/ exceptionally" ~ "never / exceptionally",
+            car_days == "1 - 2 days" ~ "1 - 4 days",
+            car_days == "3 - 4 days" ~ "1 - 4 days",
+            car_days == "5 - 6 days" ~ "5 - 7 days",
+            car_days == "Every day" ~  "5 - 7 days"
+        ),
+        cardays_cat = factor(cardays_cat),
+        number_diesel = replace(
+            number_diesel,
+            is.na(number_diesel) &
+            (number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1),
+            0
+        ),
+        number_gas = replace(
+            number_gas,
+            is.na(number_gas) &
+            (number_diesel >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1),
+             0
+        ),
+        number_hybrid = replace(
+            number_hybrid,
+            is.na(number_hybrid) &
+            (number_diesel >= 1 | number_gas >= 1 | number_plugin >= 1 | number_EV >= 1 | number_other >= 1),
+            0
+        ),
+        number_plugin = replace(
+            number_plugin,
+            is.na(number_plugin) &
+            (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_EV >= 1 | number_other >= 1),
+            0
+        ),
+        number_EV = replace(
+            number_EV,
+            is.na(number_EV) &
+            (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_other >= 1),
+            0
+        ),
+        number_other = replace(
+            number_other,
+            is.na(number_other) &
+            (number_diesel >= 1 | number_gas >= 1 | number_hybrid >= 1 | number_plugin >= 1 | number_EV >= 1),
+            0
+        ),
+        number_ff = number_diesel + number_gas,
+        number_hyb = number_hybrid + number_plugin,
+        car_type = case_when(
+            number_ff == 0 & number_hyb == 0 & number_EV == 0 & number_other == 0 ~ 0,
+            number_ff >= 1 & number_hyb == 0 & number_EV == 0 & number_other == 0 ~ 1,
+            number_hyb >= 1 & number_EV == 0 & number_other == 0 & number_ff == 0 ~ 2,
+            number_EV >= 1 & number_other == 0 & number_ff == 0 & number_hyb == 0 ~ 3,
+            number_other >= 1 & number_ff == 0 & number_hyb == 0 & number_EV == 0 ~ 4,
+            number_other >= 1 & number_ff >= 1 | number_other >= 1 & number_hyb >= 1 |
+            number_other >= 1 & number_EV >= 1 | number_ff >= 1 & number_hyb >= 1 |
+            number_ff >= 1 & number_EV >= 1 | number_hyb >= 1 & number_EV >= 1 ~ 5
+        ),
+        car_type = factor(car_type),
+        car_type = fct_recode(car_type,
+            "No car" = "0",
+            "ICEV " = "1",
+            "Hybrid" = "2",
+            "EV" = "3",
+            "Other" = "4",
+            "Multiple" = "5"
+        ),
+        source_h = fct_recode(
+            source_h,
+            "Oil" = "1",
+            "Gas" = "2",
+            "Wood" = "3",
+            "Heat pump" = "4",
+            "District heating" = "5",
+            "Other" = "6",
+            "Other" = "7"
+        ),
+        source_h_cat = case_when(
+            source_h == "Oil" ~ "Fossil fuel",
+            source_h == "Gas" ~ "Fossil fuel",
+            source_h == "Wood" ~ "Low carbon",
+            source_h == "Heat pump" ~ "Low carbon",
+            source_h == "District heating" ~  "District heating",
+            source_h == "Other" ~ "Other"
+        ),
+        source_h_cat = factor(source_h_cat),
+        building_type = fct_recode(
+            building_type,
+            "New building" = "1",
+            "Modernized building" = "2",
+            "Old building" = "3"
+        ),
+        ownership = fct_recode(
+            ownership,
+            "Owning" = "1",
+            "Renting" = "2"
+        ),
+        influence_h = fct_recode(
+            influence_h,
+            "Yes" = "1",
+            "No" = "2"
+        ),
+        relevance_h_cat = case_when(
+            relevance_h < co2_share_h - co2_share_tol ~ "Too low",
+            (relevance_h >= co2_share_h - co2_share_tol) & (relevance_h < co2_share_h + co2_share_tol) ~ "Correct",
+            relevance_h >= co2_share_h + co2_share_tol ~ "Too high"
+        ),
+        relevance_h_cat = factor(relevance_h_cat, levels = c("Too low", "Correct", "Too high"), ordered = TRUE),
+        relevance_t_cat = case_when(
+            relevance_t < co2_share_t - co2_share_tol ~ "Too low",
+            (relevance_t >= co2_share_t - co2_share_tol) & (relevance_t < co2_share_t + co2_share_tol) ~ "Correct",
+            relevance_t >= co2_share_t + co2_share_tol ~ "Too high"
+        ),
+        relevance_t_cat = factor(relevance_t_cat, levels = c("Too low", "Correct", "Too high"), ordered = TRUE),
+    )
 
 # extract attitudes data and calculate mean values for climate beliefs and climate action
 attitudes = d %>%
@@ -455,6 +535,19 @@ rating_t = rating_t %>%
                                    "Trade in bonus"= "Eintauschprämie",
                                    "State-supported infrastructure measures" = "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)",
                                    "Preferential loan" = "Vorzugsdarlehen"))
+
+choice_h <- choice_h %>%
+    left_join(resp_char %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
+    rename(relevance_cat = relevance_h_cat)
+choice_t <- choice_t %>%
+    left_join(resp_char %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
+    rename(relevance_cat = relevance_t_cat)
+rating_h <- rating_h %>%
+    left_join(resp_char %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
+    rename(relevance_cat = relevance_h_cat)
+rating_t <- rating_t %>%
+    left_join(resp_char %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
+    rename(relevance_cat = relevance_t_cat)
 
 write_feather(d, snakemake@output[["d"]])
 write_feather(first_sector, snakemake@output[["first_sector"]])

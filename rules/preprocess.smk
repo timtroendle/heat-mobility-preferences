@@ -2,6 +2,10 @@ rule preprocess:
     message: "Preprocess the survey data."
     input:
         data = "data/surveydata-2022-03-19.xlsx"
+    params:
+        co2_share_heat = config["co2-share"]["heat"],
+        co2_share_transport = config["co2-share"]["transport"],
+        co2_share_tolerance = config["co2-share"]["tolerance"]
     output:
         d = "build/data/d.feather",
         first_sector = "build/data/first_sector.feather",

@@ -41,6 +41,7 @@ rule all:
         "build/emissions.png",
         "build/paper/mm-choice.pdf",
         "build/paper/mm-rating-by-cceval_cat.pdf",
+        "build/paper/mm-rating-by-relevance_cat.pdf",
         rules.sample.output[0],
         rules.framing.output[0],
         rules.marginal_means.output[0],
