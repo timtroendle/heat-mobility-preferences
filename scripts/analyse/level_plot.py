@@ -100,7 +100,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimand: str, level
     if by:
         base = base.encode(
             yOffset=alt.YOffset("BY", sort=by_order),
-            opacity=alt.Opacity("BY", sort=by_order, title=by)
+            opacity=alt.Opacity("BY", sort=by_order, title=by, scale=alt.Scale(rangeMin=0.2, rangeMax=1))
         )
 
     interval = base.mark_rule(strokeWidth=1.5, opacity=0.6).encode(
