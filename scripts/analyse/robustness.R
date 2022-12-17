@@ -32,11 +32,11 @@ rating_t = rating_t %>%
   left_join(first_sector, by= "ID")
 
 # analyse influence of which sector was shown first
-anova_firstch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
+anova_firstch <- cj_anova(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                       id = ~ "ID", by = ~First)
 capture.output(anova_firstch, file = "build/figures-and-tables/checks/robustness-checks/anova_firstch.csv")
 
-anova_firstct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
+anova_firstct <- cj_anova(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                       id = ~ "ID", by = ~First)
 capture.output(anova_firstct, file = "build/figures-and-tables/checks/robustness-checks/anova_firstct.csv")
 
@@ -49,7 +49,7 @@ anova_firstrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use + 
 capture.output(anova_firstrt, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrt.csv")
 
 # plot sector order interaction heating (choice)
-int_firstch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+int_firstch <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~First)
 
 level_orderfich <- factor(int_firstch$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -128,7 +128,7 @@ ggsave("interaction first sector heating_final.png",
        width = 16, height = 20)
 
 # plot sector order interaction transport (choice)
-int_firstct <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+int_firstct <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~First)
 
 level_orderfict <- factor(int_firstct$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -214,11 +214,11 @@ ggsave("interaction first sector transport_final.png",
 ##
 
 # analyse influence of choice round
-anova_choicerch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
+anova_choicerch <- cj_anova(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                           id = ~ "ID", by = ~choiceNum)
 capture.output(anova_choicerch, file = "build/figures-and-tables/checks/robustness-checks/anova_choicerch.csv")
 
-anova_choicerct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
+anova_choicerct <- cj_anova(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                           id = ~ "ID", by = ~choiceNum)
 capture.output(anova_choicerct, file = "build/figures-and-tables/checks/robustness-checks/anova_firstct.csv")
 
@@ -231,7 +231,7 @@ anova_choicerrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use 
 capture.output(anova_choicerrt, file = "build/figures-and-tables/checks/robustness-checks/anova_firstrt.csv")
 
 # plot sector order interaction heating (choice)
-int_choicerch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+int_choicerch <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~choiceNum)
 
 level_choicerch <- factor(int_choicerch$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -310,7 +310,7 @@ ggsave("interaction choice round heating_final.png",
        width = 16, height = 20)
 
 # plot sector order interaction transport (choice)
-int_choicerct <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+int_choicerct <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~choiceNum)
 
 level_choicerct <- factor(int_choicerct$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -393,7 +393,7 @@ ggsave("interaction choice round transport_final.png",
 ##
 
 # plot package number interaction heating (choice)
-int_packch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+int_packch <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~packNum)
 
 level_packch <- factor(int_packch$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -472,7 +472,7 @@ ggsave("interaction package number heating_final.png",
        width = 16, height = 20)
 
 # plot package number interaction transport (choice)
-int_packct <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+int_packct <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~packNum)
 
 level_packct <- factor(int_packct$level, level = rev(c("2030", "2035", "2040", "2045", "2050",

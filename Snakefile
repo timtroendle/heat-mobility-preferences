@@ -7,7 +7,10 @@ include: "rules/preprocess.smk"
 include: "rules/analyse.smk"
 min_version("7.8")
 wildcard_constraints:
-        measure = "choice|rating"
+    measure = "choice|rating",
+    sector = "heat|transport",
+    estimate = "mm|amce"
+
 
 onstart:
     shell("mkdir -p build/figures-and-tables/checks/distributions-subgroups")
@@ -36,8 +39,8 @@ rule all:
         "build/report.html",
         "build/test-report.html",
         "build/emissions.png",
-        "build/paper/main-choice.pdf",
-        "build/paper/climate-concern-rating.pdf",
+        "build/paper/mm-choice.pdf",
+        "build/paper/mm-rating-by-cceval_cat.pdf",
         rules.sample.output[0],
         rules.framing.output[0],
         rules.marginal_means.output[0],

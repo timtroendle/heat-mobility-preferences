@@ -17,7 +17,7 @@ choice_h <- read_feather(snakemake@input[["choice_h"]])
 ##
 
 # calculate marginal means
-mmh_choice <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
+mmh_choice <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                  id = ~ ID, estimate = "mm")
 level_orderhc <- factor(mmh_choice$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
                                                         "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
@@ -34,7 +34,7 @@ level_orderhr <- factor(mmh_rating$level, level = rev(c("2030", "2035", "2040", 
 write.csv(mmh_rating, file = "build/figures-and-tables/marginal-means/mmh_rating.csv")
 
 
-mmt_choice <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
+mmt_choice <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                  id = ~ ID, estimate = "mm")
 level_ordertc <- factor(mmt_choice$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
                                                         "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",

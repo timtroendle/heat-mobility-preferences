@@ -1,2 +1,5 @@
 # The right place for all your configuration values.
-dummy: 4
+subgroups:
+    cceval_cat:
+        name: Climate concern
+        level-order: ['Low', 'Medium', 'High']

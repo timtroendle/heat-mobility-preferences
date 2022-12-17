@@ -476,7 +476,7 @@ ggsave(filename = "attitudes_r.png",
 ##
 
 # frequencies for heating (choice)
-freqh_choice <- cj_freqs( data = choice_h,Y ~ Timing + Purchase + Use + Support, id = ~ ID)
+freqh_choice <- cj_freqs( data = choice_h, choice ~ Timing + Purchase + Use + Support, id = ~ ID)
 freqh_choice_p <- ggplot(freqh_choice,
                          aes(x = level, y = estimate, fill = feature)) + 
   facet_grid(feature~., space = "fixed", scales = "free") +
@@ -492,7 +492,7 @@ freqh_choice_p <- ggplot(freqh_choice,
 freqh_choice_p
 
 # frequencies for transport (choice)
-freqt_choice <- cj_freqs( data = choice_t, Y ~ Timing + Purchase + Use + Support, id = ~ ID)
+freqt_choice <- cj_freqs( data = choice_t, choice ~ Timing + Purchase + Use + Support, id = ~ ID)
 freqt_choice_p <- ggplot(freqt_choice,
                          aes(x = level, y = estimate, fill = feature)) + 
   facet_grid(feature~., space = "fixed", scales = "free") +

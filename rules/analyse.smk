@@ -90,49 +90,54 @@ rule subgroups:
     script: "../scripts/analyse/subgroups.R"
 
 
-rule subgroups2:
-    message: "Analyse more subgroups."
+rule analyse_main_effect:
+    message: "Analyse {wildcards.estimate} in sector {wildcards.sector} based on {wildcards.measure}."
     input:
-        d = rules.preprocess.output.d,
-        resp_char = rules.preprocess.output.resp_char,
-        attitudes = rules.preprocess.output.attitudes,
-        choice_t = rules.preprocess.output.choice_t,
-        choice_h = rules.preprocess.output.choice_h,
-        rating_t = rules.preprocess.output.rating_t,
-        rating_h = rules.preprocess.output.rating_h,
+        data = "build/data/{measure}-{sector}.feather"
     output:
-        cceval_hr = "build/paper/mm-by-climate-change-heat-rating.csv",
-        cceval_tr = "build/paper/mm-by-climate-change-transport-rating.csv",
-        cceval_hc = "build/paper/mm-by-climate-change-heat-choice.csv",
-        cceval_tc = "build/paper/mm-by-climate-change-transport-choice.csv"
+        "build/paper/fit/{estimate}-{measure}-{sector}.csv"
     conda: "../envs/r.yaml"
-    script: "../scripts/analyse/subgroups2.R"
+    script: "../scripts/analyse/conjoint.R"
 
 
-rule visualise_levels:
-    message: "Visualise main results for measure {wildcards.measure}."
+
+rule analyse_subgroup:
+    message: "Analyse {wildcards.estimate} in sector {wildcards.sector} based on {wildcards.measure} " +
+             "by subgroup {wildcards.subgroup}."
     input:
-        heat = "build/figures-and-tables/marginal-means/mmh_{measure}.csv",
-        transport = "build/figures-and-tables/marginal-means/mmt_{measure}.csv"
+        data = "build/data/{measure}-{sector}.feather",
+        resp_char = rules.preprocess.output.resp_char,
+        attitudes = rules.preprocess.output.attitudes
+    output:
+        "build/paper/fit/{estimate}-{measure}-{sector}-by-{subgroup}.csv"
+    conda: "../envs/r.yaml"
+    script: "../scripts/analyse/conjoint.R"
+
+
+rule visualise_main_effects:
+    message: "Visualise main results for measure {wildcards.measure} and estimate {wildcards.estimate}."
+    input:
+        heat = "build/paper/fit/{estimate}-{measure}-heat.csv",
+        transport = "build/paper/fit/{estimate}-{measure}-transport.csv"
     params:
         by = None,
         by_order = None
     output:
-        plot = temporary("build/paper/main-{measure}.json")
+        plot = temporary("build/paper/{estimate}-{measure}.json")
     conda: "../envs/default.yaml"
     script: "../scripts/analyse/level_plot.py"
 
 
-rule visualise_climate_concern:
-    message: "Visualise climate concern for measure {wildcards.measure}."
+rule visualise_subgroup:
+    message: "Visualise {wildcards.subgroup} for measure {wildcards.measure} and estimate {wildcards.estimate}."
     input:
-        heat = "build/paper/mm-by-climate-change-heat-{measure}.csv",
-        transport = "build/paper/mm-by-climate-change-transport-{measure}.csv"
+        heat = "build/paper/fit/{estimate}-{measure}-heat-by-{subgroup}.csv",
+        transport = "build/paper/fit/{estimate}-{measure}-transport-by-{subgroup}.csv",
     params:
-        by = "Climate concern",
-        by_order = ['Low', 'Medium', 'High']
+        by = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["name"],
+        by_order = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["level-order"],
     output:
-        plot = temporary("build/paper/climate-concern-{measure}.json")
+        plot = temporary("build/paper/{estimate}-{measure}-by-{subgroup}.json")
     conda: "../envs/altair-dev.yaml"
     script: "../scripts/analyse/level_plot.py"
 

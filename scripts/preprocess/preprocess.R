@@ -363,13 +363,17 @@ choice_h = choice_h %>%
   rename ( "Timing" = "htiming",
            "Purchase" = "hpurchase",
            "Use" = "huse",
-           "Support" = "hcompensation") 
+           "Support" = "hcompensation",
+           "chosen" = "choice",
+           "choice" = "Y")
 
 choice_t = choice_t %>% 
   rename ( "Timing" = "ttiming",
            "Purchase" = "tpurchase",
            "Use" = "tuse",
-           "Support" = "tcompensation")
+           "Support" = "tcompensation",
+           "chosen" = "choice",
+           "choice" = "Y")
 
 rating_h = rating_h %>% 
   rename ( "Timing" = "htiming",

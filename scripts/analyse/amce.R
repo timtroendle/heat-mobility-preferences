@@ -23,12 +23,12 @@ baseline_conjoint <- list(Timing="2030",
                           Support= "No supporting instrument")
 
 # calculate AMCES (cjoint)
-amceh_choice <- cjoint::amce(Y ~ Timing + Purchase + Use + Support, data=choice_h, 
+amceh_choice <- cjoint::amce(choice ~ Timing + Purchase + Use + Support, data=choice_h, 
                              cluster=TRUE, respondent.id="ID", baselines = baseline_conjoint, na.ignore = TRUE) 
 
 summary(amceh_choice)
 
-amcet_choice <- cjoint::amce(Y ~ Timing + Purchase + Use + Support, data = choice_t, 
+amcet_choice <- cjoint::amce(choice ~ Timing + Purchase + Use + Support, data = choice_t, 
                              cluster=TRUE, respondent.id="ID", baselines = baseline_conjoint, na.ignore = TRUE)
 
 summary(amcet_choice)

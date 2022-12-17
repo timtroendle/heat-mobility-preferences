@@ -49,8 +49,8 @@ TRANSPORT_LEVEL_ORDER = [
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
                            measure: str, by: str = None, by_order: list[str] = None):
     zero = 0.5 if measure == "choice" else 3
-    df_heat = pd.read_csv(path_to_heat_data, index_col=0).assign(zero=zero)
-    df_transport = pd.read_csv(path_to_transport_data, index_col=0).assign(zero=zero)
+    df_heat = pd.read_csv(path_to_heat_data).assign(zero=zero)
+    df_transport = pd.read_csv(path_to_transport_data).assign(zero=zero)
 
     chart_heating = visualise_single_sector(
         df_heat,

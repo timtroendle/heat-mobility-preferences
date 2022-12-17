@@ -16,11 +16,11 @@ choice_h <- read_feather(snakemake@input[["choice_h"]])
 # Analyse whether framing has a significant effect, and show MM with framng as an interaction effect
 
 # compute F-test for framing interaction 
-anova_framingch <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, 
+anova_framingch <- cj_anova(data = choice_h, choice ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
 capture.output(anova_framingch, file = "build/figures-and-tables/framing-interaction/anova_fch.csv")
 
-anova_framingct <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
+anova_framingct <- cj_anova(data = choice_t, choice ~ Timing + Purchase + Use + Support, 
                       id = ~ "ID", by = ~Framing)
 capture.output(anova_framingct, file = "build/figures-and-tables/framing-interaction/anova_fct.csv")
 
@@ -33,7 +33,7 @@ anova_framingrt <- cj_anova(data = rating_t, bin_rate ~ Timing + Purchase + Use 
 capture.output(anova_framingrt, file = "build/figures-and-tables/framing-interaction/anova_frt.csv")
 
 # plot framing interaction heating (choice)
-int_framingch <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+int_framingch <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 
 level_orderfrch <- factor(int_framingch$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -113,7 +113,7 @@ ggsave("interaction heating_final.png",
        width = 16, height = 20)
 
 # plot framing interaction transport (choice)
-int_framingct <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+int_framingct <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 
 level_orderfrct <- factor(int_framingct$level, level = rev(c("2030", "2035", "2040", "2045", "2050",

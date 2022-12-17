@@ -26,10 +26,10 @@ choice_t = choice_t %>%
   left_join(resp_char, by= "ID")
 
 # analyse influence of source heating on marginal means for heating
-anova_sourceh <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h)
+anova_sourceh <- cj_anova(data = choice_h, choice ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h)
 capture.output(anova_sourceh, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_sourceh.csv")
 
-sub_sourceh <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+sub_sourceh <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h)
 
 level_sourceh <- factor(sub_sourceh$level, 
@@ -59,10 +59,10 @@ ggsave("sub_sourceh.png",
        width = 18, height = 20)
 
 # analyse influence of source heating on marginal means for heating (categories)
-anova_sourcehcat <- cj_anova(data = choice_h, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h_cat)
+anova_sourcehcat <- cj_anova(data = choice_h, choice ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~source_h_cat)
 capture.output(anova_sourcehcat, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_sourcehcat.csv")
 
-sub_sourcehcat <- cj(data = choice_h, Y ~ Timing + Purchase + Use + Support,
+sub_sourcehcat <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h_cat)
 
 level_sourcehccat <- factor(sub_sourcehcat$level, 
@@ -95,10 +95,10 @@ ggsave("sub_sourcehcat.png",
 choice_h_buildingtype = choice_h %>%
   drop_na(building_type)
 
-anova_buildingtype <- cj_anova(data = choice_h_buildingtype, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~building_type)
+anova_buildingtype <- cj_anova(data = choice_h_buildingtype, choice ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~building_type)
 capture.output(anova_buildingtype, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_buildingtype.csv")
 
-sub_buildingtype <- cj(data = choice_h_buildingtype, Y ~ Timing + Purchase + Use + Support,
+sub_buildingtype <- cj(data = choice_h_buildingtype, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~building_type)
 
 level_buildingtype <- factor(sub_buildingtype$level, 
@@ -131,10 +131,10 @@ ggsave("sub_buildingtype.png",
 choice_h_ownership = choice_h %>%
   drop_na(ownership)
 
-anova_ownership <- cj_anova(data = choice_h_ownership, Y ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~ownership)
+anova_ownership <- cj_anova(data = choice_h_ownership, choice ~ Timing + Purchase + Use + Support, id = ~ "ID", by = ~ownership)
 capture.output(anova_ownership, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_ownership.csv")
 
-sub_ownership <- cj(data = choice_h_ownership, Y ~ Timing + Purchase + Use + Support,
+sub_ownership <- cj(data = choice_h_ownership, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~ownership)
 
 level_ownership <- factor(sub_ownership$level, 
@@ -164,11 +164,11 @@ ggsave("sub_ownership.png",
        width = 18, height = 20)
 
 # analyse influence weekly car use on marginal means for transport
-anova_caruse <- cj_anova(data = choice_t, Y ~ Timing + Purchase + Use + Support, 
+anova_caruse <- cj_anova(data = choice_t, choice ~ Timing + Purchase + Use + Support, 
                          id = ~ "ID", by = ~car_days)
 capture.output(anova_caruse, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_caruse.csv")
 
-sub_caruse <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+sub_caruse <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~car_days)
 
 level_caruse <- factor(sub_caruse$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -197,7 +197,7 @@ ggsave("sub_caruse.png",
        width = 18, height = 20)
 
 # analyse influence weekly car use on marginal means for transport (categories)
-sub_carusecat <- cj(data = choice_t, Y ~ Timing + Purchase + Use + Support,
+sub_carusecat <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~cardays_cat)
 
 level_carusecat <- factor(sub_carusecat$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -230,11 +230,11 @@ ggsave("sub_carusecat.png",
 choice_t_cartype = choice_t %>%
   drop_na(car_type)
 
-anova_cartype <- cj_anova(data = choice_t_cartype, Y ~ Timing + Purchase + Use + Support, 
+anova_cartype <- cj_anova(data = choice_t_cartype, choice ~ Timing + Purchase + Use + Support, 
                           id = ~ "ID", by = ~car_type)
 capture.output(anova_cartype, file = "build/figures-and-tables/subgroup-analysis/heating-and-transport-variables/anova_cartype.csv")
 
-sub_cartype <- cj(data = choice_t_cartype, Y ~ Timing + Purchase + Use + Support,
+sub_cartype <- cj(data = choice_t_cartype, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~car_type)
 
 level_cartype <- factor(sub_cartype$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -310,11 +310,11 @@ choice_t = choice_t %>%
 ch_cceval = choice_h %>%
   drop_na(cceval_cat)
 
-anova_cceval_h <- cj_anova(data = ch_cceval, Y ~ Timing + Purchase + Use + Support, 
+anova_cceval_h <- cj_anova(data = ch_cceval, choice ~ Timing + Purchase + Use + Support, 
                               id = ~ "ID", by = ~cceval_cat)
 capture.output(anova_cceval_h, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/anova_cceval_h.csv")
 
-sub_cceval_h <- cj(data = ch_cceval, Y ~ Timing + Purchase + Use + Support,
+sub_cceval_h <- cj(data = ch_cceval, choice ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ID, by = ~cceval_cat)
 write.csv(sub_cceval_h, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_h.csv")
 
@@ -347,11 +347,11 @@ ggsave("interaction climate change evaluation (heating).png",
 ct_cceval = choice_t %>%
   drop_na(cceval_cat)
 
-anova_cceval_t <- cj_anova(data = ct_cceval, Y ~ Timing + Purchase + Use + Support, 
+anova_cceval_t <- cj_anova(data = ct_cceval, choice ~ Timing + Purchase + Use + Support, 
                               id = ~ "ID", by = ~cceval_cat)
 capture.output(anova_cceval_t, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/anova_cceval_t.csv")
 
-sub_cceval_t <- cj(data = ct_cceval, Y ~ Timing + Purchase + Use + Support,
+sub_cceval_t <- cj(data = ct_cceval, choice ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ ID, by = ~cceval_cat)
 write.csv(sub_cceval_t, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_t.csv")
 
@@ -388,12 +388,12 @@ ggsave("interaction climate change evaluation(transport).png",
 ch_trustgov = choice_h %>%
   drop_na(trust_gov_cat)
 
-anova_trustgov_h <- cj_anova(data = ch_trustgov, Y ~ Timing + Purchase + Use + Support, 
+anova_trustgov_h <- cj_anova(data = ch_trustgov, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_gov_cat)
 capture.output(anova_trustgov_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgov_h.csv")
 
 
-sub_trustgov_h <- cj(data = ch_trustgov, Y ~ Timing + Purchase + Use + Support,
+sub_trustgov_h <- cj(data = ch_trustgov, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~trust_gov_cat)
 
 level_orderhtg <- factor(sub_trustgov_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -426,11 +426,11 @@ ggsave("interaction trust government (heating).png",
 ct_trustgov = choice_t %>%
   drop_na(trust_gov_cat)
 
-anova_trustgov_t <- cj_anova(data = ct_trustgov, Y ~ Timing + Purchase + Use + Support, 
+anova_trustgov_t <- cj_anova(data = ct_trustgov, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_gov_cat)
 capture.output(anova_trustgov_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgov_t.csv")
 
-sub_trustgov_t <- cj(data = ct_trustgov, Y ~ Timing + Purchase + Use + Support,
+sub_trustgov_t <- cj(data = ct_trustgov, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~trust_gov_cat)
 
 level_orderttg <- factor(sub_trustgov_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -463,11 +463,11 @@ ggsave("interaction trust government (transport).png",
 ch_trustcom = choice_h %>%
   drop_na(trust_com_cat)
 
-anova_trustcom_h <- cj_anova(data = ch_trustcom, Y ~ Timing + Purchase + Use + Support, 
+anova_trustcom_h <- cj_anova(data = ch_trustcom, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_com_cat)
 capture.output(anova_trustcom_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcom_h.csv")
 
-sub_trustcom_h <- cj(data = ch_trustcom, Y ~ Timing + Purchase + Use + Support,
+sub_trustcom_h <- cj(data = ch_trustcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
 
 level_orderhtco <- factor(sub_trustcom_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -500,11 +500,11 @@ ggsave("interaction trust companies (heating).png",
 ct_trustcom = choice_t %>%
   drop_na(trust_com_cat)
 
-anova_trustcom_t <- cj_anova(data = ct_trustcom, Y ~ Timing + Purchase + Use + Support, 
+anova_trustcom_t <- cj_anova(data = ct_trustcom, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_com_cat)
 capture.output(anova_trustcom_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustgcom_t.csv")
 
-sub_trustcom_t <- cj(data = ct_trustcom, Y ~ Timing + Purchase + Use + Support,
+sub_trustcom_t <- cj(data = ct_trustcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
 
 level_orderttco <- factor(sub_trustcom_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -537,12 +537,12 @@ ggsave("interaction trust companies (transport).png",
 ch_trustcit = choice_h %>%
   drop_na(trust_cit_cat)
 
-anova_trustcit_h <- cj_anova(data = ch_trustcit, Y ~ Timing + Purchase + Use + Support, 
+anova_trustcit_h <- cj_anova(data = ch_trustcit, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_cit_cat)
 capture.output(anova_trustcit_h, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcit_h.csv")
 
 
-sub_trustcit_h <- cj(data = ch_trustcit, Y ~ Timing + Purchase + Use + Support,
+sub_trustcit_h <- cj(data = ch_trustcit, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_cit_cat)
 
 level_orderhtci <- factor(sub_trustcit_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -575,11 +575,11 @@ ggsave("interaction trust citizens (heating).png",
 ct_trustcit = choice_t %>%
   drop_na(trust_cit_cat)
 
-anova_trustcit_t <- cj_anova(data = ct_trustcit, Y ~ Timing + Purchase + Use + Support, 
+anova_trustcit_t <- cj_anova(data = ct_trustcit, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~trust_cit_cat)
 capture.output(anova_trustcit_t, file = "build/figures-and-tables/subgroup-analysis/trust/anova_trustcit_t.csv")
 
-sub_trustcit_t <- cj(data = ct_trustcit, Y ~ Timing + Purchase + Use + Support,
+sub_trustcit_t <- cj(data = ct_trustcit, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_cit_cat)
 
 level_orderttcit <- factor(sub_trustcit_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -617,11 +617,11 @@ ggsave("interaction trust citizens (transport).png",
 choice_h_respgov = choice_h %>%
   drop_na(resp_gov_cat)
 
-anova_respgov_h <- cj_anova(data = choice_h_respgov, Y ~ Timing + Purchase + Use + Support, 
+anova_respgov_h <- cj_anova(data = choice_h_respgov, choice ~ Timing + Purchase + Use + Support, 
                             id = ~ "ID", by = ~resp_gov_cat)
 capture.output(anova_respgov_h, file = "build/figures-and-tables/subgroup-analysis//responsibility/anova_respgov_h.csv")
 
-sub_respgov_h <- cj(data = choice_h_respgov, Y ~ Timing + Purchase + Use + Support,
+sub_respgov_h <- cj(data = choice_h_respgov, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
 
 level_orderhrg <- factor(sub_respgov_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -654,11 +654,11 @@ ggsave("interaction responsibility government (heating).png",
 choice_t_respgov = choice_t %>%
   drop_na(resp_gov_cat)
 
-anova_respgov_t <- cj_anova(data = choice_t_respgov, Y ~ Timing + Purchase + Use + Support, 
+anova_respgov_t <- cj_anova(data = choice_t_respgov, choice ~ Timing + Purchase + Use + Support, 
                             id = ~ "ID", by = ~resp_gov_cat)
 capture.output(anova_respgov_t, file = "build/figures-and-tables/subgroup-analysis//responsibility/anova_respgov_t.csv")
 
-sub_respgov_t <- cj(data = choice_t_respgov, Y ~ Timing + Purchase + Use + Support,
+sub_respgov_t <- cj(data = choice_t_respgov, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
 
 level_ordertrg <- factor(sub_respgov_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -691,11 +691,11 @@ ggsave("interaction responsibility government (transport).png",
 choice_h_respcom = choice_h %>%
   drop_na(resp_com_cat)
 
-anova_respcom_h <- cj_anova(data = choice_h_respcom, Y ~ Timing + Purchase + Use + Support, 
+anova_respcom_h <- cj_anova(data = choice_h_respcom, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_com_cat)
 capture.output(anova_respcom_h, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcom_h.csv")
 
-sub_respcom_h <- cj(data = choice_h_respcom, Y ~ Timing + Purchase + Use + Support,
+sub_respcom_h <- cj(data = choice_h_respcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
 
 level_orderhrcom <- factor(sub_respcom_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -728,11 +728,11 @@ ggsave("interaction company responsibility (heating).png",
 choice_t_respcom = choice_t %>%
   drop_na(resp_com_cat)
 
-anova_respcom_t <- cj_anova(data = choice_t_respcom, Y ~ Timing + Purchase + Use + Support, 
+anova_respcom_t <- cj_anova(data = choice_t_respcom, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_com_cat)
 capture.output(anova_respcom_t, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcom_t.csv")
 
-sub_respcom_t <- cj(data = choice_t_respcom, Y ~ Timing + Purchase + Use + Support,
+sub_respcom_t <- cj(data = choice_t_respcom, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
 
 level_ordertrcom <- factor(sub_respcom_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
@@ -765,11 +765,11 @@ ggsave("interaction company responsibility (transport).png",
 choice_h_respcit = choice_h %>%
   drop_na(resp_cit_cat)
 
-anova_respcit_h <- cj_anova(data = choice_h_respcit, Y ~ Timing + Purchase + Use + Support, 
+anova_respcit_h <- cj_anova(data = choice_h_respcit, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_cit_cat)
 capture.output(anova_respcit_h, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcit_h.csv")
 
-sub_respcit_h <- cj(data = choice_h_respcit, Y ~ Timing + Purchase + Use + Support,
+sub_respcit_h <- cj(data = choice_h_respcit, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
 
 level_orderhrcit <- factor(sub_respcit_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
@@ -802,11 +802,11 @@ ggsave("interaction citizen responsibility (heating).png",
 choice_t_respcit = choice_t %>%
   drop_na(resp_cit_cat)
 
-anova_respcit_t <- cj_anova(data = choice_t_respcit, Y ~ Timing + Purchase + Use + Support, 
+anova_respcit_t <- cj_anova(data = choice_t_respcit, choice ~ Timing + Purchase + Use + Support, 
                              id = ~ "ID", by = ~resp_cit_cat)
 capture.output(anova_respcit_t, file = "build/figures-and-tables/subgroup-analysis/responsibility/anova_respcit_t.csv")
 
-sub_respcit_t <- cj(data = choice_t_respcit, Y ~ Timing + Purchase + Use + Support,
+sub_respcit_t <- cj(data = choice_t_respcit, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
 
 level_ordertrcit <- factor(sub_respcit_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
