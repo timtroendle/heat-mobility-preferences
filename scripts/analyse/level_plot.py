@@ -47,16 +47,30 @@ TRANSPORT_LEVEL_ORDER = [
 
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
-                           measure: str, by: str = None, by_order: list[str] = None):
-    zero = 0.5 if measure == "choice" else 3
+                           measure: str, estimate: str, by: str = None, by_order: list[str] = None):
+    match (estimate, measure):
+        case ("amce", str()):
+            zero = 0
+            domain = (-0.5, 0.5)
+            estimate_name = "Average marginal component effects"
+        case ("mm", "choice"):
+            zero = 0.5
+            domain = (0.3, 0.7)
+            estimate_name = "Marginal means"
+        case ("mm", "rating"):
+            zero = 3
+            domain = (1, 5)
+            estimate_name = "Marginal means"
+        case _:
+            raise ValueError(f"Unknown combination of estimate {estimate} and measure {measure}.")
     df_heat = pd.read_csv(path_to_heat_data).assign(zero=zero)
     df_transport = pd.read_csv(path_to_transport_data).assign(zero=zero)
 
     chart_heating = visualise_single_sector(
         df_heat,
         title="Heat",
-        measure=measure,
-        estimand="Marginal means",
+        estimate=estimate_name,
+        domain=domain,
         level_order=HEAT_LEVEL_ORDER,
         y_orientation="left",
         by=by,
@@ -65,8 +79,8 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     chart_transport = visualise_single_sector(
         df_transport,
         title="Transport",
-        measure=measure,
-        estimand="Marginal means",
+        estimate=estimate_name,
+        domain=domain,
         level_order=TRANSPORT_LEVEL_ORDER,
         y_orientation="right",
         by=by,
@@ -83,15 +97,14 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     )
 
 
-def visualise_single_sector(data: pd.DataFrame, title: str, estimand: str, level_order: list[str], y_orientation: str,
-                            measure: str, by: str = None, by_order: list[str] = None):
-    domain = (0.3, 0.7) if measure == "choice" else (1, 5)
+def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level_order: list[str], y_orientation: str,
+                            domain: tuple[float, float], by: str = None, by_order: list[str] = None):
     base = alt.Chart(
         data,
         title=title
     ).encode(
         y=alt.Y("level", sort=level_order, title="Level", axis=alt.Axis(orient=y_orientation, labelLimit=LABEL_LIMIT)),
-        x=alt.X("estimate", title=estimand, scale=alt.Scale(domain=domain, zero=False)),
+        x=alt.X("estimate", title=estimate, scale=alt.Scale(domain=domain, zero=False)),
         color=alt.Color("feature", sort=data.feature.unique(), legend=alt.Legend(title="Attribute")),
     ).properties(
         width=WIDTH_SINGLE,
@@ -132,5 +145,6 @@ if __name__ == "__main__":
         path_to_plot=snakemake.output.plot,
         by=snakemake.params.by,
         by_order=snakemake.params.by_order,
-        measure=snakemake.wildcards.measure
+        measure=snakemake.wildcards.measure,
+        estimate=snakemake.wildcards.estimate
     )

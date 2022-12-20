@@ -468,73 +468,73 @@ rating_t = rating_t %>%
            "Support" = "tcompensation")
 
 # recode instrument levels
-choice_h = choice_h %>%
-  mutate(Purchase = fct_recode(Purchase, "No purchase instrument" = "Keine Maßnahme", 
-                             "Purchase tax on fossil fuel heating (10%)"= "Kaufsteuer auf fossile Heizungen (10% Kaufpreis)",
-                             "Purchase tax on fossil fuel heating (20%)"= "Kaufsteuer auf fossile Heizungen (20% Kaufpreis)",
-                             "Purchase ban for fossil fuel heating (2025)" = "Kaufverbot für fossile Heizungen ab 2025", 
-                             "Purchase ban for fossil fuel heating (2030)" = "Kaufverbot für fossile Heizungen ab 2030")) %>%
-  mutate(Use = fct_recode(Use, "No use instrument" = "Keine Maßnahme", 
-                             "Tax on fossil fuels (20 ct/l)"= "Steuer auf fossile Energieträger (20 ct/l)",
-                             "Tax on fossil fuels (50 ct/l)"= "Steuer auf fossile Energieträger (50 ct/l)",
-                             "Replacement of fossil heating (> 30 years)" = "Ersatz fossile Heizungen (älter als 30 Jahre)", 
-                             "Replacement of fossil heating (> 15 years)" = "Ersatz fossile Heizungen (älter als 15 Jahre)")) %>%
-  mutate(Support = fct_recode(Support, "No supporting instrument" = "Keine unterstützende Maßnahme", 
-                            "Subsidies for climate-friendly alternatives"= "Subvention für klimafreundliche Alternativen",
-                            "Trade in bonus"= "Eintauschprämie",
-                            "State-supported building renovation measures" = "Staatlich geförderte Gebäudesanierungsmaßnahmen",
-                            "Preferential loan" = "Vorzugsdarlehen"))
 
-choice_t = choice_t %>%
-  mutate(Purchase = fct_recode(Purchase, "No purchase instrument" = "Keine Maßnahme", 
-                               "Purchase tax on ICEV (10%)"= "Kaufsteuer auf Verbrenner (10% Kaufpreis)",
-                               "Purchase tax on ICEV (20%)"= "Kaufsteuer auf Verbrenner (20% Kaufpreis)",
-                               "Purchase ban for ICEV (2025)" = "Kaufverbot für Verbrenner ab 2025", 
-                               "Purchase ban for ICEV (2030)" = "Kaufverbot für Verbrenner ab 2030")) %>%
-  mutate(Use = fct_recode(Use, "No use instrument" = "Keine Maßnahme", 
-                          "Tax on fossil fuels (20 ct/l)"= "Steuer auf fossile Energieträger (20 ct/l)",
-                          "Tax on fossil fuels (50 ct/l)"= "Steuer auf fossile Energieträger (50 ct/l)",
-                          "Weekday ban on ICEVs in city centers" = "Fahrverbot für Verbrenner in Innenstädten an Werktagen", 
-                          "Daily ban on ICEVs in city centers" = "Tägliches Fahrverbot für Verbrenner in Innenstädten")) %>%
-  mutate(Support = fct_recode(Support, "No supporting instrument" = "Keine unterstützende Maßnahme", 
-                                   "Subsidies for climate-friendly alternatives"= "Subvention für klimafreundliche Alternativen",
-                                   "Trade in bonus"= "Eintauschprämie",
-                                   "State-supported infrastructure measures" = "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)",
-                                   "Preferential loan" = "Vorzugsdarlehen"))
+recode_heat <- function(data) {
+    data %>%
+        mutate(
+            Purchase = recode_factor(
+                Purchase,
+                "Keine Maßnahme" = "No purchase instrument",
+                "Kaufsteuer auf fossile Heizungen (10% Kaufpreis)" = "Purchase tax on fossil fuel heating (10%)",
+                "Kaufsteuer auf fossile Heizungen (20% Kaufpreis)" = "Purchase tax on fossil fuel heating (20%)",
+                "Kaufverbot für fossile Heizungen ab 2025" = "Purchase ban for fossil fuel heating (2025)",
+                "Kaufverbot für fossile Heizungen ab 2030" = "Purchase ban for fossil fuel heating (2030)"
+            ),
+            Use = recode_factor(
+                Use,
+                "Keine Maßnahme" = "No use instrument",
+                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
+                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
+                "Ersatz fossile Heizungen (älter als 30 Jahre)" = "Replacement of fossil heating (> 30 years)",
+                "Ersatz fossile Heizungen (älter als 15 Jahre)" = "Replacement of fossil heating (> 15 years)"
+            ),
+            Support = recode_factor(
+                Support,
+                "Keine unterstützende Maßnahme" = "No supporting instrument",
+                "Subvention für klimafreundliche Alternativen" = "Subsidies for climate-friendly alternatives",
+                "Eintauschprämie" = "Trade in bonus",
+                "Staatlich geförderte Gebäudesanierungsmaßnahmen" = "State-supported building renovation measures",
+                "Vorzugsdarlehen" = "Preferential loan"
+            )
+        )
+}
 
-rating_h = rating_h %>%
-  mutate(Purchase = fct_recode(Purchase, "No purchase instrument" = "Keine Maßnahme", 
-                               "Purchase tax on fossil fuel heating (10%)"= "Kaufsteuer auf fossile Heizungen (10% Kaufpreis)",
-                               "Purchase tax on fossil fuel heating (20%)"= "Kaufsteuer auf fossile Heizungen (20% Kaufpreis)",
-                               "Purchase ban for fossil fuel heating (2025)" = "Kaufverbot für fossile Heizungen ab 2025", 
-                               "Purchase ban for fossil fuel heating (2030)" = "Kaufverbot für fossile Heizungen ab 2030")) %>%
-  mutate(Use = fct_recode(Use, "No use instrument" = "Keine Maßnahme", 
-                          "Tax on fossil fuels (20 ct/l)"= "Steuer auf fossile Energieträger (20 ct/l)",
-                          "Tax on fossil fuels (50 ct/l)"= "Steuer auf fossile Energieträger (50 ct/l)",
-                          "Replacement of fossil heating (> 30 years)" = "Ersatz fossile Heizungen (älter als 30 Jahre)", 
-                          "Replacement of fossil heating (> 15 years)" = "Ersatz fossile Heizungen (älter als 15 Jahre)")) %>%
-  mutate(Support = fct_recode(Support, "No supporting instrument" = "Keine unterstützende Maßnahme", 
-                                   "Subsidies for climate-friendly alternatives"= "Subvention für klimafreundliche Alternativen",
-                                   "Trade in bonus"= "Eintauschprämie",
-                                   "State-supported building renovation measures" = "Staatlich geförderte Gebäudesanierungsmaßnahmen",
-                                   "Preferential loan" = "Vorzugsdarlehen"))
+recode_transport <- function(data) {
+    data %>%
+        mutate(
+            Purchase = recode_factor(
+                Purchase,
+                "Keine Maßnahme" =  "No purchase instrument",
+                "Kaufsteuer auf Verbrenner (10% Kaufpreis)" = "Purchase tax on ICEV (10%)",
+                "Kaufsteuer auf Verbrenner (20% Kaufpreis)" = "Purchase tax on ICEV (20%)",
+                "Kaufverbot für Verbrenner ab 2025" = "Purchase ban for ICEV (2025)",
+                "Kaufverbot für Verbrenner ab 2030" = "Purchase ban for ICEV (2030)"
+            ),
+            Use = recode_factor(
+                Use,
+                "Keine Maßnahme" = "No use instrument",
+                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
+                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
+                "Fahrverbot für Verbrenner in Innenstädten an Werktagen" = "Weekday ban on ICEVs in city centers",
+                "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Daily ban on ICEVs in city centers"
+            ),
+            Support = recode_factor(
+                Support,
+                "Keine unterstützende Maßnahme" = "No supporting instrument",
+                "Subvention für klimafreundliche Alternativen" = "Subsidies for climate-friendly alternatives",
+                "Eintauschprämie" = "Trade in bonus",
+                "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)" =
+                    "State-supported infrastructure measures",
+                "Vorzugsdarlehen" = "Preferential loan"
+            )
+        )
+}
 
-rating_t = rating_t %>%
-  mutate(Purchase = fct_recode(Purchase, "No purchase instrument" = "Keine Maßnahme", 
-                               "Purchase tax on ICEV (10%)"= "Kaufsteuer auf Verbrenner (10% Kaufpreis)",
-                               "Purchase tax on ICEV (20%)"= "Kaufsteuer auf Verbrenner (20% Kaufpreis)",
-                               "Purchase ban for ICEV (2025)" = "Kaufverbot für Verbrenner ab 2025", 
-                               "Purchase ban for ICEV (2030)" = "Kaufverbot für Verbrenner ab 2030")) %>%
-  mutate(Use = fct_recode(Use, "No use instrument" = "Keine Maßnahme", 
-                          "Tax on fossil fuels (20 ct/l)"= "Steuer auf fossile Energieträger (20 ct/l)",
-                          "Tax on fossil fuels (50 ct/l)"= "Steuer auf fossile Energieträger (50 ct/l)",
-                          "Weekday ban on ICEVs in city centers" = "Fahrverbot für Verbrenner in Innenstädten an Werktagen", 
-                          "Daily ban on ICEVs in city centers" = "Tägliches Fahrverbot für Verbrenner in Innenstädten")) %>%
-  mutate(Support = fct_recode(Support, "No supporting instrument" = "Keine unterstützende Maßnahme", 
-                                   "Subsidies for climate-friendly alternatives"= "Subvention für klimafreundliche Alternativen",
-                                   "Trade in bonus"= "Eintauschprämie",
-                                   "State-supported infrastructure measures" = "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)",
-                                   "Preferential loan" = "Vorzugsdarlehen"))
+choice_h <- recode_heat(choice_h)
+rating_h <- recode_heat(rating_h)
+
+choice_t <- recode_transport(choice_t)
+rating_t <- recode_transport(rating_t)
 
 choice_h <- choice_h %>%
     left_join(resp_char %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
