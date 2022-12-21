@@ -77,6 +77,8 @@ rule analyse_main_effect:
     message: "Analyse {wildcards.estimate} in sector {wildcards.sector} based on {wildcards.measure}."
     input:
         data = "build/data/{measure}-{sector}.feather"
+    params:
+        alpha = 1 - config["confidence-level"]
     output:
         "build/paper/fit/{estimate}-{measure}-{sector}.csv"
     conda: "../envs/r.yaml"
@@ -91,6 +93,8 @@ rule analyse_subgroup:
         data = "build/data/{measure}-{sector}.feather",
         resp_char = rules.preprocess.output.resp_char,
         attitudes = rules.preprocess.output.attitudes
+    params:
+        alpha = 1 - config["confidence-level"]
     output:
         "build/paper/fit/{estimate}-{measure}-{sector}-by-{subgroup}.csv"
     conda: "../envs/r.yaml"

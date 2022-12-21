@@ -4,20 +4,21 @@ library(tidyverse)
 library(arrow)
 
 
-analyse_main_effects <- function(data, estimate, measure, path_to_output) {
+analyse_main_effects <- function(data, estimate, measure, alpha, path_to_output) {
     measure_sym <- as.symbol(measure)
     # eval and bquote necessary because of dynamic var "measure"
     fit <- eval(bquote(cj(
         data = data,
         .(measure_sym) ~ Timing + Purchase + Use + Support,
         estimate = estimate,
+        alpha = alpha,
         id = ~ ID,
     )))
     write_csv(fit, path_to_output)
 }
 
 
-analyse_subgroups <- function(data, attitudes, resp_char, estimate, measure, by, path_to_output) {
+analyse_subgroups <- function(data, attitudes, resp_char, estimate, measure, by, alpha, path_to_output) {
     # add respondent characteristics
     data <- data %>%
         left_join(resp_char, by = "ID") %>%
@@ -32,6 +33,7 @@ analyse_subgroups <- function(data, attitudes, resp_char, estimate, measure, by,
         .(measure_sym) ~ Timing + Purchase + Use + Support,
         estimate = estimate,
         id = ~ ID,
+        alpha = alpha,
         by = ~.(by_sym)
     )))
     write_csv(fit, path_to_output)
@@ -42,6 +44,7 @@ if (is.null(snakemake@wildcards[["subgroup"]])) {
         data = read_feather(snakemake@input[["data"]]),
         measure = snakemake@wildcards[["measure"]],
         estimate = snakemake@wildcards[["estimate"]],
+        alpha = snakemake@params[["alpha"]],
         path_to_output = snakemake@output[[1]]
     )
 } else {
@@ -52,6 +55,7 @@ if (is.null(snakemake@wildcards[["subgroup"]])) {
         measure = snakemake@wildcards[["measure"]],
         by = snakemake@wildcards[["subgroup"]],
         estimate = snakemake@wildcards[["estimate"]],
+        alpha = snakemake@params[["alpha"]],
         path_to_output = snakemake@output[[1]]
     )
 }

@@ -3,6 +3,7 @@ co2-share:
     transport: 25 # TODO double-check
     heat: 15 # TODO double-check
     tolerance: 3 # percentage-points
+confidence-level: 0.95
 level-order:
     heat:
         - '2030'
