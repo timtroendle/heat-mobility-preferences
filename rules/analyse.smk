@@ -30,36 +30,13 @@ rule framing:
         rating_h = rules.preprocess.output.rating_h,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
+    params:
+        level_order_heat = config["level-order"]["heat"],
+        level_order_transport = config["level-order"]["transport"]
     output:
         transport_interaction = "build/figures-and-tables/framing-interaction/interaction transport_final.png",
     conda: "../envs/r.yaml"
     script: "../scripts/analyse/framing.R"
-
-
-rule marginal_means:
-    message: "Analyse conjoint using marginal means."
-    input:
-        rating_t = rules.preprocess.output.rating_t,
-        rating_h = rules.preprocess.output.rating_h,
-        choice_t = rules.preprocess.output.choice_t,
-        choice_h = rules.preprocess.output.choice_h,
-    output:
-        mmt_rating = "build/figures-and-tables/marginal-means/mmt_rating.png",
-    conda: "../envs/r.yaml"
-    script: "../scripts/analyse/mm.R"
-
-
-rule amce:
-    message: "Analyse conjoint using AMCEs."
-    input:
-        rating_t = rules.preprocess.output.rating_t,
-        rating_h = rules.preprocess.output.rating_h,
-        choice_t = rules.preprocess.output.choice_t,
-        choice_h = rules.preprocess.output.choice_h,
-    output:
-        amcet_final = "build/figures-and-tables/AMCE/amcet_final.png",
-    conda: "../envs/r.yaml"
-    script: "../scripts/analyse/amce.R"
 
 
 rule robustness:
@@ -70,6 +47,9 @@ rule robustness:
         rating_h = rules.preprocess.output.rating_h,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
+    params:
+        level_order_heat = config["level-order"]["heat"],
+        level_order_transport = config["level-order"]["transport"]
     output:
         robustness_final = "build/figures-and-tables/checks/robustness-checks/interaction package number transport_final.png",
     conda: "../envs/r.yaml"
@@ -84,6 +64,9 @@ rule subgroups:
         attitudes = rules.preprocess.output.attitudes,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
+    params:
+        level_order_heat = config["level-order"]["heat"],
+        level_order_transport = config["level-order"]["transport"]
     output:
         subgroups_final = "build/figures-and-tables/subgroup-analysis/responsibility/interaction citizen responsibility (transport).png",
     conda: "../envs/r.yaml"
@@ -121,7 +104,8 @@ rule visualise_main_effects:
         transport = "build/paper/fit/{estimate}-{measure}-transport.csv"
     params:
         by = None,
-        by_order = None
+        by_order = None,
+        level_order = config["level-order"]
     output:
         plot = temporary("build/paper/{estimate}-{measure}.json")
     conda: "../envs/default.yaml"
@@ -136,6 +120,7 @@ rule visualise_subgroup:
     params:
         by = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["name"],
         by_order = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["level-order"],
+        level_order = config["level-order"]
     output:
         plot = temporary("build/paper/{estimate}-{measure}-by-{subgroup}.json")
     conda: "../envs/altair-dev.yaml"

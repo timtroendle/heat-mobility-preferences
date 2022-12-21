@@ -3,6 +3,49 @@ co2-share:
     transport: 25 # TODO double-check
     heat: 15 # TODO double-check
     tolerance: 3 # percentage-points
+level-order:
+    heat:
+        - '2030'
+        - '2035'
+        - '2040'
+        - '2045'
+        - '2050'
+        - 'No purchase instrument'
+        - 'Purchase tax (10%)'
+        - 'Purchase tax (20%)'
+        - 'Purchase ban (2025)'
+        - 'Purchase ban (2030)'
+        - 'No use instrument'
+        - 'Tax on fossil fuels (20 ct/l)'
+        - 'Tax on fossil fuels (50 ct/l)'
+        - 'Replacement (> 15 years)'
+        - 'Replacement (> 30 years)'
+        - 'No supporting instrument'
+        - 'Subsidies for alternatives'
+        - 'Trade in bonus'
+        - 'State-supported measures'
+        - 'Preferential loan'
+    transport:
+        - '2030'
+        - '2035'
+        - '2040'
+        - '2045'
+        - '2050'
+        - 'No purchase instrument'
+        - 'Purchase tax (10%)'
+        - 'Purchase tax (20%)'
+        - 'Purchase ban (2025)'
+        - 'Purchase ban (2030)'
+        - 'No use instrument'
+        - 'Tax on fossil fuels (20 ct/l)'
+        - 'Tax on fossil fuels (50 ct/l)'
+        - 'Weekday ban in city centers'
+        - 'Daily ban in city centers'
+        - 'No supporting instrument'
+        - 'Subsidies for alternatives'
+        - 'Trade in bonus'
+        - 'State-supported measures'
+        - 'Preferential loan'
 subgroups:
     cceval_cat:
         name: Climate concern

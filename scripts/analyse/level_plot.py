@@ -7,47 +7,10 @@ LABEL_LIMIT = 300
 WIDTH_SINGLE = 250
 HEIGHT_SINGLE = 250
 
-HEAT_LEVEL_ORDER = [
-    '2030', '2035', '2040', '2045', '2050',
-    'No purchase instrument',
-    'Purchase tax on fossil fuel heating (10%)',
-    'Purchase tax on fossil fuel heating (20%)',
-    'Purchase ban for fossil fuel heating (2025)',
-    'Purchase ban for fossil fuel heating (2030)',
-    'No use instrument',
-    'Tax on fossil fuels (20 ct/l)',
-    'Tax on fossil fuels (50 ct/l)',
-    'Replacement of fossil heating (> 15 years)',
-    'Replacement of fossil heating (> 30 years)',
-    'No supporting instrument',
-    'Subsidies for climate-friendly alternatives',
-    'Trade in bonus',
-    'State-supported building renovation measures',
-    'Preferential loan'
-]
-
-TRANSPORT_LEVEL_ORDER = [
-    '2030', '2035', '2040', '2045', '2050',
-    'No purchase instrument',
-    'Purchase tax on ICEV (10%)',
-    'Purchase tax on ICEV (20%)',
-    'Purchase ban for ICEV (2025)',
-    'Purchase ban for ICEV (2030)',
-    'No use instrument',
-    'Tax on fossil fuels (20 ct/l)',
-    'Tax on fossil fuels (50 ct/l)',
-    'Weekday ban on ICEVs in city centers',
-    'Daily ban on ICEVs in city centers',
-    'No supporting instrument',
-    'Subsidies for climate-friendly alternatives',
-    'Trade in bonus',
-    'State-supported infrastructure measures',
-    'Preferential loan'
-]
-
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
-                           measure: str, estimate: str, by: str = None, by_order: list[str] = None):
+                           measure: str, estimate: str, level_order: dict[str: dict[str: str]],
+                           by: str = None, by_order: list[str] = None):
     match (estimate, measure):
         case ("amce", str()):
             zero = 0
@@ -71,7 +34,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         title="Heat",
         estimate=estimate_name,
         domain=domain,
-        level_order=HEAT_LEVEL_ORDER,
+        level_order=level_order["heat"],
         y_orientation="left",
         by=by,
         by_order=by_order
@@ -81,7 +44,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         title="Transport",
         estimate=estimate_name,
         domain=domain,
-        level_order=TRANSPORT_LEVEL_ORDER,
+        level_order=level_order["transport"],
         y_orientation="right",
         by=by,
         by_order=by_order
@@ -145,6 +108,7 @@ if __name__ == "__main__":
         path_to_plot=snakemake.output.plot,
         by=snakemake.params.by,
         by_order=snakemake.params.by_order,
+        level_order=snakemake.params.level_order,
         measure=snakemake.wildcards.measure,
         estimate=snakemake.wildcards.estimate
     )

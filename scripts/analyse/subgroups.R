@@ -32,11 +32,7 @@ capture.output(anova_sourceh, file = "build/figures-and-tables/subgroup-analysis
 sub_sourceh <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h)
 
-level_sourceh <- factor(sub_sourceh$level, 
-                         level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                       "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_sourceh <- factor(sub_sourceh$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 sub_sourceh_p <- ggplot(sub_sourceh, 
                           aes(x = level_sourceh, y = estimate, color = BY)) + 
@@ -65,11 +61,7 @@ capture.output(anova_sourcehcat, file = "build/figures-and-tables/subgroup-analy
 sub_sourcehcat <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ ID, by = ~source_h_cat)
 
-level_sourcehccat <- factor(sub_sourcehcat$level, 
-                         level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                       "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_sourcehccat <- factor(sub_sourcehcat$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 sub_sourcehcat_p <- ggplot(sub_sourcehcat, 
                         aes(x = level_sourcehccat, y = estimate, color = BY)) + 
@@ -101,11 +93,7 @@ capture.output(anova_buildingtype, file = "build/figures-and-tables/subgroup-ana
 sub_buildingtype <- cj(data = choice_h_buildingtype, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~building_type)
 
-level_buildingtype <- factor(sub_buildingtype$level, 
-                         level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                       "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_buildingtype <- factor(sub_buildingtype$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 sub_buildingtype_p <- ggplot(sub_buildingtype, 
                         aes(x = level_buildingtype, y = estimate, color = BY)) + 
@@ -137,11 +125,7 @@ capture.output(anova_ownership, file = "build/figures-and-tables/subgroup-analys
 sub_ownership <- cj(data = choice_h_ownership, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~ownership)
 
-level_ownership <- factor(sub_ownership$level, 
-                             level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                           "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                           "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                           "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_ownership <- factor(sub_ownership$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 sub_ownership_p <- ggplot(sub_ownership, 
                              aes(x = level_ownership, y = estimate, color = BY)) + 
@@ -171,10 +155,7 @@ capture.output(anova_caruse, file = "build/figures-and-tables/subgroup-analysis/
 sub_caruse <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~car_days)
 
-level_caruse <- factor(sub_caruse$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                             "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                             "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                             "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_caruse <- factor(sub_caruse$level, level = rev(snakemake@params[["level_order_transport"]]))
 
 sub_caruse_p <- ggplot(sub_caruse, 
                           aes(x = level_caruse, y = estimate, color = BY)) + 
@@ -200,10 +181,7 @@ ggsave("sub_caruse.png",
 sub_carusecat <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~cardays_cat)
 
-level_carusecat <- factor(sub_carusecat$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                       "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_carusecat <- factor(sub_carusecat$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_caruse <- factor(sub_carusecat$BY, ordered = TRUE, levels = c("never / exceptionally", "1 - 4 days", "5 - 7 days"))
 
 sub_carusecat_p <- ggplot(sub_carusecat, 
@@ -237,10 +215,7 @@ capture.output(anova_cartype, file = "build/figures-and-tables/subgroup-analysis
 sub_cartype <- cj(data = choice_t_cartype, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~car_type)
 
-level_cartype <- factor(sub_cartype$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                       "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                       "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                       "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_cartype <- factor(sub_cartype$level, level = rev(snakemake@params[["level_order_transport"]]))
 
 sub_cartype_p <- ggplot(sub_cartype, 
                        aes(x = level_cartype, y = estimate, color = BY)) + 
@@ -318,10 +293,7 @@ sub_cceval_h <- cj(data = ch_cceval, choice ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ID, by = ~cceval_cat)
 write.csv(sub_cceval_h, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_h.csv")
 
-level_orderhcc <- factor(sub_cceval_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                           "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                           "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                           "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhcc <- factor(sub_cceval_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhcc <- factor(sub_cceval_h$BY, ordered = TRUE, levels = c("do not agree", "neither / nor", "agree"))
 
 MMHCCChoice <- ggplot(sub_cceval_h,
@@ -355,10 +327,7 @@ sub_cceval_t <- cj(data = ct_cceval, choice ~ Timing + Purchase + Use + Support,
                    estimate = "mm", id = ~ ID, by = ~cceval_cat)
 write.csv(sub_cceval_t, file = "build/figures-and-tables/subgroup-analysis/climate-change-evaluation/sub_cceval_t.csv")
 
-level_ordertcc <- factor(sub_cceval_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                           "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                           "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                           "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_ordertcc <- factor(sub_cceval_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_ordertcc <- factor(sub_cceval_t$BY, ordered = TRUE, levels = c("do not agree", "neither / nor", "agree"))
 
 MMTCCChoice <- ggplot(sub_cceval_t,
@@ -396,10 +365,7 @@ capture.output(anova_trustgov_h, file = "build/figures-and-tables/subgroup-analy
 sub_trustgov_h <- cj(data = ch_trustgov, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~trust_gov_cat)
 
-level_orderhtg <- factor(sub_trustgov_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                         "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhtg <- factor(sub_trustgov_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhtg <- factor(sub_trustgov_h$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 
@@ -433,10 +399,7 @@ capture.output(anova_trustgov_t, file = "build/figures-and-tables/subgroup-analy
 sub_trustgov_t <- cj(data = ct_trustgov, choice ~ Timing + Purchase + Use + Support,
                   estimate = "mm", id = ~ "ID", by = ~trust_gov_cat)
 
-level_orderttg <- factor(sub_trustgov_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                         "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                         "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                         "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_orderttg <- factor(sub_trustgov_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_orderttg <- factor(sub_trustgov_t$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 MMTTrustgovChoice <- ggplot(sub_trustgov_t,
@@ -470,10 +433,7 @@ capture.output(anova_trustcom_h, file = "build/figures-and-tables/subgroup-analy
 sub_trustcom_h <- cj(data = ch_trustcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
 
-level_orderhtco <- factor(sub_trustcom_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                              "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                              "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                              "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhtco <- factor(sub_trustcom_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhtco <- factor(sub_trustcom_h$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 MMHTrustcomChoice <- ggplot(sub_trustcom_h,
@@ -507,10 +467,7 @@ capture.output(anova_trustcom_t, file = "build/figures-and-tables/subgroup-analy
 sub_trustcom_t <- cj(data = ct_trustcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_com_cat)
 
-level_orderttco <- factor(sub_trustcom_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                            "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                            "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                            "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_orderttco <- factor(sub_trustcom_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_orderttco <- factor(sub_trustcom_t$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 MMTTrustcomChoice <- ggplot(sub_trustcom_t,
@@ -545,10 +502,7 @@ capture.output(anova_trustcit_h, file = "build/figures-and-tables/subgroup-analy
 sub_trustcit_h <- cj(data = ch_trustcit, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_cit_cat)
 
-level_orderhtci <- factor(sub_trustcit_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                             "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                             "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                             "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhtci <- factor(sub_trustcit_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhtci <- factor(sub_trustcit_h$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 MMHTrustcitChoice <- ggplot(sub_trustcit_h,
@@ -582,10 +536,7 @@ capture.output(anova_trustcit_t, file = "build/figures-and-tables/subgroup-analy
 sub_trustcit_t <- cj(data = ct_trustcit, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~trust_cit_cat)
 
-level_orderttcit <- factor(sub_trustcit_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                            "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                            "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                            "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_orderttcit <- factor(sub_trustcit_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_orderttci <- factor(sub_trustcit_t$BY, ordered = TRUE, levels = c("do not trust", "neither / nor", "trust"))
 
 MMTTrustcitChoice <- ggplot(sub_trustcit_t,
@@ -624,10 +575,7 @@ capture.output(anova_respgov_h, file = "build/figures-and-tables/subgroup-analys
 sub_respgov_h <- cj(data = choice_h_respgov, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
 
-level_orderhrg <- factor(sub_respgov_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                        "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                        "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                        "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhrg <- factor(sub_respgov_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhrg <- factor(sub_respgov_h$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMHRespgovChoice <- ggplot(sub_respgov_h,
@@ -661,10 +609,7 @@ capture.output(anova_respgov_t, file = "build/figures-and-tables/subgroup-analys
 sub_respgov_t <- cj(data = choice_t_respgov, choice ~ Timing + Purchase + Use + Support,
                  estimate = "mm", id = ~ "ID", by = ~resp_gov_cat)
 
-level_ordertrg <- factor(sub_respgov_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                        "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                        "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                        "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_ordertrg <- factor(sub_respgov_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_ordertrg  <- factor(sub_respgov_t$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMTRespgovChoice <- ggplot(sub_respgov_t,
@@ -698,10 +643,7 @@ capture.output(anova_respcom_h, file = "build/figures-and-tables/subgroup-analys
 sub_respcom_h <- cj(data = choice_h_respcom, choice ~ Timing + Purchase + Use + Support,
                      estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
 
-level_orderhrcom <- factor(sub_respcom_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                               "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                               "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                               "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhrcom <- factor(sub_respcom_h$level, level = rev(snakemake@params[["level_order_heat"]]))
 BY_orderhrcom <- factor(sub_respcom_h$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMHRespcomChoice <- ggplot(sub_respcom_h,
@@ -735,10 +677,7 @@ capture.output(anova_respcom_t, file = "build/figures-and-tables/subgroup-analys
 sub_respcom_t <- cj(data = choice_t_respcom, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_com_cat)
 
-level_ordertrcom <- factor(sub_respcom_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                               "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                               "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                               "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_ordertrcom <- factor(sub_respcom_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_ordertrcom <- factor(sub_respcom_t$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMTRespcomChoice <- ggplot(sub_respcom_t,
@@ -772,10 +711,7 @@ capture.output(anova_respcit_h, file = "build/figures-and-tables/subgroup-analys
 sub_respcit_h <- cj(data = choice_h_respcit, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
 
-level_orderhrcit <- factor(sub_respcit_h$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                              "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                              "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                              "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderhrcit <- factor(sub_respcit_h$level, level = rev(snakemake@params[["level_order_heat"]])) 
 BY_orderhrcit <- factor(sub_respcit_h$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMHRespcitChoice <- ggplot(sub_respcit_h,
@@ -809,10 +745,7 @@ capture.output(anova_respcit_t, file = "build/figures-and-tables/subgroup-analys
 sub_respcit_t <- cj(data = choice_t_respcit, choice ~ Timing + Purchase + Use + Support,
                     estimate = "mm", id = ~ "ID", by = ~resp_cit_cat)
 
-level_ordertrcit <- factor(sub_respcit_t$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                           "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                           "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                           "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_ordertrcit <- factor(sub_respcit_t$level, level = rev(snakemake@params[["level_order_transport"]]))
 BY_ordertrcit <- factor(sub_respcit_t$BY, ordered = TRUE, levels = c("not responsible", "neither / nor", "responsible"))
 
 MMTRespcitChoice <- ggplot(sub_respcit_t,

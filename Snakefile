@@ -50,8 +50,6 @@ rule all:
         "build/paper/amce-rating-by-cceval_cat.pdf",
         rules.sample.output[0],
         rules.framing.output[0],
-        rules.marginal_means.output[0],
-        rules.amce.output[0],
         rules.robustness.output[0],
         rules.subgroups.output[0],
 

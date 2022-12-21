@@ -36,10 +36,7 @@ capture.output(anova_framingrt, file = "build/figures-and-tables/framing-interac
 int_framingch <- cj(data = choice_h, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 
-level_orderfrch <- factor(int_framingch$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                    "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                    "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                    "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderfrch <- factor(int_framingch$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 int_framingch_p <- ggplot(int_framingch, 
                     aes(x = level_orderfrch, y = estimate, color = BY)) + 
@@ -64,10 +61,7 @@ ggsave("int_framingch.png",
 int_framingrh <- cj(data = rating_h, rating ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 
-level_orderfrrh <- factor(int_framingrh$level, level = rev(c("2030", "2035", "2040", "2045", "2050", 
-                                                      "No purchase instrument", "Purchase tax on fossil fuel heating (10%)", "Purchase tax on fossil fuel heating (20%)", "Purchase ban for fossil fuel heating (2030)", "Purchase ban for fossil fuel heating (2025)",
-                                                      "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Replacement of fossil heating (> 30 years)", "Replacement of fossil heating (> 15 years)",
-                                                      "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported building renovation measures", "Preferential loan")))
+level_orderfrrh <- factor(int_framingrh$level, level = rev(snakemake@params[["level_order_heat"]]))
 
 int_framingrh_p <- ggplot(int_framingrh, 
        aes(x = level_orderfrrh, y = estimate, color = BY)) + 
@@ -116,10 +110,7 @@ ggsave("interaction heating_final.png",
 int_framingct <- cj(data = choice_t, choice ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 
-level_orderfrct <- factor(int_framingct$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                      "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                      "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                      "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_orderfrct <- factor(int_framingct$level, level = rev(snakemake@params[["level_order_transport"]]))
 
 plot(int_framingct , group = "Framing", vline = 0.5) + ggtitle("Interaction framing, choice transport")
 
@@ -147,10 +138,7 @@ int_framingrt <- cj(data = rating_t, rating ~ Timing + Purchase + Use + Support,
               estimate = "mm", id = ~ "ID", by = ~Framing)
 plot(int_framingrt , group = "Framing")  + ggtitle("Interaction framing, rating transport")
 
-level_orderfrrt <- factor(int_framingrt$level, level = rev(c("2030", "2035", "2040", "2045", "2050",
-                                                      "No purchase instrument", "Purchase tax on ICEV (10%)" , "Purchase tax on ICEV (20%)", "Purchase ban for ICEV (2030)", "Purchase ban for ICEV (2025)",
-                                                      "No use instrument", "Tax on fossil fuels (20 ct/l)", "Tax on fossil fuels (50 ct/l)", "Weekday ban on ICEVs in city centers" , "Daily ban on ICEVs in city centers",
-                                                      "No supporting instrument", "Subsidies for climate-friendly alternatives", "Trade in bonus", "State-supported infrastructure measures", "Preferential loan")))
+level_orderfrrt <- factor(int_framingrt$level, level = rev(snakemake@params[["level_order_transport"]]))
 
 int_framingrt_p <- ggplot(int_framingrt, 
                     aes(x = level_orderfrrt, y = estimate, color = BY)) + 

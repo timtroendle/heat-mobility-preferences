@@ -475,25 +475,25 @@ recode_heat <- function(data) {
             Purchase = recode_factor(
                 Purchase,
                 "Keine Maßnahme" = "No purchase instrument",
-                "Kaufsteuer auf fossile Heizungen (10% Kaufpreis)" = "Purchase tax on fossil fuel heating (10%)",
-                "Kaufsteuer auf fossile Heizungen (20% Kaufpreis)" = "Purchase tax on fossil fuel heating (20%)",
-                "Kaufverbot für fossile Heizungen ab 2025" = "Purchase ban for fossil fuel heating (2025)",
-                "Kaufverbot für fossile Heizungen ab 2030" = "Purchase ban for fossil fuel heating (2030)"
+                "Kaufsteuer auf fossile Heizungen (10% Kaufpreis)" = "Purchase tax (10%)",
+                "Kaufsteuer auf fossile Heizungen (20% Kaufpreis)" = "Purchase tax (20%)",
+                "Kaufverbot für fossile Heizungen ab 2025" = "Purchase ban (2025)",
+                "Kaufverbot für fossile Heizungen ab 2030" = "Purchase ban (2030)"
             ),
             Use = recode_factor(
                 Use,
                 "Keine Maßnahme" = "No use instrument",
                 "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
                 "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
-                "Ersatz fossile Heizungen (älter als 30 Jahre)" = "Replacement of fossil heating (> 30 years)",
-                "Ersatz fossile Heizungen (älter als 15 Jahre)" = "Replacement of fossil heating (> 15 years)"
+                "Ersatz fossile Heizungen (älter als 30 Jahre)" = "Replacement (> 30 years)",
+                "Ersatz fossile Heizungen (älter als 15 Jahre)" = "Replacement (> 15 years)"
             ),
             Support = recode_factor(
                 Support,
                 "Keine unterstützende Maßnahme" = "No supporting instrument",
-                "Subvention für klimafreundliche Alternativen" = "Subsidies for climate-friendly alternatives",
+                "Subvention für klimafreundliche Alternativen" = "Subsidies for alternatives",
                 "Eintauschprämie" = "Trade in bonus",
-                "Staatlich geförderte Gebäudesanierungsmaßnahmen" = "State-supported building renovation measures",
+                "Staatlich geförderte Gebäudesanierungsmaßnahmen" = "State-supported measures",
                 "Vorzugsdarlehen" = "Preferential loan"
             )
         )
@@ -505,26 +505,25 @@ recode_transport <- function(data) {
             Purchase = recode_factor(
                 Purchase,
                 "Keine Maßnahme" =  "No purchase instrument",
-                "Kaufsteuer auf Verbrenner (10% Kaufpreis)" = "Purchase tax on ICEV (10%)",
-                "Kaufsteuer auf Verbrenner (20% Kaufpreis)" = "Purchase tax on ICEV (20%)",
-                "Kaufverbot für Verbrenner ab 2025" = "Purchase ban for ICEV (2025)",
-                "Kaufverbot für Verbrenner ab 2030" = "Purchase ban for ICEV (2030)"
+                "Kaufsteuer auf Verbrenner (10% Kaufpreis)" = "Purchase tax (10%)",
+                "Kaufsteuer auf Verbrenner (20% Kaufpreis)" = "Purchase tax (20%)",
+                "Kaufverbot für Verbrenner ab 2025" = "Purchase ban (2025)",
+                "Kaufverbot für Verbrenner ab 2030" = "Purchase ban (2030)"
             ),
             Use = recode_factor(
                 Use,
                 "Keine Maßnahme" = "No use instrument",
                 "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
                 "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
-                "Fahrverbot für Verbrenner in Innenstädten an Werktagen" = "Weekday ban on ICEVs in city centers",
-                "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Daily ban on ICEVs in city centers"
+                "Fahrverbot für Verbrenner in Innenstädten an Werktagen" = "Weekday ban in city centers",
+                "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Daily ban in city centers"
             ),
             Support = recode_factor(
                 Support,
                 "Keine unterstützende Maßnahme" = "No supporting instrument",
-                "Subvention für klimafreundliche Alternativen" = "Subsidies for climate-friendly alternatives",
+                "Subvention für klimafreundliche Alternativen" = "Subsidies for alternatives",
                 "Eintauschprämie" = "Trade in bonus",
-                "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)" =
-                    "State-supported infrastructure measures",
+                "Staatlich geförderte Infrastrukturmaßnahmen (Ladeinfrastruktur, ÖV)" = "State-supported measures",
                 "Vorzugsdarlehen" = "Preferential loan"
             )
         )
