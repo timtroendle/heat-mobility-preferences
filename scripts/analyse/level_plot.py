@@ -4,8 +4,8 @@ import altair as alt
 
 DARK_GREY = "#424242"
 LABEL_LIMIT = 300
-WIDTH_SINGLE = 250
-HEIGHT_SINGLE = 250
+WIDTH_SINGLE = 200
+HEIGHT_SINGLE = 275
 
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
@@ -77,6 +77,8 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level
         base = base.encode(
             yOffset=alt.YOffset("BY", sort=by_order),
             opacity=alt.Opacity("BY", sort=by_order, title=by, scale=alt.Scale(rangeMin=0.2, rangeMax=1))
+        ).properties(
+            height=HEIGHT_SINGLE * 1.5
         )
 
     interval = base.mark_rule(strokeWidth=1.5, opacity=0.6).encode(
