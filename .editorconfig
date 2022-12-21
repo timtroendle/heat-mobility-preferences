@@ -10,7 +10,7 @@ insert_final_newline = true
 charset = utf-8
 end_of_line = lf
 
-[*.R]
+[{amce.R,framing.R,mm.R,robustness.R,sample.R,subgroups.R,preprocess.R}]
 trim_trailing_whitespace = false
 
 [LICENSE]

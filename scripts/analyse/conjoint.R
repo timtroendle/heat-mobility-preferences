@@ -1,5 +1,4 @@
-# This script analyses any given subgroup.
-library(cjoint)
+# This script analyses main effects and subgroups.
 library(cregg)
 library(tidyverse)
 library(arrow)
