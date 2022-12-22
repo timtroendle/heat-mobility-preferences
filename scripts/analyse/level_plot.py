@@ -14,7 +14,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     match (estimate, measure):
         case ("amce", str()):
             zero = 0
-            domain = (-0.5, 0.5)
+            domain = (-0.25, 0.25)
             estimate_name = "Average marginal component effects"
         case ("mm", "choice"):
             zero = 0.5
@@ -22,7 +22,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
             estimate_name = "Marginal means"
         case ("mm", "rating"):
             zero = 3
-            domain = (1, 5)
+            domain = (2, 4)
             estimate_name = "Marginal means"
         case _:
             raise ValueError(f"Unknown combination of estimate {estimate} and measure {measure}.")
