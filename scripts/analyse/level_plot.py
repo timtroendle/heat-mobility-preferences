@@ -68,7 +68,8 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level
     ).encode(
         y=alt.Y("level", sort=level_order, title="Level", axis=alt.Axis(orient=y_orientation, labelLimit=LABEL_LIMIT)),
         x=alt.X("estimate", title=estimate, scale=alt.Scale(domain=domain, zero=False)),
-        color=alt.Color("feature", sort=data.feature.unique(), legend=alt.Legend(title="Attribute")),
+        color=alt.Color("feature", sort=data.feature.unique(), legend=alt.Legend(title="Attribute"),
+                        scale=alt.Scale(scheme="set2")),
     ).properties(
         width=WIDTH_SINGLE,
         height=HEIGHT_SINGLE
@@ -81,7 +82,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level
             height=HEIGHT_SINGLE * 1.5
         )
 
-    interval = base.mark_rule(strokeWidth=1.5, opacity=0.6).encode(
+    interval = base.mark_rule(strokeWidth=1.5, opacity=1).encode(
         x="lower",
         x2="upper"
     )
@@ -94,7 +95,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level
 
     left = 0 if y_orientation == "left" else WIDTH_SINGLE - 4
     right = 4 if y_orientation == "left" else WIDTH_SINGLE
-    area = base.mark_area(opacity=1, filled=True, fillOpacity=0.7, line=False).encode(
+    area = base.mark_area(opacity=1, filled=True, fillOpacity=1, line=False).encode(
         x=alt.value(left),
         x2=alt.value(right),
     )

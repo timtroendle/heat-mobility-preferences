@@ -111,7 +111,7 @@ rule visualise_main_effects:
         by_order = None,
         level_order = config["level-order"]
     output:
-        plot = temporary("build/paper/{estimate}-{measure}.json")
+        plot = "build/paper/vega/{estimate}-{measure}.json"
     conda: "../envs/default.yaml"
     script: "../scripts/analyse/level_plot.py"
 
@@ -126,7 +126,7 @@ rule visualise_subgroup:
         by_order = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["level-order"],
         level_order = config["level-order"]
     output:
-        plot = temporary("build/paper/{estimate}-{measure}-by-{subgroup}.json")
+        plot = "build/paper/vega/{estimate}-{measure}-by-{subgroup}.json"
     conda: "../envs/altair-dev.yaml"
     script: "../scripts/analyse/level_plot.py"
 
@@ -134,7 +134,7 @@ rule visualise_subgroup:
 rule render_vega_lite:
     message: "Render Vega Lite spec {wildcards.filename}.json to pdf."
     input:
-        json = "build/paper/{filename}.json"
+        json = "build/paper/vega/{filename}.json"
     output:
         pdf = "build/paper/{filename}.pdf"
     conda: "../envs/vega.yaml"
