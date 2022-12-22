@@ -9,8 +9,8 @@ HEIGHT_SINGLE = 275
 
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
-                           measure: str, estimate: str, level_order: dict[str: dict[str: str]],
-                           by: str = None, by_order: list[str] = None):
+                           measure: str, estimate: str, level_order: dict[str: list[str]],
+                           attribute_order: list[str], by: str = None, by_order: list[str] = None):
     match (estimate, measure):
         case ("amce", str()):
             zero = 0
@@ -34,6 +34,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         title="Heat",
         estimate=estimate_name,
         domain=domain,
+        attribute_order=attribute_order,
         level_order=level_order["heat"],
         y_orientation="left",
         by=by,
@@ -44,6 +45,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         title="Transport",
         estimate=estimate_name,
         domain=domain,
+        attribute_order=attribute_order,
         level_order=level_order["transport"],
         y_orientation="right",
         by=by,
@@ -60,15 +62,19 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     )
 
 
-def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level_order: list[str], y_orientation: str,
-                            domain: tuple[float, float], by: str = None, by_order: list[str] = None):
+def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attribute_order: list[str],
+                            level_order: list[str], y_orientation: str, domain: tuple[float, float],
+                            by: str = None, by_order: list[str] = None):
+    if by:
+        data.BY = data.BY.astype('category').cat.reorder_categories(by_order, ordered=True)
+        data = data.sort_values("BY").reset_index(drop=True)
     base = alt.Chart(
         data,
         title=title
     ).encode(
         y=alt.Y("level", sort=level_order, title="Level", axis=alt.Axis(orient=y_orientation, labelLimit=LABEL_LIMIT)),
         x=alt.X("estimate", title=estimate, scale=alt.Scale(domain=domain, zero=False)),
-        color=alt.Color("feature", sort=data.feature.unique(), legend=alt.Legend(title="Attribute"),
+        color=alt.Color("feature", sort=attribute_order, legend=alt.Legend(title="Attribute"),
                         scale=alt.Scale(scheme="set2")),
     ).properties(
         width=WIDTH_SINGLE,
@@ -98,6 +104,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, level
     area = base.mark_area(opacity=1, filled=True, fillOpacity=1, line=False).encode(
         x=alt.value(left),
         x2=alt.value(right),
+        opacity=alt.FillOpacityValue(1)
     )
 
     entire_chart = (area + base_line + interval + point)
@@ -112,6 +119,7 @@ if __name__ == "__main__":
         by=snakemake.params.by,
         by_order=snakemake.params.by_order,
         level_order=snakemake.params.level_order,
+        attribute_order=snakemake.params.attribute_order,
         measure=snakemake.wildcards.measure,
         estimate=snakemake.wildcards.estimate
     )

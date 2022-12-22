@@ -109,6 +109,7 @@ rule visualise_main_effects:
     params:
         by = None,
         by_order = None,
+        attribute_order = config["attribute-order"],
         level_order = config["level-order"]
     output:
         plot = "build/paper/vega/{estimate}-{measure}.json"
@@ -124,6 +125,7 @@ rule visualise_subgroup:
     params:
         by = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["name"],
         by_order = lambda wildcards, output: config["subgroups"][wildcards.subgroup]["level-order"],
+        attribute_order = config["attribute-order"],
         level_order = config["level-order"]
     output:
         plot = "build/paper/vega/{estimate}-{measure}-by-{subgroup}.json"
