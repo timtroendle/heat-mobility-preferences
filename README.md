@@ -12,7 +12,7 @@ You need [mamba](https://mamba.readthedocs.io/en/latest/) to run the analysis. U
 
 ## Run the analysis
 
-    snakemake --profile profiles/default
+    snakemake
 
 This will run all analysis steps to reproduce results and eventually build the report.
 
@@ -20,18 +20,18 @@ You can also run certain parts only by using other `snakemake` rules; to get a l
 
 To generate a PDF of the dependency graph of all steps `build/dag.pdf` run:
 
-    snakemake --profile profiles/default -f dag
+    snakemake -f dag
 
 
 ## Be notified of build successes or fails
 
   As the execution of this workflow may take a while, you can be notified whenever the execution terminates either successfully or unsuccessfully. Notifications are sent by email. To activate notifications, add the email address of the recipient to the configuration key `email`. You can add the key to your configuration file, or you can run the workflow the following way to receive notifications:
 
-      snakemake --profile profiles/default --config email=<your-email>
+      snakemake --config email=<your-email>
 
 ## Run the tests
 
-    snakemake --profile profiles/default test
+    snakemake test
 
 ## Repo structure
 
