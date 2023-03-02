@@ -371,6 +371,10 @@ d_package = d_package %>%
   mutate(
     choiceNum = as.numeric(gsub("[A-Za-z]|_.+", "", variable)),
     packNum   = as.numeric(gsub(".+(.$)", "\\1", variable)),
+    packNum_cat = case_when(
+        packNum == 1 ~ "Left",
+        packNum == 2 ~ "Right",
+    ),
     attribute = gsub(".+_|.$", "", variable)
   ) %>%
   select(-variable) %>%
@@ -424,21 +428,25 @@ stack_rating = stack_rating %>%
 # divide into two tables for the two sectors, and drop rows when data for packages is missing
 choice_h = stack_choice %>% 
   select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "choice", "Y")) %>%
+  mutate(packNum = case_when(packNum == 1 ~ "Left", packNum == 2 ~ "Right")) %>%
   filter(choiceNum < 6) %>%
   drop_na("htiming")
 
 choice_t = stack_choice %>%  
   select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "choice", "Y")) %>%
+  mutate(packNum = case_when(packNum == 1 ~ "Left", packNum == 2 ~ "Right")) %>%
   filter(choiceNum >= 6) %>%
   drop_na("ttiming")
 
 rating_h = stack_rating %>% 
   select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "rating", "bin_rate")) %>%
+  mutate(packNum = case_when(packNum == 1 ~ "Left", packNum == 2 ~ "Right")) %>%
   filter(choiceNum < 6) %>%
   drop_na("htiming")
 
 rating_t = stack_rating %>%  
   select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "rating", "bin_rate")) %>%
+  mutate(packNum = case_when(packNum == 1 ~ "Left", packNum == 2 ~ "Right")) %>%
   filter(choiceNum >= 6) %>%
   drop_na("ttiming")
 

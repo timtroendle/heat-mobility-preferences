@@ -79,7 +79,9 @@ rule supplementary:
         "report/fonts/KlinicSlabBookIt.otf",
         "report/fonts/KlinicSlabMedium.otf",
         "report/fonts/KlinicSlabMediumIt.otf",
-        "build/paper/amce-choice-by-First.png"
+        "build/paper/amce-choice-by-First.png",
+        "build/paper/amce-choice-by-choiceNum.png",
+        "build/paper/amce-choice-by-packNum.png",
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:

@@ -62,3 +62,9 @@ subgroups:
     First:
         name: Sector shown first
         level-order: ['Transport', 'Heating']
+    choiceNum:
+        name: Choice task per respondent
+        level-order: [1, 2, 3, 4, 5]
+    packNum:
+        name: Display side
+        level-order: ["Left", "Right"]
