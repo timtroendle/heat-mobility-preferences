@@ -8,8 +8,7 @@ library(arrow)
 ##
 
 d <- read_feather(snakemake@input[["d"]])
-resp_char <- read_feather(snakemake@input[["resp_char"]])
-attitudes <- read_feather(snakemake@input[["attitudes"]])
+resp_char <- read_feather(snakemake@input[["respondents"]])
 
 choice_t <- read_feather(snakemake@input[["choice_t"]])
 choice_h <- read_feather(snakemake@input[["choice_h"]])
@@ -273,13 +272,6 @@ cronbach_cceval
 ##############################################################################################
 # Subgroup analysis climate change evaluation
 ##
-
-# join attitude data
-choice_h = choice_h %>%
-  left_join(attitudes, by= "ID") 
-
-choice_t = choice_t %>%
-  left_join(attitudes, by= "ID")
 
 # analyse influence of cceval (heating)
 ch_cceval = choice_h %>%

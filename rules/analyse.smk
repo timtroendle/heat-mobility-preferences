@@ -11,7 +11,7 @@ rule sample:
     message: "Analyse the sample."
     input:
         d = rules.preprocess.output.d,
-        resp_char = rules.preprocess.output.resp_char,
+        respondents = rules.preprocess.output.respondents,
         attitudes = rules.preprocess.output.attitudes,
         rating_t = rules.preprocess.output.rating_t,
         rating_h = rules.preprocess.output.rating_h,
@@ -30,6 +30,7 @@ rule framing:
         rating_h = rules.preprocess.output.rating_h,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
+        framing = rules.preprocess.output.framing,
     params:
         level_order_heat = config["level-order"]["heat"],
         level_order_transport = config["level-order"]["transport"]
@@ -60,8 +61,7 @@ rule subgroups:
     message: "Analyse subgroups."
     input:
         d = rules.preprocess.output.d,
-        resp_char = rules.preprocess.output.resp_char,
-        attitudes = rules.preprocess.output.attitudes,
+        respondents = rules.preprocess.output.respondents,
         choice_t = rules.preprocess.output.choice_t,
         choice_h = rules.preprocess.output.choice_h,
     params:
@@ -91,8 +91,7 @@ rule analyse_subgroup:
              "by subgroup {wildcards.subgroup}."
     input:
         data = "build/data/{measure}-{sector}.feather",
-        resp_char = rules.preprocess.output.resp_char,
-        attitudes = rules.preprocess.output.attitudes
+        respondents = rules.preprocess.output.respondents,
     params:
         alpha = 1 - config["confidence-level"]
     output:

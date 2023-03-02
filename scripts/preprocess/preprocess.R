@@ -75,34 +75,24 @@ d = d %>%
     "10_rating_2" = "6_support_t_2",     
   )
 
-# extract framing and rename
-framing = d %>%
-  select(c("ID", "Framing")) %>%
-  mutate(Framing = fct_recode(Framing,
-                           "Phase-Out"  = "P",
-                           "Renewables" = "R"))
-
-# extract sectors and rename
-first_sector = d %>%
-  select(c("ID", "First")) %>%
-  mutate(First = fct_recode(First,
-                              "Heating"  = "H",
-                              "Transport" = "T"))
-  
-# extract respondent charactercistics and recode
+# extract respondents attributes and responses and recode
 co2_share_h <- snakemake@params[["co2_share_heat"]]
 co2_share_t <- snakemake@params[["co2_share_transport"]]
 co2_share_tol <- snakemake@params[["co2_share_tolerance"]]
-resp_char <- d %>% select(
+respondents <- d %>% select(
         c("ID", "age", "gender", "education", "party_pref", "number_adults", "number_children", "income",
           "residential_area", "number_diesel", "number_gas", "number_hybrid", "number_plugin", "number_EV",
           "number_other", "car_days", "source_h", "building_type", "ownership", "influence_h", "relevance_h",
-          "relevance_t")
+          "relevance_t", "First", "Framing", "climate_change_1", "climate_change_2", "climate_change_3",
+          "climate_change_4", "climate_change_5", "climate_change_6", "responsibility_1", "responsibility_2",
+          "responsibility_3", "trust_1", "trust_2", "trust_3")
 ) %>%
     mutate(
         across(
             c("age", "gender", "education", "party_pref", "number_adults", "number_children", "income",
-              "residential_area", "car_days", "source_h", "building_type", "ownership", "influence_h"),
+              "residential_area", "car_days", "source_h", "building_type", "ownership", "influence_h",
+              "climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4",
+              "climate_change_5", "climate_change_6"),
             factor
         ),
         age = fct_recode(
@@ -298,37 +288,77 @@ resp_char <- d %>% select(
             relevance_t >= co2_share_t + co2_share_tol ~ "Too high"
         ),
         relevance_t_cat = factor(relevance_t_cat, levels = c("Too low", "Correct", "Too high"), ordered = TRUE),
+        First = fct_recode(
+            First,
+            "Heating"  = "H",
+            "Transport" = "T"
+        ),
+        Framing = fct_recode(Framing,
+            "Phase-Out"  = "P",
+            "Renewables" = "R"
+        ),
+        cceval = (
+            (d$climate_change_1 + d$climate_change_2 + d$climate_change_3 +
+             d$climate_change_4 + d$climate_change_5 + d$climate_change_6) / 6
+        ),
+        cceval_cat = case_when(
+            cceval < 3 ~ "Low",
+            cceval > 3 & cceval < 4 ~ "Medium",
+            cceval > 4 ~ "High"
+        ),
+        cceval_cat = factor(cceval_cat, levels = c("Low", "Medium", "High"), ordered = TRUE),
+        trust_gov_cat = case_when(
+            trust_1 < 3 ~ "do not trust",
+            trust_1 == 3 ~ "neither / nor",
+            trust_1 > 3 ~ "trust"
+        ),
+        trust_gov_cat = factor(trust_gov_cat, levels = c("do not trust", "neither / nor", "trust"), ordered = TRUE),
+        trust_com_cat = case_when(
+            trust_2 < 3 ~ "do not trust",
+            trust_2 == 3 ~ "neither / nor",
+            trust_2 > 3 ~ "trust"
+        ),
+        trust_com_cat = factor(trust_com_cat, levels = c("do not trust", "neither / nor", "trust"), ordered = TRUE),
+        trust_cit_cat = case_when(
+            trust_3 < 3 ~ "do not trust",
+            trust_3 == 3 ~ "neither / nor",
+            trust_3 > 3 ~ "trust"
+        ),
+        trust_cit_cat = factor(trust_cit_cat, levels = c("do not trust", "neither / nor", "trust"), ordered = TRUE),
+        resp_gov_cat = case_when(
+            responsibility_1 < 3 ~ "not responsible",
+            responsibility_1 == 3 ~ "neither / nor",
+            responsibility_1 > 3 ~ "responsible"
+        ),
+        resp_gov_cat = factor(
+            resp_gov_cat, levels = c("not responsible", "neither / nor", "responsible"), ordered = TRUE
+        ),
+        resp_com_cat = case_when(
+            responsibility_2 < 3 ~ "not responsible",
+            responsibility_2 == 3 ~ "neither / nor",
+            responsibility_2 > 3 ~ "responsible"
+        ),
+        resp_com_cat = factor(
+            resp_com_cat, levels = c("not responsible", "neither / nor", "responsible"), ordered = TRUE
+        ),
+        resp_cit_cat = case_when(
+            responsibility_3 < 3 ~ "not responsible",
+            responsibility_3 == 3 ~ "neither / nor",
+            responsibility_3 > 3 ~ "responsible"
+        ),
+        resp_cit_cat = factor(
+            resp_cit_cat, levels = c("not responsible", "neither / nor", "responsible"), ordered = TRUE
+        ),
     )
 
 # extract attitudes data and calculate mean values for climate beliefs and climate action
-attitudes = d %>%
-  select(c("ID", "climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4", "climate_change_5", "climate_change_6",
-           "responsibility_1", "responsibility_2", "responsibility_3",
-           "trust_1", "trust_2", "trust_3")) %>%
-  mutate_at(c("climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4", "climate_change_5", "climate_change_6"), factor) %>%
-  mutate(cceval = ((d$climate_change_1 + d$climate_change_2 + d$climate_change_3 + d$climate_change_4 + d$climate_change_5 + d$climate_change_6) / 6)) %>%
-    mutate(cceval_cat = case_when(cceval < 3 ~ "Low",
-                                  cceval >3 & cceval < 4 ~ "Medium",
-                                  cceval > 4 ~ "High")) %>%
-  mutate(trust_gov_cat = case_when(trust_1 < 3 ~ "do not trust",
-                                   trust_1 == 3 ~ "neither / nor",
-                                   trust_1 > 3 ~ "trust")) %>%  
-  mutate(trust_com_cat = case_when(trust_2 < 3 ~ "do not trust",
-                                   trust_2 == 3 ~ "neither / nor",
-                                   trust_2 > 3 ~ "trust")) %>% 
-  mutate(trust_cit_cat = case_when(trust_3 < 3 ~ "do not trust",
-                                   trust_3 == 3 ~ "neither / nor",
-                                   trust_3 > 3 ~ "trust")) %>% 
-  mutate(resp_gov_cat = case_when(responsibility_1 < 3 ~ "not responsible",
-                                  responsibility_1 == 3 ~ "neither / nor",
-                                  responsibility_1 > 3 ~ "responsible")) %>% 
-  mutate(resp_com_cat = case_when(responsibility_2 < 3 ~ "not responsible",
-                                  responsibility_2 == 3 ~ "neither / nor",
-                                  responsibility_2 > 3 ~ "responsible")) %>% 
-  mutate(resp_cit_cat = case_when(responsibility_3 < 3 ~ "not responsible",
-                                  responsibility_3 == 3 ~ "neither / nor",
-                                  responsibility_3 > 3 ~ "responsible")) %>%
-  mutate_at(c("cceval_cat","trust_gov_cat", "trust_com_cat", "trust_cit_cat", "resp_gov_cat", "resp_com_cat","resp_cit_cat"),  factor)
+attitudes <- respondents %>% # TODO remove
+  select(c(
+    "ID", "climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4",
+    "climate_change_5", "climate_change_6", "responsibility_1", "responsibility_2", "responsibility_3",
+    "trust_1", "trust_2", "trust_3", "cceval", "cceval_cat", "trust_gov_cat", "trust_com_cat",
+    "trust_cit_cat", "resp_gov_cat", "resp_com_cat", "resp_cit_cat"
+))
 
 ##############################################################################################
 # Data preparation for conjoint part
@@ -376,12 +406,9 @@ d_rate$bin_rate = ifelse(d_rate$rating == 1, 0,
 # merge the attributes and preferences.
 stack_choice = left_join(d_package, d_choice)
 stack_choice = stack_choice %>%
-  mutate(Y = as.numeric(packNum == choice)) %>%
-  left_join(framing, by = "ID")
+  mutate(Y = as.numeric(packNum == choice))
 
-stack_rating = left_join(d_package, d_rate) 
-stack_rating = stack_rating %>%
-  left_join(framing, by = "ID")
+stack_rating = left_join(d_package, d_rate)
 
 # check that there are no extra rows .
 nrow(stack_choice) == (nrow(d) * max(as.numeric(stack_choice$packNum)) * max(as.numeric(stack_choice$choiceNum)))
@@ -396,31 +423,31 @@ stack_rating = stack_rating %>%
 
 # divide into two tables for the two sectors, and drop rows when data for packages is missing
 choice_h = stack_choice %>% 
-  select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "choice","Y", "Framing")) %>%
+  select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "choice", "Y")) %>%
   filter(choiceNum < 6) %>%
   drop_na("htiming")
 
 choice_t = stack_choice %>%  
-  select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "choice","Y", "Framing")) %>%
+  select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "choice", "Y")) %>%
   filter(choiceNum >= 6) %>%
   drop_na("ttiming")
 
 rating_h = stack_rating %>% 
-  select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "rating", "bin_rate", "Framing")) %>%
+  select(c("ID", "choiceNum", "packNum", "htiming", "hpurchase", "huse", "hcompensation", "rating", "bin_rate")) %>%
   filter(choiceNum < 6) %>%
   drop_na("htiming")
 
 rating_t = stack_rating %>%  
-  select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "rating", "bin_rate", "Framing")) %>%
+  select(c("ID", "choiceNum", "packNum", "ttiming", "tpurchase", "tuse", "tcompensation", "rating", "bin_rate")) %>%
   filter(choiceNum >= 6) %>%
   drop_na("ttiming")
 
 # convert results conjoint to factor
-cols2fah <- c("htiming", "hpurchase", "huse", "hcompensation", "Framing", "choiceNum", "packNum")
+cols2fah <- c("htiming", "hpurchase", "huse", "hcompensation", "choiceNum", "packNum")
 choice_h[cols2fah] <- lapply(choice_h[cols2fah], factor)
 rating_h[cols2fah] <- lapply(rating_h[cols2fah], factor)
 
-cols2fat <- c("ttiming", "tpurchase", "tuse", "tcompensation", "Framing", "choiceNum", "packNum")
+cols2fat <- c("ttiming", "tpurchase", "tuse", "tcompensation", "choiceNum", "packNum")
 choice_t[cols2fat] <- lapply(choice_t[cols2fat], factor)
 rating_t[cols2fat] <- lapply(rating_t[cols2fat], factor)
 
@@ -536,23 +563,23 @@ choice_t <- recode_transport(choice_t)
 rating_t <- recode_transport(rating_t)
 
 choice_h <- choice_h %>%
-    left_join(resp_char %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
+    left_join(respondents %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
     rename(relevance_cat = relevance_h_cat)
 choice_t <- choice_t %>%
-    left_join(resp_char %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
+    left_join(respondents %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
     rename(relevance_cat = relevance_t_cat)
 rating_h <- rating_h %>%
-    left_join(resp_char %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
+    left_join(respondents %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
     rename(relevance_cat = relevance_h_cat)
 rating_t <- rating_t %>%
-    left_join(resp_char %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
+    left_join(respondents %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
     rename(relevance_cat = relevance_t_cat)
 
 write_feather(d, snakemake@output[["d"]])
-write_feather(first_sector, snakemake@output[["first_sector"]])
-write_feather(framing, snakemake@output[["framing"]])
-write_feather(resp_char, snakemake@output[["resp_char"]])
-write_feather(attitudes, snakemake@output[["attitudes"]])
+write_feather(respondents %>% select(c("ID", "First")), snakemake@output[["first_sector"]]) # TODO remove
+write_feather(respondents %>% select(c("ID", "Framing")), snakemake@output[["framing"]]) # TODO remove
+write_feather(respondents, snakemake@output[["respondents"]])
+write_feather(attitudes, snakemake@output[["attitudes"]]) # TODO remove
 
 write_feather(rating_t, snakemake@output[["rating_t"]])
 write_feather(rating_h, snakemake@output[["rating_h"]])

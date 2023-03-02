@@ -18,11 +18,10 @@ analyse_main_effects <- function(data, estimate, measure, alpha, path_to_output)
 }
 
 
-analyse_subgroups <- function(data, attitudes, resp_char, estimate, measure, by, alpha, path_to_output) {
+analyse_subgroups <- function(data, respondents, estimate, measure, by, alpha, path_to_output) {
     # add respondent characteristics
     data <- data %>%
-        left_join(resp_char, by = "ID") %>%
-        left_join(attitudes, by = "ID") %>%
+        left_join(respondents, by = "ID") %>%
         drop_na(by) # TODO assess NAs
 
     by_sym <- as.symbol(by)
@@ -50,8 +49,7 @@ if (is.null(snakemake@wildcards[["subgroup"]])) {
 } else {
     analyse_subgroups(
         data = read_feather(snakemake@input[["data"]]),
-        attitudes = read_feather(snakemake@input[["attitudes"]]),
-        resp_char = read_feather(snakemake@input[["resp_char"]]),
+        respondents = read_feather(snakemake@input[["respondents"]]),
         measure = snakemake@wildcards[["measure"]],
         by = snakemake@wildcards[["subgroup"]],
         estimate = snakemake@wildcards[["estimate"]],

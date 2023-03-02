@@ -11,6 +11,12 @@ rating_t <- read_feather(snakemake@input[["rating_t"]])
 rating_h <- read_feather(snakemake@input[["rating_h"]])
 choice_t <- read_feather(snakemake@input[["choice_t"]])
 choice_h <- read_feather(snakemake@input[["choice_h"]])
+framing <- read_feather(snakemake@input[["framing"]])
+
+rating_t <- rating_t %>% left_join(framing, by = "ID")
+rating_h <- rating_h %>% left_join(framing, by = "ID")
+choice_t <- choice_t %>% left_join(framing, by = "ID")
+choice_h <- choice_h %>% left_join(framing, by = "ID")
 
 ##############################################################################################
 # Analyse whether framing has a significant effect, and show MM with framng as an interaction effect

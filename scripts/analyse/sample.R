@@ -12,7 +12,7 @@ library(arrow)
 ##
 
 d <- read_feather(snakemake@input[["d"]])
-resp_char <- read_feather(snakemake@input[["resp_char"]])
+resp_char <- read_feather(snakemake@input[["respondents"]])
 attitudes <- read_feather(snakemake@input[["attitudes"]])
 
 rating_t <- read_feather(snakemake@input[["rating_t"]])

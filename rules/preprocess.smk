@@ -10,7 +10,7 @@ rule preprocess:
         d = "build/data/d.feather",
         first_sector = "build/data/first_sector.feather",
         framing = "build/data/framing.feather",
-        resp_char = "build/data/resp_char.feather",
+        respondents = "build/data/respondents.feather",
         attitudes = "build/data/attitudes.feather",
         rating_t = "build/data/rating-transport.feather",
         rating_h = "build/data/rating-heat.feather",
