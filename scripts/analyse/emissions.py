@@ -32,7 +32,7 @@ def time_series_plot(path_to_emissions: str, path_to_plot: str):
     ax.set_ylabel(f"Change since {REFERENCE_YEAR}")
     ax.get_xaxis().set_major_locator(MultipleLocator(10))
     ax.get_xaxis().set_minor_locator(MultipleLocator(1))
-    ax.set_title(f"CO2 emissions in selected sectors in Germany")
+    ax.set_title("CO2 emissions in selected sectors in Germany")
     sns.despine(fig)
     fig.tight_layout()
     fig.savefig(path_to_plot)
