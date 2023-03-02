@@ -132,7 +132,7 @@ rule visualise_subgroup:
     script: "../scripts/analyse/level_plot.py"
 
 
-rule render_vega_lite:
+rule render_vega_lite_to_pdf:
     message: "Render Vega Lite spec {wildcards.filename}.json to pdf."
     input:
         json = "build/paper/vega/{filename}.json"
@@ -141,3 +141,14 @@ rule render_vega_lite:
     conda: "../envs/vega.yaml"
     # vl2pdf not usable because of https://github.com/queryverse/VegaLite.jl/issues/383
     shell: "vl2vg {input.json} | vg2pdf > {output.pdf}"
+
+
+rule render_vega_lite_to_png:
+    message: "Render Vega Lite spec {wildcards.filename}.json to png."
+    input:
+        json = "build/paper/vega/{filename}.json"
+    output:
+        png = "build/paper/{filename}.png"
+    conda: "../envs/vega.yaml"
+    # vl2png not usable because of https://github.com/queryverse/VegaLite.jl/issues/383
+    shell: "vl2vg {input.json} | vg2png --scale 4.167 > {output.png}" # scale to ~300dpi

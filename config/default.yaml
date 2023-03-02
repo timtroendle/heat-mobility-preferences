@@ -59,3 +59,6 @@ subgroups:
     relevance_cat:
         name: Assumed sector emission share
         level-order: ['Too low', 'Correct', 'Too high']
+    First:
+        name: Sector shown first
+        level-order: ['Transport', 'Heating']
