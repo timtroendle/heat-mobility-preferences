@@ -100,6 +100,15 @@ rule supplementary:
         """
 
 
+rule push:
+    message: "Package, zip, and move entire build."
+    params: push_directory = config["push-directory"]
+    shell:
+        """
+        zip -r {params.push_directory}/$(date -Idate).zip build
+        """
+
+
 rule dag:
      message: "Plot dependency graph of the workflow."
      output:

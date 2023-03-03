@@ -1,4 +1,5 @@
 # The right place for all your configuration values.
+push-directory: ~/Library/CloudStorage/OneDrive-ETHZurich/heat-mobility-preferences/results/
 co2-share:
     transport: 25 # TODO double-check
     heat: 15 # TODO double-check
