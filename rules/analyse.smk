@@ -100,6 +100,21 @@ rule analyse_subgroup:
     script: "../scripts/analyse/conjoint.R"
 
 
+rule analyse_experimental_design:
+    message: "Analyse experimental design in sector {wildcards.sector} based on {wildcards.measure}."
+    input:
+        data = "build/data/{measure}-{sector}.feather",
+        respondents = rules.preprocess.output.respondents
+    params:
+        attributes = config["attribute-order"]
+    output:
+        freqs = "build/design/{measure}-{sector}.csv"
+    conda:
+        "../envs/default.yaml"
+    script:
+        "../scripts/analyse/freqs.py"
+
+
 rule visualise_main_effects:
     message: "Visualise main results for measure {wildcards.measure} and estimate {wildcards.estimate}."
     input:
@@ -130,6 +145,21 @@ rule visualise_subgroup:
         plot = "build/paper/vega/{estimate}-{measure}-by-{subgroup}.json"
     conda: "../envs/altair-dev.yaml"
     script: "../scripts/analyse/level_plot.py"
+
+
+rule visualise_experimental_design:
+    message: "Visual experimental design for measure {wildcards.measure}."
+    input:
+        heat = "build/design/{measure}-heat.csv",
+        transport = "build/design/{measure}-transport.csv",
+    params:
+        level_order = config["level-order"]
+    output:
+        plot = "build/paper/vega/{measure}-experimental-design.json"
+    conda:
+        "../envs/altair-dev.yaml"
+    script:
+        "../scripts/analyse/design_plot.py"
 
 
 rule render_vega_lite_to_pdf:

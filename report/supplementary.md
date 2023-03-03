@@ -25,4 +25,11 @@
 
 <div class="pagebreak"> </div>
 
+
+# Figure S5:
+
+![**Attribute level correlations of our experimental designs.** Colour of rectangles shows the number of times two attribute levels occurred together within one profile. The experiments contain n=17'800 policy packges.](build/paper/choice-experimental-design.png){#fig:experimental-design tag="S5"}
+
+<div class="pagebreak"> </div>
+
 # References
