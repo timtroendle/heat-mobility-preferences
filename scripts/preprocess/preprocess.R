@@ -32,11 +32,11 @@ hist_q
 ggsave(snakemake@output[["duration"]],
          width = 10, height = 6)  
 
-# filter out speeders
-d = d %>%
-  filter(duration_minutes >= quantile(d$duration_minutes, probs=.05))
-
-summary(d$duration_minutes)
+# identify speeders
+d <- d %>% mutate(speeders = case_when(
+    duration_minutes >= quantile(d$duration_minutes, probs = .05) ~ "No speeders",
+    duration_minutes < quantile(d$duration_minutes, probs = .05) ~ "Speeders",
+))
 
 # mutate ResponseIDs to start with 1 until nrow and rename preferences to fit with choice naming
 d = d %>%
@@ -85,14 +85,14 @@ respondents <- d %>% select(
           "number_other", "car_days", "source_h", "building_type", "ownership", "influence_h", "relevance_h",
           "relevance_t", "First", "Framing", "climate_change_1", "climate_change_2", "climate_change_3",
           "climate_change_4", "climate_change_5", "climate_change_6", "responsibility_1", "responsibility_2",
-          "responsibility_3", "trust_1", "trust_2", "trust_3")
+          "responsibility_3", "trust_1", "trust_2", "trust_3", "speeders")
 ) %>%
     mutate(
         across(
             c("age", "gender", "education", "party_pref", "number_adults", "number_children", "income",
               "residential_area", "car_days", "source_h", "building_type", "ownership", "influence_h",
               "climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4",
-              "climate_change_5", "climate_change_6"),
+              "climate_change_5", "climate_change_6", "speeders"),
             factor
         ),
         age = fct_recode(

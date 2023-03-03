@@ -14,7 +14,14 @@
 
 # Figure S3: Effect of display side
 
-![**Relationship between display side and choices.** Points show marginal means of the forced choices of policy packages within the heat (left) and transport (right) sectors. Profiles display on the left-hand side and ride-hand side are shown using varying opacity. Horizontal bars represent the 95% confidence interval. There were n=1,780 respondents and 17’800 policy packages.](build/paper/amce-choice-by-packNum.png){#fig:packNum tag="S3"}
+![**Relationship between display side and choices.** Points show marginal means of the forced choices of policy packages within the heat (left) and transport (right) sectors. Profiles displayed on the left-hand side and ride-hand side are shown using varying opacity. Horizontal bars represent the 95% confidence interval. There were n=1,780 respondents and 17’800 policy packages.](build/paper/amce-choice-by-packNum.png){#fig:packNum tag="S3"}
+
+<div class="pagebreak"> </div>
+
+
+# Figure S4: Effect of filtering speeders
+
+![**Relationship between filtering speeders and choices.** Points show marginal means of the forced choices of policy packages within the heat (left) and transport (right) sectors. Data with and without filtering respondents that speeded through the experiment are shown using varying opacity. Horizontal bars represent the 95% confidence interval. There were n=1,780 respondents and 17’800 policy packages.](build/paper/amce-choice-by-speeders.png){#fig:speeders tag="S4"}
 
 <div class="pagebreak"> </div>
 

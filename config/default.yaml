@@ -68,3 +68,6 @@ subgroups:
     packNum:
         name: Display side
         level-order: ["Left", "Right"]
+    speeders:
+        name: Respondents
+        level-order: ["All", "Without speeders"]

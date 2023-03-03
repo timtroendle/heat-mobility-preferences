@@ -82,6 +82,7 @@ rule supplementary:
         "build/paper/amce-choice-by-First.png",
         "build/paper/amce-choice-by-choiceNum.png",
         "build/paper/amce-choice-by-packNum.png",
+        "build/paper/amce-choice-by-speeders.png",
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:

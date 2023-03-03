@@ -18,10 +18,8 @@ analyse_main_effects <- function(data, estimate, measure, alpha, path_to_output)
 }
 
 
-analyse_subgroups <- function(data, respondents, estimate, measure, by, alpha, path_to_output) {
-    # add respondent characteristics
+analyse_subgroups <- function(data, estimate, measure, by, alpha, path_to_output) {
     data <- data %>%
-        left_join(respondents, by = "ID") %>%
         drop_na(by) # TODO assess NAs
 
     by_sym <- as.symbol(by)
@@ -38,18 +36,38 @@ analyse_subgroups <- function(data, respondents, estimate, measure, by, alpha, p
     write_csv(fit, path_to_output)
 }
 
+
+handle_speeder_special_case <- function(data) {
+    all_respondents <- data
+    all_respondents$speeders <- "All"
+    no_speeder <- data_without_speeder
+    no_speeder$speeders <- "Without speeders"
+    data <- rbind(all_respondents, no_speeder)
+    data$speeders <- factor(data$speeders)
+    data
+}
+
+data <- read_feather(snakemake@input[["data"]]) %>%
+    left_join(read_feather(snakemake@input[["respondents"]]), by = "ID")
+data_without_speeder <- data %>% filter(speeders == "No speeders")
+
 if (is.null(snakemake@wildcards[["subgroup"]])) {
     analyse_main_effects(
-        data = read_feather(snakemake@input[["data"]]),
+        data = data_without_speeder,
         measure = snakemake@wildcards[["measure"]],
         estimate = snakemake@wildcards[["estimate"]],
         alpha = snakemake@params[["alpha"]],
         path_to_output = snakemake@output[[1]]
     )
 } else {
+    subgroup <- snakemake@wildcards[["subgroup"]]
+    if (subgroup == "speeders") {
+        data <- handle_speeder_special_case(data)
+    } else {
+        data <- data_without_speeder
+    }
     analyse_subgroups(
-        data = read_feather(snakemake@input[["data"]]),
-        respondents = read_feather(snakemake@input[["respondents"]]),
+        data = data,
         measure = snakemake@wildcards[["measure"]],
         by = snakemake@wildcards[["subgroup"]],
         estimate = snakemake@wildcards[["estimate"]],

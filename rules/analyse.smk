@@ -76,14 +76,14 @@ rule subgroups:
 rule analyse_main_effect:
     message: "Analyse {wildcards.estimate} in sector {wildcards.sector} based on {wildcards.measure}."
     input:
-        data = "build/data/{measure}-{sector}.feather"
+        data = "build/data/{measure}-{sector}.feather",
+        respondents = rules.preprocess.output.respondents
     params:
         alpha = 1 - config["confidence-level"]
     output:
         "build/paper/fit/{estimate}-{measure}-{sector}.csv"
     conda: "../envs/r.yaml"
     script: "../scripts/analyse/conjoint.R"
-
 
 
 rule analyse_subgroup:
