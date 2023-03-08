@@ -26,10 +26,14 @@
 <div class="pagebreak"> </div>
 
 
-# Figure S5:
+# Figure S5: Experimental design
 
 ![**Attribute level correlations of our experimental designs.** Colour of rectangles shows the number of times two attribute levels occurred together within one profile. The experiments contain n=17'800 policy packges.](build/paper/choice-experimental-design.png){#fig:experimental-design tag="S5"}
 
 <div class="pagebreak"> </div>
 
-# References
+# Figure S6: Relationship between climate change concern and ratings
+
+![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the heat (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern). Horizontal bars represent the 95% confidence interval. There were n=1,780 respondents and 17,800 policy packages.](build/paper/mm-rating-by-cceval_cat.png){#fig:rating-cceval tag="S6"}
+
+<div class="pagebreak"> </div>

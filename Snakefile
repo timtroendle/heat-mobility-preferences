@@ -39,15 +39,9 @@ rule all:
         "build/supplementary.pdf",
         "build/test-report.html",
         "build/emissions.png",
-        "build/paper/mm-choice.pdf",
-        "build/paper/mm-rating.pdf",
-        "build/paper/amce-choice.pdf",
-        "build/paper/amce-rating.pdf",
-        "build/paper/mm-choice-by-cceval_cat.pdf",
-        "build/paper/mm-choice-by-relevance_cat.pdf",
-        "build/paper/mm-rating-by-cceval_cat.pdf",
-        "build/paper/mm-rating-by-relevance_cat.pdf",
-        "build/paper/amce-rating-by-cceval_cat.pdf",
+        "build/paper/amce-choice.png",
+        "build/paper/mm-choice-by-cceval_cat.png",
+        "build/paper/mm-rating-by-relevance_cat.png",
         rules.sample.output[0],
         rules.framing.output[0],
         rules.robustness.output[0],
@@ -83,7 +77,8 @@ rule supplementary:
         "build/paper/amce-choice-by-choiceNum.png",
         "build/paper/amce-choice-by-packNum.png",
         "build/paper/amce-choice-by-speeders.png",
-        "build/paper/choice-experimental-design.png"
+        "build/paper/choice-experimental-design.png",
+        "build/paper/mm-rating-by-cceval_cat.png",
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:
