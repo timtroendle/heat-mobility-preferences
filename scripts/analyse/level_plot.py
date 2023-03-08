@@ -31,7 +31,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
 
     chart_heating = visualise_single_sector(
         df_heat,
-        title="Heat",
+        title="Building",
         estimate=estimate_name,
         domain=domain,
         attribute_order=attribute_order,
