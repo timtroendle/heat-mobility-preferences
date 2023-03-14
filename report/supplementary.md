@@ -37,3 +37,15 @@
 ![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern). Horizontal bars represent the 95% confidence interval. There were n=1,780 respondents and 17,800 policy packages.](build/paper/mm-rating-by-cceval_cat.png){#fig:rating-cceval tag="S6"}
 
 <div class="pagebreak"> </div>
+
+# Table S1: Comparison of distribution of socio-demographic variables to the German population
+
+```table
+---
+caption: 'Comparison of distribution of socio-demographic variables to the German population. Source of population data: German Zensus 2011.'
+alignment: LLL
+include: build/paper/sample-vs-population.csv
+include-encoding: UTF-8
+markdown: False
+---
+```

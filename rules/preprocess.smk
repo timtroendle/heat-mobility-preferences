@@ -19,3 +19,18 @@ rule preprocess:
         duration = "build/figures-and-tables/checks/Histogram duration.png",
     conda: "../envs/r.yaml"
     script: "../scripts/preprocess/preprocess.R"
+
+
+rule census_data:
+    message: "Download zensus data to compare our sample against."
+    params:
+        url = config["data-sources"]["census"]
+    output:
+        zip = temp("data/automatic/raw-census.zip"),
+        csv = protected("data/automatic/Zensus11_Datensatz_Bevoelkerung.csv")
+    shadow:
+        "minimal"
+    shell: """
+        curl -sLo {output.zip} '{params.url}'
+        unzip -o {output.zip} -d data/automatic
+        """

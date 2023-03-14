@@ -73,6 +73,19 @@ rule subgroups:
     script: "../scripts/analyse/subgroups.R"
 
 
+rule compare_to_population:
+    message: "Compare sample to population."
+    input:
+        sample = rules.preprocess.output.respondents,
+        population = rules.census_data.output.csv
+    output:
+        "build/paper/sample-vs-population.csv"
+    conda:
+        "../envs/default.yaml"
+    script:
+        "../scripts/analyse/sample.py"
+
+
 rule analyse_main_effect:
     message: "Analyse {wildcards.estimate} in sector {wildcards.sector} based on {wildcards.measure}."
     input:

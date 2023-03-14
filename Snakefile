@@ -1,5 +1,5 @@
 from snakemake.utils import min_version
-PANDOC = "pandoc --filter pantable --filter pandoc-fignos --filter pandoc-tablenos --citeproc"
+PANDOC = "pandoc --filter pantable --filter pandoc-fignos --citeproc"
 
 configfile: "config/default.yaml"
 
@@ -79,6 +79,7 @@ rule supplementary:
         "build/paper/amce-choice-by-speeders.png",
         "build/paper/choice-experimental-design.png",
         "build/paper/mm-rating-by-cceval_cat.png",
+        "build/paper/sample-vs-population.csv",
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:
