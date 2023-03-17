@@ -42,6 +42,8 @@ rule all:
         "build/paper/amce-choice.png",
         "build/paper/mm-choice-by-cceval_cat.png",
         "build/paper/mm-rating-by-relevance_cat.png",
+        "build/paper/fit/amce-choice-heat-by-cceval_cat.csv",
+        "build/paper/fit/amce-choice-transport-by-cceval_cat.csv",
         rules.sample.output[0],
         rules.framing.output[0],
         rules.robustness.output[0],

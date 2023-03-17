@@ -302,9 +302,9 @@ respondents <- d %>% select(
              d$climate_change_4 + d$climate_change_5 + d$climate_change_6) / 6
         ),
         cceval_cat = case_when(
-            cceval < 3 ~ "Low",
-            cceval > 3 & cceval < 4 ~ "Medium",
-            cceval > 4 ~ "High"
+            cceval < 2.5 ~ "Low",
+            cceval >= 2.5 & cceval < 3.5 ~ "Medium",
+            cceval >= 3.5 ~ "High"
         ),
         cceval_cat = factor(cceval_cat, levels = c("Low", "Medium", "High"), ordered = TRUE),
         trust_gov_cat = case_when(
