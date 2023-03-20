@@ -38,6 +38,18 @@
 
 <div class="pagebreak"> </div>
 
+# Figure S7: Respondent shares by climate change concern and problem understanding (Building)
+
+![**Shares of respondents grouped by climate change concern and problem understanding in the building sector.** There were n=1,780 respondents.](build/paper/concern-and-understanding-shares-heat.png){#fig:share-heat tag="S7"}
+
+<div class="pagebreak"> </div>
+
+# Figure S8: Respondent shares by climate change concern and problem understanding (Transport)
+
+![**Shares of respondents grouped by climate change concern and problem understanding in the transport sector.** There were n=1,780 respondents.](build/paper/concern-and-understanding-shares-transport.png){#fig:share-transport tag="S8"}
+
+<div class="pagebreak"> </div>
+
 # Table S1: Comparison of distribution of socio-demographic variables to the German population
 
 ```table

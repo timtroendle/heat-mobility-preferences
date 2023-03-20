@@ -175,6 +175,31 @@ rule visualise_experimental_design:
         "../scripts/analyse/design_plot.py"
 
 
+rule visualise_ratings:
+    message: "Visualise average ratings by climate concern and problem understanding."
+    input:
+        heat = "build/paper/fit/mm-rating-heat-by-concern_and_understanding.csv",
+        transport = "build/paper/fit/mm-rating-transport-by-concern_and_understanding.csv"
+    output:
+        plot = "build/paper/vega/ratings-by-concern_and_understanding.json"
+    conda:
+        "../envs/altair-dev.yaml"
+    script:
+        "../scripts/analyse/ratings_plot.py"
+
+
+rule visualise_concern_and_understanding:
+    message: "Visualise the shares of climate concern and problem understanding for sector {wildcards.sector}."
+    input:
+        respondents = rules.preprocess.output.respondents
+    output:
+        plot = "build/paper/concern-and-understanding-shares-{sector}.png"
+    conda:
+        "../envs/mosaic.yaml"
+    script:
+        "../scripts/analyse/mosaic.R"
+
+
 rule render_vega_lite_to_pdf:
     message: "Render Vega Lite spec {wildcards.filename}.json to pdf."
     input:

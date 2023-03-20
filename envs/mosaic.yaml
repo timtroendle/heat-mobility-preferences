@@ -1,0 +1,11 @@
+name: mosaic
+channels:
+    - conda-forge
+    - r
+dependencies:
+    - r=4.1
+    - r-ggplot2=3.4.1
+    - r-ggmosaic=0.3.3
+    - r-arrow=9.0.0
+    - r-tidyr=1.1.4
+    - r-dplyr=1.1.0

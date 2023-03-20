@@ -349,6 +349,30 @@ respondents <- d %>% select(
         resp_cit_cat = factor(
             resp_cit_cat, levels = c("not responsible", "neither / nor", "responsible"), ordered = TRUE
         ),
+        concern_and_t_understanding = case_when(
+            cceval_cat == "High" & relevance_t_cat == "Too low" ~ "High/low",
+            cceval_cat == "High" &  relevance_t_cat != "Too low" ~ "High/good",
+            cceval_cat == "Medium" & relevance_t_cat == "Too low" ~ "Medium/low",
+            cceval_cat == "Medium" &  relevance_t_cat != "Too low" ~ "Medium/good",
+            cceval_cat == "Low" & relevance_t_cat == "Too low" ~ "Low/low",
+            cceval_cat == "Low" &  relevance_t_cat != "Too low" ~ "Low/good",
+        ),
+        concern_and_h_understanding = case_when(
+            cceval_cat == "High" & relevance_h_cat == "Too low" ~ "High/low",
+            cceval_cat == "High" &  relevance_h_cat != "Too low" ~ "High/good",
+            cceval_cat == "Medium" & relevance_h_cat == "Too low" ~ "Medium/low",
+            cceval_cat == "Medium" &  relevance_h_cat != "Too low" ~ "Medium/good",
+            cceval_cat == "Low" & relevance_h_cat == "Too low" ~ "Low/low",
+            cceval_cat == "Low" &  relevance_h_cat != "Too low" ~ "Low/good",
+        ),
+        concern_and_t_understanding = factor(
+            concern_and_t_understanding,
+            levels = c("High/low", "High/good", "Medium/low", "Medium/good", "Low/low", "Low/good")
+        ),
+        concern_and_h_understanding = factor(
+            concern_and_h_understanding,
+            levels = c("High/low", "High/good", "Medium/low", "Medium/good", "Low/low", "Low/good")
+        ),
     )
 
 # extract attitudes data and calculate mean values for climate beliefs and climate action
@@ -571,17 +595,21 @@ choice_t <- recode_transport(choice_t)
 rating_t <- recode_transport(rating_t)
 
 choice_h <- choice_h %>%
-    left_join(respondents %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
-    rename(relevance_cat = relevance_h_cat)
+    left_join(respondents %>% select(c("ID", "relevance_h_cat", "concern_and_h_understanding")), by = "ID") %>%
+    rename(relevance_cat = relevance_h_cat) %>%
+    rename(concern_and_understanding = concern_and_h_understanding)
 choice_t <- choice_t %>%
-    left_join(respondents %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
-    rename(relevance_cat = relevance_t_cat)
+    left_join(respondents %>% select(c("ID", "relevance_t_cat", "concern_and_t_understanding")), by = "ID") %>%
+    rename(relevance_cat = relevance_t_cat) %>%
+    rename(concern_and_understanding = concern_and_t_understanding)
 rating_h <- rating_h %>%
-    left_join(respondents %>% select(c("ID", "relevance_h_cat")), by = "ID") %>%
-    rename(relevance_cat = relevance_h_cat)
+    left_join(respondents %>% select(c("ID", "relevance_h_cat", "concern_and_h_understanding")), by = "ID") %>%
+    rename(relevance_cat = relevance_h_cat) %>%
+    rename(concern_and_understanding = concern_and_h_understanding)
 rating_t <- rating_t %>%
-    left_join(respondents %>% select(c("ID", "relevance_t_cat")), by = "ID") %>%
-    rename(relevance_cat = relevance_t_cat)
+    left_join(respondents %>% select(c("ID", "relevance_t_cat", "concern_and_t_understanding")), by = "ID") %>%
+    rename(relevance_cat = relevance_t_cat) %>%
+    rename(concern_and_understanding = concern_and_t_understanding)
 
 write_feather(d, snakemake@output[["d"]])
 write_feather(respondents %>% select(c("ID", "First")), snakemake@output[["first_sector"]]) # TODO remove
