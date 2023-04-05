@@ -542,8 +542,8 @@ recode_heat <- function(data) {
             Use = recode_factor(
                 Use,
                 "Keine Maßnahme" = "No use instrument",
-                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
-                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
+                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (0.2 €/l)",
+                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (0.5 €/l)",
                 "Ersatz fossile Heizungen (älter als 30 Jahre)" = "Replacement (> 30 years)",
                 "Ersatz fossile Heizungen (älter als 15 Jahre)" = "Replacement (> 15 years)"
             ),
@@ -572,8 +572,8 @@ recode_transport <- function(data) {
             Use = recode_factor(
                 Use,
                 "Keine Maßnahme" = "No use instrument",
-                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (20 ct/l)",
-                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (50 ct/l)",
+                "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (0.2 €/l)",
+                "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (0.5 €/l)",
                 "Fahrverbot für Verbrenner in Innenstädten an Werktagen" = "Weekday ban in city centers",
                 "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Daily ban in city centers"
             ),
