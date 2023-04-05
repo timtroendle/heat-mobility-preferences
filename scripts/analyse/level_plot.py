@@ -12,9 +12,13 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
                            measure: str, estimate: str, level_order: dict[str: list[str]],
                            attribute_order: list[str], by: str = None, by_order: list[str] = None):
     match (estimate, measure):
-        case ("amce", str()):
+        case ("amce", "choice"):
             zero = 0
             domain = (-0.25, 0.25)
+            estimate_name = "Average marginal component effects"
+        case ("amce", "rating"):
+            zero = 0
+            domain = (-0.45, 0.45)
             estimate_name = "Average marginal component effects"
         case ("mm", "choice"):
             zero = 0.5

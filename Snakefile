@@ -79,6 +79,7 @@ rule supplementary:
         "build/paper/amce-choice-by-First.png",
         "build/paper/amce-choice-by-choiceNum.png",
         "build/paper/amce-choice-by-packNum.png",
+        "build/paper/amce-rating.png",
         "build/paper/amce-choice-by-speeders.png",
         "build/paper/choice-experimental-design.png",
         "build/paper/mm-rating-by-cceval_cat.png",
