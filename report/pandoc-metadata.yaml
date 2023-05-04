@@ -9,7 +9,11 @@ subtitle: Supplementary material
 #    - Anthony Patt
 institute: ETH Zürich
 tags:
-    - reproducible-research
+    - energy transition
+    - climate policy
+    - decarbonisation
+    - public opinion
+    - conjoint experiment
 bibliography: literature.yaml
 csl: apa.csl
 link-citations: True
