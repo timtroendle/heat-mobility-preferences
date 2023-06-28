@@ -156,7 +156,7 @@ rule visualise_subgroup:
         level_order = config["level-order"]
     output:
         plot = "build/paper/vega/{estimate}-{measure}-by-{subgroup}.json"
-    conda: "../envs/altair-dev.yaml"
+    conda: "../envs/default.yaml"
     script: "../scripts/analyse/level_plot.py"
 
 
@@ -170,7 +170,7 @@ rule visualise_experimental_design:
     output:
         plot = "build/paper/vega/{measure}-experimental-design.json"
     conda:
-        "../envs/altair-dev.yaml"
+        "../envs/default.yaml"
     script:
         "../scripts/analyse/design_plot.py"
 
@@ -183,7 +183,7 @@ rule visualise_ratings:
     output:
         plot = "build/paper/vega/ratings-by-concern_and_understanding.json"
     conda:
-        "../envs/altair-dev.yaml"
+        "../envs/default.yaml"
     script:
         "../scripts/analyse/ratings_plot.py"
 

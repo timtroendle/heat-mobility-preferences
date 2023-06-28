@@ -1,5 +1,5 @@
-# This env is necessary to use the latest and unreleased version of altair.
-# It provides the possibility to render vega lite specs from altair
+# This env is necessary to use the latest version of vega-lite-cli which,
+# as of 2023-01-17, is the only one working on ARM.
 name: vega
 channels:
     - conda-forge
