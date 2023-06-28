@@ -87,7 +87,8 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
     if by:
         base = base.encode(
             yOffset=alt.YOffset("BY", sort=by_order),
-            opacity=alt.Opacity("BY", sort=by_order, title=by, scale=alt.Scale(rangeMin=0.2, rangeMax=1))
+            opacity=alt.Opacity("BY", sort=by_order, title=by, scale=alt.Scale(rangeMin=0.2, rangeMax=1)),
+            strokeDash=alt.StrokeDash("BY", sort=by_order, title=by),
         ).properties(
             height=HEIGHT_SINGLE * 1.5
         )
