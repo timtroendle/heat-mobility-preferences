@@ -2,11 +2,11 @@ name: test
 channels:
     - conda-forge
 dependencies:
-    - python=3.10 # upgrade to Python 3.11 abd pytest 7.2 blocked due to a problem with "py" in pytest-html
+    - python=3.11
     - numpy=1.24.1
-    - pandas=1.5.2
-    - pytest=7.1.3
-    - pytest-html=3.2.0
-    - pip=22.0.4
+    - pandas=1.5.3
+    - pytest=7.3.1
+    - pip=23.1.2
     - pip:
         - pytest-pythonpath # adds the root path "./" to PYTHONPATH
+        - pytest-html==4.0.0rc1 # TODO move to offical release and conda-forge once available, see https://github.com/pytest-dev/pytest-html/issues/570
