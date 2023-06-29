@@ -375,15 +375,6 @@ respondents <- d %>% select(
         ),
     )
 
-# extract attitudes data and calculate mean values for climate beliefs and climate action
-attitudes <- respondents %>% # TODO remove
-  select(c(
-    "ID", "climate_change_1", "climate_change_2", "climate_change_3", "climate_change_4",
-    "climate_change_5", "climate_change_6", "responsibility_1", "responsibility_2", "responsibility_3",
-    "trust_1", "trust_2", "trust_3", "cceval", "cceval_cat", "trust_gov_cat", "trust_com_cat",
-    "trust_cit_cat", "resp_gov_cat", "resp_com_cat", "resp_cit_cat"
-))
-
 ##############################################################################################
 # Data preparation for conjoint part
 ##
@@ -612,10 +603,7 @@ rating_t <- rating_t %>%
     rename(concern_and_understanding = concern_and_t_understanding)
 
 write_feather(d, snakemake@output[["d"]])
-write_feather(respondents %>% select(c("ID", "First")), snakemake@output[["first_sector"]]) # TODO remove
-write_feather(respondents %>% select(c("ID", "Framing")), snakemake@output[["framing"]]) # TODO remove
 write_feather(respondents, snakemake@output[["respondents"]])
-write_feather(attitudes, snakemake@output[["attitudes"]]) # TODO remove
 
 write_feather(rating_t, snakemake@output[["rating_t"]])
 write_feather(rating_h, snakemake@output[["rating_h"]])

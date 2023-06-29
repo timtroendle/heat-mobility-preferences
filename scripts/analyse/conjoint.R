@@ -20,7 +20,7 @@ analyse_main_effects <- function(data, estimate, measure, alpha, path_to_output)
 
 analyse_subgroups <- function(data, estimate, measure, by, alpha, path_to_output) {
     data <- data %>%
-        drop_na(by) # TODO assess NAs
+        drop_na(by)
 
     by_sym <- as.symbol(by)
     measure_sym <- as.symbol(measure)

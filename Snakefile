@@ -12,19 +12,6 @@ wildcard_constraints:
     estimate = "mm|amce"
 
 
-onstart:
-    shell("mkdir -p build/figures-and-tables/checks/distributions-subgroups")
-    shell("mkdir -p build/figures-and-tables/descriptive-statistics")
-    shell("mkdir -p build/figures-and-tables/attitudes")
-    shell("mkdir -p build/figures-and-tables/framing-interaction")
-    shell("mkdir -p build/figures-and-tables/marginal-means")
-    shell("mkdir -p build/figures-and-tables/AMCE")
-    shell("mkdir -p build/figures-and-tables/checks/robustness-checks")
-    shell("mkdir -p build/figures-and-tables/subgroup-analysis")
-    shell("mkdir -p build/figures-and-tables/subgroup-analysis/heating-and-transport-variables")
-    shell("mkdir -p build/figures-and-tables/subgroup-analysis/climate-change-evaluation")
-    shell("mkdir -p build/figures-and-tables/subgroup-analysis/trust")
-    shell("mkdir -p build/figures-and-tables/subgroup-analysis/responsibility")
 onsuccess:
     if "email" in config.keys():
         shell("echo "" | mail -s 'heat-mobility-preferences succeeded' {config[email]}")
@@ -39,16 +26,12 @@ rule all:
         "build/supplementary.pdf",
         "build/test-report.html",
         "build/emissions.png",
-        "build/paper/amce-choice.png",
-        "build/paper/mm-choice-by-cceval_cat.png",
-        "build/paper/mm-rating-by-relevance_cat.png",
-        "build/paper/ratings-by-concern_and_understanding.png",
-        "build/paper/fit/amce-choice-heat-by-cceval_cat.csv",
-        "build/paper/fit/amce-choice-transport-by-cceval_cat.csv",
-        rules.sample.output[0],
-        rules.framing.output[0],
-        rules.robustness.output[0],
-        rules.subgroups.output[0],
+        "build/results/amce-choice.png",
+        "build/results/mm-choice-by-cceval_cat.png",
+        "build/results/mm-rating-by-relevance_cat.png",
+        "build/results/ratings-by-concern_and_understanding.png",
+        "build/results/fit/amce-choice-heat-by-cceval_cat.csv",
+        "build/results/fit/amce-choice-transport-by-cceval_cat.csv",
 
 
 def pandoc_options(wildcards):
@@ -70,15 +53,15 @@ rule supplementary:
         "report/supplementary.md",
         "report/pandoc-metadata.yaml",
         "report/apa.csl",
-        "build/paper/amce-choice-by-First.png",
-        "build/paper/amce-choice-by-choiceNum.png",
-        "build/paper/amce-choice-by-packNum.png",
-        "build/paper/amce-rating.png",
-        "build/paper/amce-choice-by-speeders.png",
-        "build/paper/choice-experimental-design.png",
-        "build/paper/mm-rating-by-cceval_cat.png",
-        "build/paper/sample-vs-population.csv",
-        expand("build/paper/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"])
+        "build/results/amce-choice-by-First.png",
+        "build/results/amce-choice-by-choiceNum.png",
+        "build/results/amce-choice-by-packNum.png",
+        "build/results/amce-rating.png",
+        "build/results/amce-choice-by-speeders.png",
+        "build/results/choice-experimental-design.png",
+        "build/results/mm-rating-by-cceval_cat.png",
+        "build/results/sample-vs-population.csv",
+        expand("build/results/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"])
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:
