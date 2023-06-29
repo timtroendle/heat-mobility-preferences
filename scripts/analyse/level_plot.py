@@ -6,6 +6,8 @@ DARK_GREY = "#424242"
 LABEL_LIMIT = 300
 WIDTH_SINGLE = 200
 HEIGHT_SINGLE = 275
+MIN_OPACITY_FOR_TWO = 0.4
+MIN_OPACITY_FOR_MORE_THAN_TWO = 0.2
 
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
@@ -70,7 +72,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
                             level_order: list[str], y_orientation: str, domain: tuple[float, float],
                             by: str = None, by_order: list[str] = None):
     if by:
-        data.BY = data.BY.astype('category').cat.reorder_categories(by_order, ordered=True)
+        data.BY = data.BY.astype('category').cat.reorder_categories(by_order, ordered=False)
         data = data.sort_values("BY").reset_index(drop=True)
     base = alt.Chart(
         data,
@@ -85,10 +87,16 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
         height=HEIGHT_SINGLE
     )
     if by:
+        min_opacity = MIN_OPACITY_FOR_MORE_THAN_TWO if len(by_order) > 2 else MIN_OPACITY_FOR_TWO
         base = base.encode(
             yOffset=alt.YOffset("BY", sort=by_order),
-            opacity=alt.Opacity("BY", sort=by_order, title=by, scale=alt.Scale(rangeMin=0.2, rangeMax=1)),
-            strokeDash=alt.StrokeDash("BY", sort=by_order, title=by),
+            opacity=alt.Opacity(
+                "BY",
+                sort=by_order,
+                title=by,
+                scale=alt.Scale(rangeMin=min_opacity, rangeMax=1),
+                legend=None
+            ),
         ).properties(
             height=HEIGHT_SINGLE * 1.5
         )
@@ -98,7 +106,8 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
         x2="upper"
     )
 
-    point = base.mark_circle(opacity=1)
+    point_base = base.encode(shape=alt.Shape("BY", sort=by_order, title=by)) if by else base
+    point = point_base.encode().mark_point(opacity=1, filled=True)
 
     base_line = alt.Chart(data).mark_rule(color=DARK_GREY, strokeDash=[4], opacity=0.8).encode(
         x='zero:Q'
