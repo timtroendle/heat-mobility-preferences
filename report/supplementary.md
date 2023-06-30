@@ -44,15 +44,15 @@
 
 <div class="pagebreak"> </div>
 
-# Figure S8: Respondent shares by climate change concern and problem understanding (Building)
+# Figure S8: Respondent shares by climate change concern and emission attribution (Building)
 
-![**Shares of respondents grouped by climate change concern and problem understanding in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat tag="S8"}
+![**Shares of respondents grouped by climate change concern and emission attribution in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat tag="S8"}
 
 <div class="pagebreak"> </div>
 
-# Figure S9: Respondent shares by climate change concern and problem understanding (Transport)
+# Figure S9: Respondent shares by climate change concern and emission attribution (Transport)
 
-![**Shares of respondents grouped by climate change concern and problem understanding in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport tag="S9"}
+![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport tag="S9"}
 
 <div class="pagebreak"> </div>
 

@@ -110,7 +110,7 @@ rule visualise_experimental_design:
 
 
 rule visualise_ratings:
-    message: "Visualise average ratings by climate concern and problem understanding."
+    message: "Visualise average ratings by climate concern and attributed emissions."
     input:
         heat = "build/results/fit/mm-rating-heat-by-concern_and_understanding.csv",
         transport = "build/results/fit/mm-rating-transport-by-concern_and_understanding.csv"
@@ -123,7 +123,7 @@ rule visualise_ratings:
 
 
 rule visualise_concern_and_understanding:
-    message: "Visualise the shares of climate concern and problem understanding for sector {wildcards.sector}."
+    message: "Visualise the shares of climate concern and attributed emissions for sector {wildcards.sector}."
     input:
         respondents = rules.preprocess.output.respondents
     output:

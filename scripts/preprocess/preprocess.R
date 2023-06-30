@@ -350,28 +350,36 @@ respondents <- d %>% select(
             resp_cit_cat, levels = c("not responsible", "neither / nor", "responsible"), ordered = TRUE
         ),
         concern_and_t_understanding = case_when(
-            cceval_cat == "High" & relevance_t_cat == "Too low" ~ "High/low",
-            cceval_cat == "High" &  relevance_t_cat != "Too low" ~ "High/good",
-            cceval_cat == "Medium" & relevance_t_cat == "Too low" ~ "Medium/low",
-            cceval_cat == "Medium" &  relevance_t_cat != "Too low" ~ "Medium/good",
-            cceval_cat == "Low" & relevance_t_cat == "Too low" ~ "Low/low",
-            cceval_cat == "Low" &  relevance_t_cat != "Too low" ~ "Low/good",
+            cceval_cat == "High" & relevance_t_cat == "Too low" ~ "High/too low",
+            cceval_cat == "High" &  relevance_t_cat == "Correct" ~ "High/correct",
+            cceval_cat == "High" &  relevance_t_cat == "Too high" ~ "High/too high",
+            cceval_cat == "Medium" & relevance_t_cat == "Too low" ~ "Medium/too low",
+            cceval_cat == "Medium" &  relevance_t_cat == "Correct" ~ "Medium/correct",
+            cceval_cat == "Medium" & relevance_t_cat == "Too high" ~ "Medium/too high",
+            cceval_cat == "Low" & relevance_t_cat == "Too low" ~ "Low/too low",
+            cceval_cat == "Low" &  relevance_t_cat == "Correct" ~ "Low/correct",
+            cceval_cat == "Low" & relevance_t_cat == "Too high" ~ "Low/too high",
         ),
         concern_and_h_understanding = case_when(
-            cceval_cat == "High" & relevance_h_cat == "Too low" ~ "High/low",
-            cceval_cat == "High" &  relevance_h_cat != "Too low" ~ "High/good",
-            cceval_cat == "Medium" & relevance_h_cat == "Too low" ~ "Medium/low",
-            cceval_cat == "Medium" &  relevance_h_cat != "Too low" ~ "Medium/good",
-            cceval_cat == "Low" & relevance_h_cat == "Too low" ~ "Low/low",
-            cceval_cat == "Low" &  relevance_h_cat != "Too low" ~ "Low/good",
+            cceval_cat == "High" & relevance_h_cat == "Too low" ~ "High/too low",
+            cceval_cat == "High" &  relevance_h_cat == "Correct" ~ "High/correct",
+            cceval_cat == "High" &  relevance_h_cat == "Too high" ~ "High/too high",
+            cceval_cat == "Medium" & relevance_h_cat == "Too low" ~ "Medium/too low",
+            cceval_cat == "Medium" &  relevance_h_cat == "Correct" ~ "Medium/correct",
+            cceval_cat == "Medium" & relevance_h_cat == "Too high" ~ "Medium/too high",
+            cceval_cat == "Low" & relevance_h_cat == "Too low" ~ "Low/too low",
+            cceval_cat == "Low" &  relevance_h_cat == "Correct" ~ "Low/correct",
+            cceval_cat == "Low" & relevance_h_cat == "Too high" ~ "Low/too high",
         ),
         concern_and_t_understanding = factor(
             concern_and_t_understanding,
-            levels = c("High/low", "High/good", "Medium/low", "Medium/good", "Low/low", "Low/good")
+            levels = c("High/too low", "High/correct", "High/too high", "Medium/too low", "Medium/correct",
+                       "Medium/too high", "Low/too low", "Low/correct", "Low/too high")
         ),
         concern_and_h_understanding = factor(
             concern_and_h_understanding,
-            levels = c("High/low", "High/good", "Medium/low", "Medium/good", "Low/low", "Low/good")
+            levels = c("High/too low", "High/correct", "High/too high", "Medium/too low", "Medium/correct",
+                       "Medium/too high", "Low/too low", "Low/correct", "Low/too high")
         ),
     )
 

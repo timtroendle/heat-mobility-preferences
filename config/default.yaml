@@ -60,7 +60,7 @@ subgroups:
         name: Climate concern
         level-order: ['Low', 'Medium', 'High']
     relevance_cat:
-        name: Assumed sector emission share
+        name: Emission attribution
         level-order: ['Too low', 'Correct', 'Too high']
     First:
         name: Sector shown first
@@ -75,5 +75,14 @@ subgroups:
         name: Respondents
         level-order: ["All", "Without speeders"]
     concern_and_understanding:
-        name: Climate concern and problem understanding
-        level-order: ["High/low", "High/good", "Medium/low", "Medium/good", "Low/low", "Low/good"]
+        name: Climate concern and emission attribution
+        level-order:
+            - "High/too low"
+            - "High/correct"
+            - "High/too high"
+            - "Medium/too low"
+            - "Medium/correct"
+            - "Medium/too high"
+            - "Low/too low"
+            - "Low/correct"
+            - "Low/too high"
