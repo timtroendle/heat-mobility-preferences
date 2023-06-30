@@ -574,7 +574,7 @@ recode_transport <- function(data) {
                 "Steuer auf fossile Energieträger (20 ct/l)" = "Tax on fossil fuels (0.2 €/l)",
                 "Steuer auf fossile Energieträger (50 ct/l)" = "Tax on fossil fuels (0.5 €/l)",
                 "Fahrverbot für Verbrenner in Innenstädten an Werktagen" = "Weekday ban in city centers",
-                "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Daily ban in city centers"
+                "Tägliches Fahrverbot für Verbrenner in Innenstädten" = "Complete ban in city centers"
             ),
             Support = recode_factor(
                 Support,
