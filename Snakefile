@@ -1,5 +1,5 @@
 from snakemake.utils import min_version
-PANDOC = "pandoc --filter pantable --filter pandoc-fignos --citeproc"
+PANDOC = "pandoc --filter pantable --filter pandoc-crossref --citeproc"
 
 configfile: "config/default.yaml"
 
@@ -61,7 +61,9 @@ rule supplementary:
         "build/results/choice-experimental-design.png",
         "build/results/mm-rating-by-cceval_cat.png",
         "build/results/sample-vs-population.csv",
-        expand("build/results/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"])
+        expand("build/results/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"]),
+        "build/results/fit/amce-choice-heat-publication.csv",
+        "build/results/fit/amce-choice-transport-publication.csv",
     params: options = pandoc_options
     output: "build/supplementary.{suffix}"
     wildcard_constraints:
@@ -73,7 +75,6 @@ rule supplementary:
         cd report
         ln -s ../build .
         {PANDOC} supplementary.md  --metadata-file=pandoc-metadata.yaml {params.options} \
-        -f markdown-implicit_figures \
         -o ../build/supplementary.{wildcards.suffix}
         """
 

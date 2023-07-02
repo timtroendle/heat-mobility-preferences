@@ -62,6 +62,21 @@ rule analyse_experimental_design:
         "../scripts/analyse/freqs.py"
 
 
+rule regression_summary:
+    message: "Create a summary of regression estimation for publication."
+    input:
+        data = "build/results/fit/{estimate}-{measure}-{sector}.csv"
+    params:
+        columns = config["regression-summary"]["columns"],
+        float_format_per_column = config["regression-summary"]["float-format"]
+    output:
+        "build/results/fit/{estimate}-{measure}-{sector}-publication.csv",
+    conda:
+        "../envs/default.yaml"
+    script:
+        "../scripts/utils/publication_csv.py"
+
+
 rule visualise_main_effects:
     message: "Visualise main results for measure {wildcards.measure} and estimate {wildcards.estimate}."
     input:

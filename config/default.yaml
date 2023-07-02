@@ -86,3 +86,18 @@ subgroups:
             - "Low/too low"
             - "Low/correct"
             - "Low/too high"
+regression-summary:
+    columns:
+        - feature
+        - level
+        - estimate
+        - std.error
+        - p
+        - lower
+        - upper
+    float-format:
+        estimate: ".2f"
+        std.error: ".2f"
+        p: ".2f"
+        lower: ".2f"
+        upper: ".2f"

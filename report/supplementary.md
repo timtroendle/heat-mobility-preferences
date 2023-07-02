@@ -2,62 +2,63 @@
 
 # Figure S1: Effect of sector order
 
-![**Relationship between sector order and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with different sector order are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-First.png){#fig:First tag="S1"}
+![**Relationship between sector order and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with different sector order are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-First.png){#fig:First label="S1"}
 
 <div class="pagebreak"> </div>
 
 # Figure S2: Effect of choice task repetition
 
-![**Relationship between choice task repetition and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Choice tasks per respondent are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-choiceNum.png){#fig:choiceNum tag="S2"}
+![**Relationship between choice task repetition and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Choice tasks per respondent are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-choiceNum.png){#fig:choiceNum label="S2"}
 
 <div class="pagebreak"> </div>
 
 # Figure S3: Effect of display side
 
-![**Relationship between display side and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Profiles displayed on the left-hand side and ride-hand side are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-packNum.png){#fig:packNum tag="S3"}
+![**Relationship between display side and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Profiles displayed on the left-hand side and ride-hand side are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-packNum.png){#fig:packNum label="S3"}
 
 <div class="pagebreak"> </div>
 
 # Figure S4: Rating-based effects
 
-![**Population average preferences regarding attributes of policy packages.** Points show the average marginal component effects of the ratings of policy packages in the building (left) and transport (right) sectors. The points show the estimated decrease or increase in ratings, relative to the baseline level (first level of each attribute). Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/amce-rating.png){#fig:rating tag="S4"}
+![**Population average preferences regarding attributes of policy packages.** Points show the average marginal component effects of the ratings of policy packages in the building (left) and transport (right) sectors. The points show the estimated decrease or increase in ratings, relative to the baseline level (first level of each attribute). Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/amce-rating.png){#fig:rating label="S4"}
 
 <div class="pagebreak"> </div>
 
 
 # Figure S5: Effect of filtering speeders
 
-![**Relationship between filtering speeders and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Data with and without filtering respondents that speeded through the experiment are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-speeders.png){#fig:speeders tag="S5"}
+![**Relationship between filtering speeders and choices.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Data with and without filtering respondents that speeded through the experiment are shown using varying opacity and different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-speeders.png){#fig:speeders label="S5"}
 
 <div class="pagebreak"> </div>
 
 
 # Figure S6: Experimental design
 
-![**Attribute level correlations of our experimental designs.** Colour of rectangles shows the number of times two attribute levels occurred together within one profile. The experiments contain n=17,770 policy packages each.](build/results/choice-experimental-design.png){#fig:experimental-design tag="S6"}
+![**Attribute level correlations of our experimental designs.** Colour of rectangles shows the number of times two attribute levels occurred together within one profile. The experiments contain n=17,770 policy packages each.](build/results/choice-experimental-design.png){#fig:experimental-design label="S6"}
 
 <div class="pagebreak"> </div>
 
 # Figure S7: Relationship between climate change concern and ratings
 
-![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval tag="S7"}
+![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S7"}
 
 <div class="pagebreak"> </div>
 
 # Figure S8: Respondent shares by climate change concern and emission attribution (Building)
 
-![**Shares of respondents grouped by climate change concern and emission attribution in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat tag="S8"}
+![**Shares of respondents grouped by climate change concern and emission attribution in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat label="S8"}
 
 <div class="pagebreak"> </div>
 
 # Figure S9: Respondent shares by climate change concern and emission attribution (Transport)
 
-![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport tag="S9"}
+![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport label="S9"}
 
 <div class="pagebreak"> </div>
 
 # Table S1: Comparison of distribution of socio-demographic variables to the German population
 
+:::{#tbl:respondents-stats label="S1"}
 ```table
 ---
 caption: 'Comparison of distribution of socio-demographic variables to the German population. There were n=1,777 respondents. Source of population data: German Zensus 2011.'
@@ -67,3 +68,52 @@ include-encoding: UTF-8
 markdown: False
 ---
 ```
+:::
+
+<div style="break-after: left"> </div>
+
+# Table S2: Regression coefficients building sector
+
+:::{#tbl:regresssion-coefficients-buildings label="S2"}
+```table
+---
+caption: 'Regression coefficients for the Average Marginal Component Effect of the forced choices in the building sector experiment.'
+alignment: LLRRRRR
+include: build/results/fit/amce-choice-heat-publication.csv
+include-encoding: UTF-8
+markdown: False
+width:
+    - 0.15
+    - 0.35
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+---
+```
+:::
+
+<div style="break-after: left"> </div>
+
+# Table S3: Regression coefficients transport sector
+
+:::{#tbl:regresssion-coefficients-transport label="S3"}
+```table
+---
+caption: 'Regression coefficients for the Average Marginal Component Effect of the forced choices in the transport sector experiment.'
+alignment: LLRRRRR
+include: build/results/fit/amce-choice-transport-publication.csv
+include-encoding: UTF-8
+markdown: False
+width:
+    - 0.15
+    - 0.35
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+---
+```
+:::
