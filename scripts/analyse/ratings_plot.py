@@ -3,8 +3,8 @@ import pandas as pd
 
 
 DARK_GREY = "#424242"
-WIDTH_SINGLE = 400
-HEIGHT_SINGLE = 80
+WIDTH_SINGLE = 413
+STEP_SIZE = 25
 
 
 def plot_ratings(path_to_heat_data: str, path_to_transport_data: str, path_to_plot: str):
@@ -31,7 +31,6 @@ def plot_ratings(path_to_heat_data: str, path_to_transport_data: str, path_to_pl
             detail=alt.Detail('Climate concern:O')
         ).properties(
             width=WIDTH_SINGLE,
-            height=HEIGHT_SINGLE
         )
     )
     lines = chart.mark_line(color=DARK_GREY)
@@ -56,9 +55,10 @@ def plot_ratings(path_to_heat_data: str, path_to_transport_data: str, path_to_pl
     (
         facetted
         .configure(font="Lato")
+        .configure_view(step=STEP_SIZE)
         .configure_axis(titleColor=DARK_GREY, labelColor=DARK_GREY)
         .configure_header(titleColor=DARK_GREY, labelColor=DARK_GREY)
-        .configure_legend(titleColor=DARK_GREY, labelColor=DARK_GREY, orient="bottom")
+        .configure_legend(titleColor=DARK_GREY, labelColor=DARK_GREY, orient="right")
         .save(path_to_plot)
     )
 

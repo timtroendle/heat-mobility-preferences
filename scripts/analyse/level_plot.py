@@ -4,10 +4,10 @@ import altair as alt
 
 DARK_GREY = "#424242"
 LABEL_LIMIT = 300
-WIDTH_SINGLE = 200
-HEIGHT_SINGLE = 275
+WIDTH_SINGLE = 163
 MIN_OPACITY_FOR_TWO = 0.4
 MIN_OPACITY_FOR_MORE_THAN_TWO = 0.2
+STEP_SIZE = 14
 
 
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
@@ -17,11 +17,11 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         case ("amce", "choice"):
             zero = 0
             domain = (-0.25, 0.25)
-            estimate_name = "Average marginal component effects"
+            estimate_name = ["Average marginal", "component effects"]
         case ("amce", "rating"):
             zero = 0
             domain = (-0.45, 0.45)
-            estimate_name = "Average marginal component effects"
+            estimate_name = ["Average marginal", "component effects"]
         case ("mm", "choice"):
             zero = 0.5
             domain = (0.3, 0.7)
@@ -61,6 +61,7 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
     (
         combined_chart
         .configure(font="Lato")
+        .configure_view(step=STEP_SIZE if not by else STEP_SIZE / len(by_order))
         .configure_axis(titleColor=DARK_GREY, labelColor=DARK_GREY)
         .configure_header(titleColor=DARK_GREY, labelColor=DARK_GREY)
         .configure_legend(titleColor=DARK_GREY, labelColor=DARK_GREY, orient="bottom")
@@ -84,7 +85,6 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
                         scale=alt.Scale(scheme="set2")),
     ).properties(
         width=WIDTH_SINGLE,
-        height=HEIGHT_SINGLE
     )
     if by:
         min_opacity = MIN_OPACITY_FOR_MORE_THAN_TWO if len(by_order) > 2 else MIN_OPACITY_FOR_TWO
@@ -97,8 +97,6 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
                 scale=alt.Scale(rangeMin=min_opacity, rangeMax=1),
                 legend=None
             ),
-        ).properties(
-            height=HEIGHT_SINGLE * 1.5
         )
 
     interval = base.mark_rule(strokeWidth=1.5, opacity=1).encode(
@@ -113,7 +111,7 @@ def visualise_single_sector(data: pd.DataFrame, title: str, estimate: str, attri
         x='zero:Q'
     )
 
-    left = 0 if y_orientation == "left" else WIDTH_SINGLE - 4
+    left = 0 if y_orientation == "left" else WIDTH_SINGLE - 3
     right = 4 if y_orientation == "left" else WIDTH_SINGLE
     area = base.mark_area(opacity=1, filled=True, fillOpacity=1, line=False).encode(
         x=alt.value(left),

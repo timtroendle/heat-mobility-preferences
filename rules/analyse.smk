@@ -168,4 +168,4 @@ rule render_vega_lite_to_png:
         png = "build/results/{filename}.png"
     conda: "../envs/vega.yaml"
     # vl2png not usable because of https://github.com/queryverse/VegaLite.jl/issues/383
-    shell: "vl2vg {input.json} | vg2png --scale 4.167 > {output.png}" # scale to ~300dpi
+    shell: "vl2vg {input.json} | vg2png --scale 4 > {output.png}" # scale to ~300dpi
