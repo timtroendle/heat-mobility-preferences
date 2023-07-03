@@ -38,21 +38,25 @@
 
 <div class="pagebreak"> </div>
 
-# Figure S7: Relationship between climate change concern and ratings
+# Figure S7: Relationship between emission attribution and choices
 
-![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S7"}
+![**Relationship between emission attribution and choices.** Points show marginal means of the choices of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying emission attributions are shown using varying opacity (higher opacity represents higher sector emission share estimation) and using different shapes. We define an attribution as correct if it is within a +-3 percentage points range of the true value, otherwise the attribution is too low or too high. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-choice-by-relevance_cat.png){#fig:choice-relevance_cat label="S7"}
 
-<div class="pagebreak"> </div>
+# Figure S8: Relationship between climate change concern and ratings
 
-# Figure S8: Respondent shares by climate change concern and emission attribution (Building)
-
-![**Shares of respondents grouped by climate change concern and emission attribution in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat label="S8"}
+![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S8"}
 
 <div class="pagebreak"> </div>
 
-# Figure S9: Respondent shares by climate change concern and emission attribution (Transport)
+# Figure S9: Respondent shares by climate change concern and emission attribution (Building)
 
-![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport label="S9"}
+![**Shares of respondents grouped by climate change concern and emission attribution in the building sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-heat.png){#fig:share-heat label="S9"}
+
+<div class="pagebreak"> </div>
+
+# Figure S10: Respondent shares by climate change concern and emission attribution (Transport)
+
+![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport label="S10"}
 
 <div class="pagebreak"> </div>
 

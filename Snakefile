@@ -59,6 +59,7 @@ rule supplementary:
         "build/results/amce-rating.png",
         "build/results/mm-choice-by-speeders.png",
         "build/results/choice-experimental-design.png",
+        "build/results/mm-choice-by-relevance_cat.png",
         "build/results/mm-rating-by-cceval_cat.png",
         "build/results/sample-vs-population.csv",
         expand("build/results/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"]),
