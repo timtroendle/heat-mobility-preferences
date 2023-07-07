@@ -13,20 +13,24 @@ STEP_SIZE = 14
 def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, path_to_plot,
                            measure: str, estimate: str, level_order: dict[str: list[str]],
                            attribute_order: list[str], by: str = None, by_order: list[str] = None):
-    match (estimate, measure):
-        case ("amce", "choice"):
+    match (estimate, measure, by):
+        case ("amce", "choice", any_by):
             zero = 0
             domain = (-0.25, 0.25)
             estimate_name = ["Average marginal", "component effects"]
-        case ("amce", "rating"):
+        case ("amce", "rating", any_by):
             zero = 0
             domain = (-0.45, 0.45)
             estimate_name = ["Average marginal", "component effects"]
-        case ("mm", "choice"):
+        case ("mm", "choice", any_by):
             zero = 0.5
             domain = (0.3, 0.7)
             estimate_name = "Marginal means"
-        case ("mm", "rating"):
+        case ("mm", "rating", "Climate change concern"):
+            zero = 3
+            domain = (1.5, 4.5)
+            estimate_name = "Marginal means"
+        case ("mm", "rating", any_by):
             zero = 3
             domain = (2, 4)
             estimate_name = "Marginal means"
