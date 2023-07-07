@@ -18,7 +18,7 @@ mosaic_plot_heat <- function(data) {
         geom_mosaic(aes(x = product(cceval_cat), fill = relevance_h_cat)
         ) +
         theme_mosaic() +
-        labs(x = "Climate concern", y = "Emission attribution (Building)") +
+        labs(x = "Climate change concern", y = "Emission attribution (Building)") +
         scale_fill_manual(
             name = "Emission attribution (Building)",
             labels = c("Too low", "Correct", "Too high"),
@@ -30,7 +30,7 @@ mosaic_plot_transport <- function(data) {
         geom_mosaic(aes(x = product(cceval_cat), fill = relevance_t_cat)
         ) +
         theme_mosaic() +
-        labs(x = "Climate concern", y = "Emission attribution (Transport)") +
+        labs(x = "Climate change concern", y = "Emission attribution (Transport)") +
         scale_fill_manual(
             name = "Emission attribution (Transport)",
             labels = c("Too low", "Correct", "Too high"),

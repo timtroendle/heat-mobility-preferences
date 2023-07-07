@@ -24,11 +24,11 @@ def plot_ratings(path_to_heat_data: str, path_to_transport_data: str, path_to_pl
                 scale=alt.Scale(domain=[1, 5])
             ),
             y=alt.Y(
-                'Climate concern:O',
+                'Climate change concern:O',
                 sort=["High", "Medium", "Low"],
-                title="Climate concern"
+                title="Climate change concern"
             ),
-            detail=alt.Detail('Climate concern:O')
+            detail=alt.Detail('Climate change concern:O')
         ).properties(
             width=WIDTH_SINGLE,
         )
@@ -65,11 +65,11 @@ def plot_ratings(path_to_heat_data: str, path_to_transport_data: str, path_to_pl
 
 def read_average_ratings(path_to_data: str, sector_name: str) -> pd.DataFrame:
     df = pd.read_csv(path_to_data)
-    df["Climate concern"] = df.BY.str.split("/").map(lambda row: row[0])
+    df["Climate change concern"] = df.BY.str.split("/").map(lambda row: row[0])
     df["Emission attribution"] = df.BY.str.split("/").map(lambda row: row[1]).str.capitalize()
     return (
         df
-        .groupby(["Climate concern", "Emission attribution"])
+        .groupby(["Climate change concern", "Emission attribution"])
         .estimate
         .mean()
         .rename("rating")

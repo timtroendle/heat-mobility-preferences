@@ -57,7 +57,7 @@ level-order:
         - 'Preferential loan'
 subgroups:
     cceval_cat:
-        name: Climate concern
+        name: Climate change concern
         level-order: ['Low', 'Medium', 'High']
     relevance_cat:
         name: Emission attribution
@@ -75,7 +75,7 @@ subgroups:
         name: Respondents
         level-order: ["All", "Without speeders"]
     concern_and_understanding:
-        name: Climate concern and emission attribution
+        name: Climate change concern and emission attribution
         level-order:
             - "High/too low"
             - "High/correct"

@@ -44,7 +44,7 @@
 
 # Figure S8: Relationship between climate change concern and ratings
 
-![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S8"}
+![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate change concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S8"}
 
 <div class="pagebreak"> </div>
 
