@@ -44,7 +44,7 @@
 
 # Figure S8: Relationship between climate change concern and ratings
 
-![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate change concern are shown using varying opacity (higher opacity represents higher climate concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S8"}
+![**Relationship between climate change concern and policy preferences.** Points show marginal means of the ratings of policy packages in the building (left) and transport (right) sectors. Subgroups of our sample with varying climate change concern are shown using varying opacity (higher opacity represents higher concern) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For a comparison of group sizes, see [@fig:share-heat;@fig:share-transport].](build/results/mm-rating-by-cceval_cat.png){#fig:rating-cceval label="S8"}
 
 <div class="pagebreak"> </div>
 
@@ -147,9 +147,95 @@ width:
 ```
 :::
 
+
+
+
+
+
 <div class="pagebreak"> </div>
 
-# Supplementary Note S1: Survey text
+# Supplementary Note S1: Task example building sector
+
++----------------+---------------------------+-------------------------+
+| Attribute      | Policy package 1          | Policy package 2        |
++:===============+:==========================+:========================+
+| Phase-out year | 2030                      | 2035                    |
++----------------+---------------------------+-------------------------+
+| Purchase       | No instrument             | Ban on the purchase     |
+| instrument     |                           | of fossil fuel          |
+|                |                           | heating systems from    |
+|                |                           | 2025 on                 |
++----------------+---------------------------+-------------------------+
+| Use instrument | Tax on fossil fuels       | No instrument           |
+|                | (0.2 EUR/l)               |                         |
++----------------+---------------------------+-------------------------+
+| Support        | Trade-in bonus            | Preferential loan       |
+| instrument     |                           |                         |
++===============:+:==========================+:========================+
+
+If you had to choose:
+
+Which package of measures would you rather accept?
+
+* ( ) Policy package 1
+* ( ) Policy package 2
+
+To what extent are you in support or opposition of the respective package of
+measures?
+
++------------------+------------+-----------+---------+---------+---------+
+|                  | Opposed    | Rather    | Neither | Rather  |         |
+|                  |            | opposed   | nor     |         | Support |
+|                  |            |           |         | support |         |
++==================+:===========+:==========+:========+:========+:========+
+| Policy package 1 | o          | o         | o       | o       | o       |
++------------------+------------+-----------+---------+---------+---------+
+| Policy package 2 | o          | o         | o       | o       | o       |
++------------------+------------+-----------+---------+---------+---------+
+
+<div class="pagebreak"> </div>
+
+# Supplementary Note S2: Task example transport sector
+
++----------------+---------------------------+-------------------------+
+| Attribute      | Policy package 1          | Policy package 2        |
++:===============+:==========================+:========================+
+| Phase-out year | 2050                      | 2030                    |
++----------------+---------------------------+-------------------------+
+| Purchase       | Purchase tax on ICEVs of  | Purchase tax on ICEVs of|
+| instrument     | 10% of the purchase price | 10% of the purchase     |
+|                |                           | price                   |
++----------------+---------------------------+-------------------------+
+| Use instrument | Driving ban of ICEVs in   | Tax on fossil fuels     |
+|                | city centres on workdays  | (0.5 EUR/l)             |
++----------------+---------------------------+-------------------------+
+| Support        | No instrument             | Subsidies for climate   |
+| instrument     |                           | friendly alternatives   |
++===============:+:==========================+:========================+
+
+If you had to choose:
+
+Which package of measures would you rather accept?
+
+* ( ) Policy package 1
+* ( ) Policy package 2
+
+To what extent are you in support or opposition of the respective package of
+measures?
+
++------------------+------------+-----------+---------+---------+---------+
+|                  | Opposed    | Rather    | Neither | Rather  |         |
+|                  |            | opposed   | nor     |         | Support |
+|                  |            |           |         | support |         |
++==================+:===========+:==========+:========+:========+:========+
+| Policy package 1 | o          | o         | o       | o       | o       |
++------------------+------------+-----------+---------+---------+---------+
+| Policy package 2 | o          | o         | o       | o       | o       |
++------------------+------------+-----------+---------+---------+---------+
+
+<div class="pagebreak"> </div>
+
+# Supplementary Note S3: Survey text
 
 
 **General Information and Consent**
@@ -441,10 +527,10 @@ measures?
 |                  | Opposed    | Rather    | Neither | Rather  |         |
 |                  |            | opposed   | nor     |         | Support |
 |                  |            |           |         | support |         |
-+==================+============+===========+=========+=========+=========+
-| Policy package 1 | -          | -         | -       | -       | -       |
++==================+:===========+:==========+:========+:========+:========+
+| Policy package 1 | o          | o         | o       | o       | o       |
 +------------------+------------+-----------+---------+---------+---------+
-| Policy package 2 | -          | -         | -       | -       | -       |
+| Policy package 2 | o          | o         | o       | o       | o       |
 +------------------+------------+-----------+---------+---------+---------+
 
 Thank you very much. Now the second part follows.
@@ -484,10 +570,10 @@ measures?
 |                  | Opposed    | Rather    | Neither | Rather  |         |
 |                  |            | opposed   | nor     |         | Support |
 |                  |            |           |         | support |         |
-+==================+============+===========+=========+=========+=========+
-| Policy package 1 | -          | -         | -       | -       | -       |
++==================+:===========+:==========+:========+:========+:========+
+| Policy package 1 | o          | o         | o       | o       | o       |
 +------------------+------------+-----------+---------+---------+---------+
-| Policy package 2 | -          | -         | -       | -       | -       |
+| Policy package 2 | o          | o         | o       | o       | o       |
 +------------------+------------+-----------+---------+---------+---------+
 
 Thank you very much. Finally, we will now ask you a few questions about
