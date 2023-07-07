@@ -63,6 +63,10 @@ rule supplementary:
         "build/results/mm-rating-by-cceval_cat.png",
         "build/results/sample-vs-population.csv",
         expand("build/results/concern-and-understanding-shares-{sector}.png", sector=["heat", "transport"]),
+        "build/results/mm-choice-by-age.png",
+        "build/results/mm-choice-by-ownership.png",
+        "build/results/mm-choice-by-cardays_cat.png",
+        "build/results/mm-rating-by-trust_gov_cat.png",
         "build/results/fit/amce-choice-heat-publication.csv",
         "build/results/fit/amce-choice-transport-publication.csv",
     params: options = pandoc_options

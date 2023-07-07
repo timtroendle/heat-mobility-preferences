@@ -86,6 +86,48 @@ subgroups:
             - "Low/too low"
             - "Low/correct"
             - "Low/too high"
+    age:
+        name: Age
+        level-order:
+            - '18 - 29 years'
+            - '30 - 39 years'
+            - '40 - 49 years'
+            - '50 - 59 years'
+            - 'older than 60 years'
+    gender:
+        name: Gender
+        level-order: ['Male', 'Female', 'Non-binary']
+    education:
+        name: Education
+        level-order:
+            - 'No school diploma'
+            - 'Volks- or Hauptschulabschluss'
+            - 'Mittlere Reife'
+            - 'Abitur'
+            - 'Fachochschulabschluss'
+            - 'University degree'
+            - 'Other degree'
+    source_h:
+        name: Heat source
+        level-order: ['Oil', 'Gas', 'Wood', 'Heat pump', 'District heating', 'Other']
+    building_type:
+        name: Type of building
+        level-order: ['New building', 'Modernized building', 'Old building']
+    ownership:
+        name: Home ownership
+        level-order: ['Owning', 'Renting']
+    cardays_cat:
+        name: Use of car
+        level-order: ['never / exceptionally', '1 - 4 days', '5 - 7 days']
+    trust_gov_cat:
+        name: Trust for the government
+        level-order: ['do not trust', 'neither / nor', 'trust']
+    trust_com_cat:
+        name: Trust for the companies
+        level-order: ['do not trust', 'neither / nor', 'trust']
+    trust_cit_cat:
+        name: Trust for the citizens
+        level-order: ['do not trust', 'neither / nor', 'trust']
 regression-summary:
     columns:
         - feature

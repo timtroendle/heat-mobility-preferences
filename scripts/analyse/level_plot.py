@@ -58,13 +58,14 @@ def visualise_both_sectors(path_to_heat_data: str, path_to_transport_data: str, 
         by_order=by_order
     )
     combined_chart = chart_heating | chart_transport
+    n_legend_cols = 0 if by != "Age" else 2
     (
         combined_chart
         .configure(font="Lato")
         .configure_view(step=STEP_SIZE if not by else STEP_SIZE / len(by_order))
         .configure_axis(titleColor=DARK_GREY, labelColor=DARK_GREY)
         .configure_header(titleColor=DARK_GREY, labelColor=DARK_GREY)
-        .configure_legend(titleColor=DARK_GREY, labelColor=DARK_GREY, orient="bottom")
+        .configure_legend(titleColor=DARK_GREY, labelColor=DARK_GREY, orient="bottom", columns=n_legend_cols)
         .save(path_to_plot)
     )
 

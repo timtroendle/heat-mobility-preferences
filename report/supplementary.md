@@ -58,6 +58,31 @@
 
 ![**Shares of respondents grouped by climate change concern and emission attribution in the transport sector.** There were n=1,777 respondents.](build/results/concern-and-understanding-shares-transport.png){#fig:share-transport label="S10"}
 
+
+<div class="pagebreak"> </div>
+
+# Figure 11: Relationship between age and choices
+
+![**Relationship between age and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying age are shown using varying opacity (higher opacity represents higher age) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-age.png){#fig:choice-age label="S11"}
+
+<div class="pagebreak"> </div>
+
+# Figure 12: Relationship between home ownerhsip and choices
+
+![**Relationship between home ownership and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with different home ownership are shown using different opacity and shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-ownership.png){#fig:choice-ownership label="S12"}
+
+<div class="pagebreak"> </div>
+
+# Figure 13: Relationship between car use and choices
+
+![**Relationship between car use and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying var use are shown using varying opacity (higher opacity represents higher car use) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-cardays_cat.png){#fig:choice-cardays label="S13"}
+
+<div class="pagebreak"> </div>
+
+# Figure 14: Relationship between trust in government and ratings
+
+![**Relationship between trust in government and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying trust are shown using varying opacity (higher opacity represents higher trust) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-trust_gov_cat.png){#fig:rating-trust label="S14"}
+
 <div class="pagebreak"> </div>
 
 # Table S1: Comparison of distribution of socio-demographic variables to the German population
