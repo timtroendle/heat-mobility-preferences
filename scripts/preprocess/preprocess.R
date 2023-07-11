@@ -131,13 +131,13 @@ respondents <- d %>% select(
         ),
         residential_area = fct_recode(
             residential_area,
-            "<2'000 inh." = "1",
-            "2'000 - 5'000 inh." = "2",
-            "5'000 - 20'000 inh." = "3",
-            "20'000 - 50'000 inh." = "4",
-            "50'000 - 100'000 inh." = "5",
-            "100'000 - 500'000 inh." = "6",
-            " > 500'000 inh." = "7"
+            "<2'000 inhabitants" = "1",
+            "2'000 - 5'000 inhabitants" = "2",
+            "5'000 - 20'000 inhabitants" = "3",
+            "20'000 - 50'000 inhabitants" = "4",
+            "50'000 - 100'000 inhabitants" = "5",
+            "100'000 - 500'000 inhabitants" = "6",
+            " > 500'000 inhabitants" = "7"
         ),
         number_adults = fct_recode(
             number_adults,

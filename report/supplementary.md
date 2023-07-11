@@ -61,25 +61,25 @@
 
 <div class="pagebreak"> </div>
 
-# Figure 11: Relationship between age and choices
+# Figure S11: Relationship between age and choices
 
 ![**Relationship between age and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying age are shown using varying opacity (higher opacity represents higher age) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-age.png){#fig:choice-age label="S11"}
 
 <div class="pagebreak"> </div>
 
-# Figure 12: Relationship between home ownerhsip and choices
+# Figure S12: Relationship between home ownership and choices
 
 ![**Relationship between home ownership and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with different home ownership are shown using different opacity and shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-ownership.png){#fig:choice-ownership label="S12"}
 
 <div class="pagebreak"> </div>
 
-# Figure 13: Relationship between car use and choices
+# Figure S13: Relationship between car use and choices
 
 ![**Relationship between car use and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying var use are shown using varying opacity (higher opacity represents higher car use) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-choice-by-cardays_cat.png){#fig:choice-cardays label="S13"}
 
 <div class="pagebreak"> </div>
 
-# Figure 14: Relationship between trust in government and ratings
+# Figure S14: Relationship between trust in government and ratings
 
 ![**Relationship between trust in government and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying trust are shown using varying opacity (higher opacity represents higher trust) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-trust_gov_cat.png){#fig:rating-trust label="S14"}
 
@@ -154,7 +154,7 @@ width:
 
 <div class="pagebreak"> </div>
 
-# Supplementary Note S1: Task example building sector
+# Note S1: Task example building sector
 
 +----------------+---------------------------+-------------------------+
 | Attribute      | Policy package 1          | Policy package 2        |
@@ -195,7 +195,7 @@ measures?
 
 <div class="pagebreak"> </div>
 
-# Supplementary Note S2: Task example transport sector
+# Note S2: Task example transport sector
 
 +----------------+---------------------------+-------------------------+
 | Attribute      | Policy package 1          | Policy package 2        |
@@ -235,7 +235,7 @@ measures?
 
 <div class="pagebreak"> </div>
 
-# Supplementary Note S3: Survey text
+# Note S3: Survey text
 
 
 **General Information and Consent**
@@ -622,7 +622,7 @@ To what extent do you trust the following groups to contribute to
 climate protection?
 
 1. The Federal Government
-2. Indivuals
+2. Individuals
 3. German companies and corporations
 
 * ( ) Do not trust
@@ -633,9 +633,9 @@ climate protection?
 
 <div class="pagebreak"> </div>
 
-# Supplementary Note S4: Climate change concern
+# Note S4: Climate change concern
 
-We measure attitudes toward climate change using the six 5-step likert items listes below. From these responses, we derive a measure for climate change concern by classifying the average responses. On the scale of 1--5, we classify respondents with an average response of 3.5 or more as having high concern (n=1306), respondents with an average response of 2.5 or more as having medium concern (n=403), and respondents with less than 2.5 as having low concern (n=138).
+We measure attitudes toward climate change using the six 5-step likert items listed below. From these responses, we derive a measure for climate change concern by classifying the average responses. On the scale of 1--5, we classify respondents with an average response of 3.5 or more as having high concern (n=1306), respondents with an average response of 2.5 or more as having medium concern (n=403), and respondents with less than 2.5 as having low concern (n=138).
 
 1. Climate change is happening.
 2. Climate change is caused by human activity.

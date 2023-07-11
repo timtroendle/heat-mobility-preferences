@@ -1,6 +1,7 @@
 # generated files
 build/
 Rplots.pdf
+report/build
 
 # data
 data/surveydata-2022-03-19.xlsx
