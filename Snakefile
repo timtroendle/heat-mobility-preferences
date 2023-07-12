@@ -67,6 +67,7 @@ rule supplementary:
         "build/results/mm-choice-by-ownership.png",
         "build/results/mm-choice-by-cardays_cat.png",
         "build/results/mm-rating-by-trust_gov_cat.png",
+        "build/results/mm-choice-by-Framing.png",
         "build/results/fit/amce-choice-heat-publication.csv",
         "build/results/fit/amce-choice-transport-publication.csv",
     params: options = pandoc_options

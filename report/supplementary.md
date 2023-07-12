@@ -81,7 +81,20 @@
 
 # Figure S14: Relationship between trust in government and ratings
 
-![**Relationship between trust in government and policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying trust are shown using varying opacity (higher opacity represents higher trust) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-trust_gov_cat.png){#fig:rating-trust label="S14"}
+![**Relationship between trust in government and policy preferences.** Points show marginal means of the ratings of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample with varying trust are shown using varying opacity (higher opacity represents higher trust) and using different shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector.](build/results/mm-rating-by-trust_gov_cat.png){#fig:rating-trust label="S14"}
+
+<div class="pagebreak"> </div>
+
+# Figure S15: Impact of framing on choices
+
+![**Impact of framing on policy preferences.** Points show marginal means of the forced choices of policy packages within the building (left) and transport (right) sectors. Subgroups of our sample that saw different framings are shown using different opacity and shapes. Horizontal bars represent the 95% confidence interval. There were n=1,777 respondents and 17,770 policy packages per sector. For the framing, see @sec:survey.](build/results/mm-choice-by-Framing.png){#fig:choice-framing label="S15"}
+
+
+
+
+
+
+
 
 <div class="pagebreak"> </div>
 
@@ -235,7 +248,7 @@ measures?
 
 <div class="pagebreak"> </div>
 
-# Note S3: Survey text
+# Note S3: Survey text {#sec:survey label="Note S3"}
 
 
 **General Information and Consent**
@@ -405,7 +418,7 @@ Do you have any influence on which energy source is used for heating?
 * ( ) Yes
 * ( ) No
 
-**Low-carbon framing**
+**Renewables framing**
 
 To achieve the goals of the Paris Climate Agreement, fossil fuels (oil,
 natural gas, coal) must no longer be used by 2050 at the latest.

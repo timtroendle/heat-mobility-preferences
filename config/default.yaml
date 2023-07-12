@@ -128,6 +128,9 @@ subgroups:
     trust_cit_cat:
         name: Trust for the citizens
         level-order: ['do not trust', 'neither / nor', 'trust']
+    Framing:
+        name: Framing
+        level-order: ['Phase-Out', 'Renewables']
 regression-summary:
     columns:
         - feature
