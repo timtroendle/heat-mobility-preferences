@@ -648,7 +648,7 @@ climate protection?
 
 # Note S4: Climate change concern
 
-We measure attitudes toward climate change using the six 5-step likert items listed below. From these responses, we derive a measure for climate change concern by classifying the average responses. On the scale of 1--5, we classify respondents with an average response of 3.5 or more as having high concern (n=1306), respondents with an average response of 2.5 or more as having medium concern (n=403), and respondents with less than 2.5 as having low concern (n=138).
+We measure attitudes toward climate change using the six 5-step Likert items listed below. From these responses, we derive a measure for climate change concern by classifying the average responses. On the scale of 1--5, we classify respondents with an average response of 3.5 or more as having high concern (n=1306), respondents with an average response of 2.5 or more as having medium concern (n=403), and respondents with less than 2.5 as having low concern (n=138).
 
 1. Climate change is happening.
 2. Climate change is caused by human activity.
