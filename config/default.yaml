@@ -1,5 +1,6 @@
 # The right place for all your configuration values.
 data-sources:
+    survey: data/surveydata-2023-07-21.csv
     census: https://www.zensus2011.de/SharedDocs/Downloads/DE/Pressemitteilung/DemografischeGrunddaten/csv_Bevoelkerung.zip?__blob=publicationFile&v=2
 push-directory: ~/Library/CloudStorage/OneDrive-ETHZurich/heat-mobility-preferences/results/
 co2-share:

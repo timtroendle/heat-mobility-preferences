@@ -1,10 +1,12 @@
 # heat-mobility-preferences
 
-Analysing the preferences of people about policy instruments targeting the heat and mobility sectors.
+Analysing the preferences of people about policy instruments targeting the building and transport sectors.
 
 This repository contains the entire scientific project, including code and report. The philosophy behind this repository is that no intermediary results are included, but all results are computed from raw data and code.
 
 ## Getting ready
+
+You need to download the [survey data](https://doi.org/10.5281/zenodo.7803031) and provide it within `./data/surveydata-2023-07-21.csv`.
 
 You need [mamba](https://mamba.readthedocs.io/en/latest/) to run the analysis. Using mamba, you can create an environment from within you can run it:
 

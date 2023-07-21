@@ -6,7 +6,7 @@ library(arrow)
 # Load data
 ##
 
-df <- read_excel(snakemake@input[["data"]])
+df <- read.csv(snakemake@input[["data"]], header = TRUE, check.names = FALSE)
 
 ##############################################################################################
 # Data preparation

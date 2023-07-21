@@ -1,7 +1,7 @@
 rule preprocess:
     message: "Preprocess the survey data."
     input:
-        data = "data/surveydata-2022-03-19.xlsx"
+        data = config["data-sources"]["survey"]
     params:
         co2_share_heat = config["co2-share"]["heat"],
         co2_share_transport = config["co2-share"]["transport"],
