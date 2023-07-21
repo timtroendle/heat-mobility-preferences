@@ -1,4 +1,4 @@
-Copyright (c) 2022 Tim Tröndle, Jasmin Annaheim
+Copyright (c) 2022--2023 Tim Tröndle, Jasmin Annaheim
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
