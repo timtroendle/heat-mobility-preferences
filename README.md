@@ -29,17 +29,12 @@ To generate a PDF of the dependency graph of all steps `build/dag.pdf` run:
 
       snakemake --config email=<your-email>
 
-## Run the tests
-
-    snakemake test
-
 ## Repo structure
 
 * `report`: contains all files necessary to build the report; plots and result files are not in here but generated automatically
 * `scripts`: contains the Python source code as scripts
 * `rules`: contains Snakemake rule definitions
 * `envs`: contains execution environments
-* `tests`: contains the test code
 * `config`: configurations used in the study
 * `profiles`: Snakemake execution profiles
 * `data`: place for raw data

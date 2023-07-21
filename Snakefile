@@ -24,14 +24,11 @@ rule all:
     message: "Run entire analysis and compile report."
     input:
         "build/supplementary.pdf",
-        "build/test-report.html",
         "build/emissions.png",
         "build/results/amce-choice.png",
         "build/results/mm-choice-by-cceval_cat.png",
         "build/results/mm-rating-by-relevance_cat.png",
         "build/results/ratings-by-concern_and_understanding.png",
-        "build/results/fit/amce-choice-heat-by-cceval_cat.csv",
-        "build/results/fit/amce-choice-transport-by-cceval_cat.csv",
 
 
 def pandoc_options(wildcards):
@@ -114,10 +111,3 @@ rule clean: # removes all generated results
 
          shutil.rmtree("build")
          print("Data downloaded to data/ has not been cleaned.")
-
-
-rule test:
-    conda: "envs/test.yaml"
-    output: "build/test-report.html"
-    shell:
-        "py.test --html={output} --self-contained-html"
