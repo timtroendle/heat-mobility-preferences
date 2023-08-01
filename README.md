@@ -4,6 +4,11 @@ Analysing the preferences of people about policy instruments targeting the build
 
 This repository contains the entire scientific project, including code and report. The philosophy behind this repository is that no intermediary results are included, but all results are computed from raw data and code.
 
+[![article DOI](https://img.shields.io/badge/article-10.1088/2515--7620/acec39-blue)](https://doi.org/10.1088/2515-7620/acec39)
+[![raw data DOI](https://img.shields.io/badge/raw_data-10.5281/zenodo.7803030-blue)](https://doi.org/10.5281/zenodo.7803030)
+[![result data DOI](https://img.shields.io/badge/result_data-10.5281/zenodo.8171679-blue)](https://doi.org/10.5281/zenodo.8171679)
+[![code DOI](https://img.shields.io/badge/code_archive-10.5281/zenodo.8171706-blue)](https://doi.org/10.5281/zenodo.8171706)
+
 ## Getting ready
 
 You need to download the [survey data](https://doi.org/10.5281/zenodo.7803031) and provide it within `./data/surveydata-2023-07-21.csv`.
