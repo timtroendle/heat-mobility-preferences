@@ -93,6 +93,11 @@ rule visualise_main_effects:
     script: "../scripts/analyse/level_plot.py"
 
 
+use rule visualise_main_effects as visualise_main_effect_single_attribute with:
+    wildcard_constraints: attribute = "Timing|Purchase|Use|Support"
+    output: plot = "build/results/vega/{estimate}-{measure}-{attribute}.json"
+
+
 rule visualise_subgroup:
     message: "Visualise {wildcards.subgroup} for measure {wildcards.measure} and estimate {wildcards.estimate}."
     input:
@@ -109,6 +114,11 @@ rule visualise_subgroup:
     script: "../scripts/analyse/level_plot.py"
 
 
+use rule visualise_subgroup as visualise_subgroup_single_attribute with:
+    wildcard_constraints: attribute = "Timing|Purchase|Use|Support"
+    output: plot = "build/results/vega/{estimate}-{measure}-{attribute}-by-{subgroup}.json"
+
+
 rule visualise_experimental_design:
     message: "Visual experimental design for measure {wildcards.measure}."
     input:
@@ -122,6 +132,18 @@ rule visualise_experimental_design:
         "../envs/default.yaml"
     script:
         "../scripts/analyse/design_plot.py"
+
+
+rule visualise_sample:
+    message: "Univariate plots of sample vs population."
+    input:
+        data = "build/results/sample-vs-population.csv"
+    output:
+        plot = "build/results/vega/sample-vs-population.json"
+    conda:
+        "../envs/default.yaml"
+    script:
+        "../scripts/analyse/sample_plot.py"
 
 
 rule visualise_ratings:
@@ -147,6 +169,17 @@ rule visualise_concern_and_understanding:
         "../envs/mosaic.yaml"
     script:
         "../scripts/analyse/mosaic.R"
+
+
+rule render_vega_lite_to_svg:
+    message: "Render Vega Lite spec {wildcards.filename}.json to svg."
+    input:
+        json = "build/results/vega/{filename}.json"
+    output:
+        svg = "build/results/{filename}.svg"
+    conda: "../envs/vega.yaml"
+    # vl2pdf not usable because of https://github.com/queryverse/VegaLite.jl/issues/383
+    shell: "vl2vg {input.json} | vg2svg > {output.svg}"
 
 
 rule render_vega_lite_to_pdf:

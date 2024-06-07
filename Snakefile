@@ -31,6 +31,22 @@ rule all:
         "build/results/ratings-by-concern_and_understanding.png",
 
 
+rule presentation:
+    message: "Build all plots for presentation."
+    input:
+        "build/results/amce-choice.svg",
+        "build/results/mm-choice-by-cceval_cat.svg",
+        "build/results/amce-choice-by-cceval_cat.svg",
+        "build/results/amce-choice-Timing.svg",
+        "build/results/amce-choice-Purchase.svg",
+        "build/results/amce-choice-Use.svg",
+        "build/results/amce-choice-Support.svg",
+        "build/results/amce-choice-Timing-by-cceval_cat.svg",
+        "build/results/mm-rating-Timing-by-cceval_cat.svg",
+        "build/results/ratings-by-concern_and_understanding.svg",
+        "build/results/sample-vs-population.svg"
+
+
 def pandoc_options(wildcards):
     suffix = wildcards["suffix"]
     if suffix == "html":
